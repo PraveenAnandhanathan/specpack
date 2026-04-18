@@ -137,7 +137,7 @@ BANNER = """
 ╚══════╝╚═╝     ╚══════╝ ╚═════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 """
 
-TAGLINE = "SpecPack — Spec-Driven Development for Greenfield & Brownfield"
+TAGLINE = "SpecPack - Spec-Driven Development for Greenfield & Brownfield"
 class StepTracker:
     """Track and render hierarchical steps without emojis, similar to Claude Code tree output.
     Supports live auto-refresh via an attached refresh callback.
@@ -337,9 +337,22 @@ app = typer.Typer(
     cls=BannerGroup,
 )
 
+BANNER_FALLBACK = """
+ ____  ____  ____  ____  ____  __    ____  __ _
+/ ___)(  _ \( ___)(  _ \(  _ \(  )  / ___)(  / )
+\___ \ )___/ )__)  ) __/ )___/ )(__  \___ \ )  (
+(____/(__)  (____)(__) (__)  (____)  (____/(__\_)
+"""
+
 def show_banner():
-    """Display the ASCII art banner."""
-    banner_lines = BANNER.strip().split('\n')
+    """Display the ASCII art banner, with fallback for terminals lacking Unicode support."""
+    import sys, io
+    can_unicode = getattr(sys.stdout, "encoding", "utf-8").lower().replace("-", "") in (
+        "utf8", "utf16", "utf32"
+    )
+
+    banner = BANNER if can_unicode else BANNER_FALLBACK
+    banner_lines = banner.strip().split('\n')
     colors = ["bright_blue", "blue", "cyan", "bright_cyan", "white", "bright_white"]
 
     styled_banner = Text()
@@ -347,9 +360,14 @@ def show_banner():
         color = colors[i % len(colors)]
         styled_banner.append(line + "\n", style=color)
 
-    console.print(Align.center(styled_banner))
-    console.print(Align.center(Text(TAGLINE, style="italic bright_yellow")))
-    console.print()
+    try:
+        console.print(Align.center(styled_banner))
+        console.print(Align.center(Text(TAGLINE, style="italic bright_yellow")))
+        console.print()
+    except UnicodeEncodeError:
+        print("SpecPack")
+        print(TAGLINE)
+        print()
 
 def _version_callback(value: bool):
     if value:
