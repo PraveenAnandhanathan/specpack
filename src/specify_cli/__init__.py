@@ -5087,6 +5087,10 @@ def workflow_catalog_remove(
     console.print(f"[green]✓[/green] Catalog source '{removed_name}' removed")
 
 
+from .analyse import analyse_app
+app.add_typer(analyse_app, name="analyse")
+
+
 def main():
     app()
 

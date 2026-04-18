@@ -50,6 +50,20 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
+### Step 0 — Auto-inject brownfield profiles (SpecPack)
+
+Before doing anything else, check for profiles in the `profiles/` directory:
+
+1. Check if `profiles/codebase-profile.md` exists → read it, extract:
+   - Primary languages, frameworks, test framework, test command, naming conventions, code style rules.
+2. Check if `profiles/performance-profile.md` exists → read it, extract:
+   - P90/P95/P99 baselines, throughput targets, error budget, implementation constraints.
+3. Check if `profiles/customer-profile.md` exists → read it, extract:
+   - Peak scale, critical features, user segments, customer model summary.
+
+These profiles are **optional** — if none exist, skip silently and proceed normally.
+If any exist, their constraints will be embedded as named sections in the constitution so they automatically flow into every subsequent `/specpack.specify`, `/specpack.plan`, and `/specpack.tasks` command.
+
 You are updating the project constitution at `.specify/memory/constitution.md`. This file is a TEMPLATE containing placeholder tokens in square brackets (e.g. `[PROJECT_NAME]`, `[PRINCIPLE_1_NAME]`). Your job is to (a) collect/derive concrete values, (b) fill the template precisely, and (c) propagate any amendments across dependent artifacts.
 
 **Note**: If `.specify/memory/constitution.md` does not exist yet, it should have been initialized from `.specify/templates/constitution-template.md` during project setup. If it's missing, copy the template first.
@@ -69,6 +83,25 @@ Follow this execution flow:
      - MINOR: New principle/section added or materially expanded guidance.
      - PATCH: Clarifications, wording, typo fixes, non-semantic refinements.
    - If version bump type ambiguous, propose reasoning before finalizing.
+
+2b. **If profiles were found in Step 0**, add these sections to the constitution after the core Principles:
+
+```markdown
+## Brownfield Profiles
+
+> Auto-injected by SpecPack from profiles/ directory. Update by re-running analyse commands.
+
+### Codebase Constraints
+[From profiles/codebase-profile.md — primary language, naming conventions, test framework, test command, style rules]
+
+### Performance Baselines
+[From profiles/performance-profile.md — P90/P95/P99 targets, throughput, error budget.
+Every implementation task MUST meet these baselines.]
+
+### Customer Context
+[From profiles/customer-profile.md — scale (peak concurrent users), critical features, user segments.
+Implementation decisions must be grounded in this customer model.]
+```
 
 3. Draft the updated constitution content:
    - Replace every placeholder with concrete text (no bracketed tokens left except intentionally retained template slots that the project has chosen not to define yet—explicitly justify any left).

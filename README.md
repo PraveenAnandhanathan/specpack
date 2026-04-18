@@ -1,23 +1,31 @@
 <div align="center">
-    <img src="./media/logo_large.webp" alt="Spec Kit Logo" width="200" height="200"/>
-    <h1>🌱 Spec Kit</h1>
-    <h3><em>Build high-quality software faster.</em></h3>
+    <h1>SpecPack</h1>
+    <h3><em>Spec-Driven Development for greenfield and brownfield projects.</em></h3>
+    <p><strong>Forked from <a href="https://github.com/github/spec-kit">GitHub Spec Kit</a></strong></p>
 </div>
 
 <p align="center">
-    <strong>An open source toolkit that allows you to focus on product scenarios and predictable outcomes instead of vibe coding every piece from scratch.</strong>
+    <strong>SpecPack extends Spec Kit with brownfield analysis and progressive parallel validation — so your AI-generated code adapts to existing codebases and validates against real performance and customer data.</strong>
 </p>
 
 <p align="center">
-    <a href="https://github.com/github/spec-kit/releases/latest"><img src="https://img.shields.io/github/v/release/github/spec-kit" alt="Latest Release"/></a>
-    <a href="https://github.com/github/spec-kit/stargazers"><img src="https://img.shields.io/github/stars/github/spec-kit?style=social" alt="GitHub stars"/></a>
-    <a href="https://github.com/github/spec-kit/blob/main/LICENSE"><img src="https://img.shields.io/github/license/github/spec-kit" alt="License"/></a>
-    <a href="https://github.github.io/spec-kit/"><img src="https://img.shields.io/badge/docs-GitHub_Pages-blue" alt="Documentation"/></a>
+    <a href="https://github.com/PraveenAnandhanathan/specpack/releases/latest"><img src="https://img.shields.io/github/v/release/PraveenAnandhanathan/specpack" alt="Latest Release"/></a>
+    <a href="https://github.com/PraveenAnandhanathan/specpack/stargazers"><img src="https://img.shields.io/github/stars/PraveenAnandhanathan/specpack?style=social" alt="GitHub stars"/></a>
+    <a href="https://github.com/PraveenAnandhanathan/specpack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/PraveenAnandhanathan/specpack" alt="License"/></a>
 </p>
+
+> **What's new in SpecPack vs Spec Kit?**
+> Spec Kit is greenfield-only. SpecPack adds:
+> - **Brownfield profiling** — analyse existing codebases, performance data, and customer reports before writing a single line of new code.
+> - **Progressive parallel validation** — functional, performance, and customer validation fires after *each task*, not after all code is done.
+> - **Cross-profile constraints** — constitution automatically embeds codebase style, performance baselines, and customer scale so every generated spec, plan, and task inherits them.
 
 ---
 
 ## Table of Contents
+
+- [What's New in SpecPack](#whats-new-in-specpack)
+- [SpecPack Full Flow](#specpack-full-flow)
 
 - [🤔 What is Spec-Driven Development?](#-what-is-spec-driven-development)
 - [⚡ Get Started](#-get-started)
@@ -39,6 +47,97 @@
 - [💬 Support](#-support)
 - [🙏 Acknowledgements](#-acknowledgements)
 - [📄 License](#-license)
+
+## What's New in SpecPack
+
+### Brownfield Profiling
+
+Before writing a spec, analyse your existing codebase, performance data, and customer reports. SpecPack generates structured profile files that flow into every subsequent SDD command.
+
+```bash
+# Analyse your codebase (AI-assisted)
+specify analyse-codebase --here
+
+# Analyse with no AI tokens (static scan)
+specify analyse-codebase --here --static
+
+# Analyse a remote public repo
+specify analyse-codebase --repourl https://github.com/org/repo
+
+# Analyse performance reports
+specify analyse-performance --reportpath ./load-test-results/
+specify analyse-performance --reportfile ./results.csv        # static, no AI
+
+# Analyse customer data
+specify analyse-customer --reportpath ./analytics-exports/
+specify analyse-customer --reportfile ./users.json            # static, no AI
+```
+
+Each command writes a profile to `profiles/`:
+
+| Command | Output |
+|---------|--------|
+| `analyse-codebase` | `profiles/codebase-profile.md` — languages, conventions, test framework |
+| `analyse-performance` | `profiles/performance-profile.md` — P90/P95/P99 baselines, throughput, error budget |
+| `analyse-customer` | `profiles/customer-profile.md` — scale, usage patterns, segments, customer model |
+
+### Profile Auto-Injection
+
+When you run `/specpack.constitution`, it automatically reads any profiles present in `profiles/` and embeds their constraints into the constitution. From that point forward, every `/specpack.specify`, `/specpack.plan`, and `/specpack.tasks` command inherits them — without you having to repeat yourself.
+
+### Progressive Parallel Validation
+
+During `/specpack.implement`, after **each task** completes:
+
+```
+Task 3 ✓ → Functional check ✓ → Performance check (skipped, not perf-sensitive) → Customer check ✓
+```
+
+Live dashboard updates after every task:
+
+```
+┌──────────────────────────────────────────────────┐
+│ SpecPack Validation Dashboard                    │
+├──────────────────────────────────────────────────┤
+│ Tasks: 3/8 complete                              │
+│                                                  │
+│ Functional   ✓ 3 passed / - 0 skipped           │
+│ Performance  ✓ 1 passed / - 2 skipped           │
+│ Customer     ✓ 2 passed / - 1 skipped           │
+└──────────────────────────────────────────────────┘
+```
+
+After all tasks complete — wholesome E2E:
+- Full test suite run
+- Load test at customer-scale peak concurrency
+- Cross-profile constraint check (customer scale × performance baselines)
+- Spec coverage check (every requirement has a test)
+
+### SpecPack Full Flow
+
+```
+[Optional: Brownfield Analysis]
+  specify analyse-codebase --here [--static]
+  specify analyse-performance --reportpath ./reports/
+  specify analyse-customer --reportfile ./users.csv
+
+[SDD Flow — same as Spec Kit, now profile-aware]
+  /specpack.constitution    ← auto-injects profiles
+  /specpack.specify
+  /specpack.plan
+  /specpack.tasks
+
+[Implementation with Progressive Validation]
+  /specpack.implement
+    └─ per task: /specpack.functionalvalidation --task T1
+                 /specpack.performancevalidation --task T1
+                 /specpack.customervalidation --task T1
+    └─ on complete: /specpack.functionalvalidation --e2e
+                    /specpack.performancevalidation --e2e
+                    /specpack.customervalidation --e2e
+```
+
+---
 
 ## 🤔 What is Spec-Driven Development?
 

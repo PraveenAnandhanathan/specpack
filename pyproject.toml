@@ -1,7 +1,7 @@
 [project]
-name = "specify-cli"
-version = "0.7.4.dev0"
-description = "Specify CLI, part of GitHub Spec Kit. A tool to bootstrap your projects for Spec-Driven Development (SDD)."
+name = "specpack-cli"
+version = "0.8.0.dev0"
+description = "SpecPack CLI — Spec-Driven Development for greenfield and brownfield projects. Forked from GitHub Spec Kit. Adds brownfield profiling (codebase/performance/customer) and progressive parallel validation."
 requires-python = ">=3.11"
 dependencies = [
     "typer>=0.24.0",
@@ -17,6 +17,7 @@ dependencies = [
 
 [project.scripts]
 specify = "specify_cli:main"
+specpack = "specify_cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -44,6 +45,8 @@ packages = ["src/specify_cli"]
 "workflows/speckit" = "specify_cli/core_pack/workflows/speckit"
 # Bundled presets (installable via `specify preset add <name>` or `specify init --preset <name>`)
 "presets/lean" = "specify_cli/core_pack/presets/lean"
+# SpecPack profile templates
+"templates/profiles" = "specify_cli/core_pack/templates/profiles"
 
 [project.optional-dependencies]
 test = [

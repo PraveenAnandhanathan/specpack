@@ -82,7 +82,35 @@ You **MUST** consider the user input before proceeding (if not empty).
      - Display the table showing all checklists passed
      - Automatically proceed to step 3
 
-3. Load and analyze the implementation context:
+3. **Load brownfield profiles and initialise validation status**:
+
+   Check for validation profiles (optional — skip silently if absent):
+   - `profiles/codebase-profile.md` → extract `TEST_FRAMEWORK`, `TEST_COMMAND`
+   - `profiles/performance-profile.md` → extract performance targets
+   - `profiles/customer-profile.md` → extract `PEAK_CONCURRENT`, `CRITICAL_FEATURES`
+
+   Initialise `profiles/.validation-status.md` (create/overwrite):
+   ```markdown
+   # Validation Status
+
+   | Task | Functional | Performance | Customer | Updated |
+   |------|-----------|------------|---------|---------|
+   ```
+
+   Display the **live validation dashboard** (update after each task):
+   ```
+   ┌──────────────────────────────────────────┐
+   │ SpecPack Validation Dashboard            │
+   ├──────────────────────────────────────────┤
+   │ Tasks: 0/N complete                      │
+   │                                          │
+   │ Functional   [ ] pending                 │
+   │ Performance  [ ] pending                 │
+   │ Customer     [ ] pending                 │
+   └──────────────────────────────────────────┘
+   ```
+
+3b. Load and analyze the implementation context:
    - **REQUIRED**: Read tasks.md for the complete task list and execution plan
    - **REQUIRED**: Read plan.md for tech stack, architecture, and file structure
    - **IF EXISTS**: Read data-model.md for entities and relationships
@@ -162,14 +190,82 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Suggest next steps if implementation cannot proceed
    - **IMPORTANT** For completed tasks, make sure to mark the task off as [X] in the tasks file.
 
-9. Completion validation:
-   - Verify all required tasks are completed
-   - Check that implemented features match the original specification
-   - Validate that tests pass and coverage meets requirements
-   - Confirm the implementation follows the technical plan
-   - Report final status with summary of completed work
+   **After marking each task [X]** — trigger progressive validation immediately:
 
-Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `/speckit.tasks` first to regenerate the task list.
+   a. Run `/specpack.functionalvalidation --task <TASK_ID>`:
+      - Validates the just-completed task against its requirement in `spec.md`.
+      - Uses existing test framework from `profiles/codebase-profile.md` if available.
+      - Writes a targeted test if none exists for this task's scope.
+
+   b. Run `/specpack.performancevalidation --task <TASK_ID>`:
+      - Only runs if task touches a performance-sensitive path.
+      - Skips with `[PERF: SKIPPED]` if task is not perf-sensitive.
+
+   c. Run `/specpack.customervalidation --task <TASK_ID>`:
+      - Only runs if task affects a customer flow from `profiles/customer-profile.md`.
+      - Skips with `[CUSTOMER: SKIPPED]` if no customer flow is impacted.
+
+   **Update the validation dashboard** after each task:
+   ```
+   ┌──────────────────────────────────────────────────┐
+   │ SpecPack Validation Dashboard                    │
+   ├──────────────────────────────────────────────────┤
+   │ Tasks: [DONE]/[TOTAL] complete                   │
+   │                                                  │
+   │ Functional   [✓ X passed / ✗ Y failed / - skip] │
+   │ Performance  [✓ X passed / ⚠ Y warn  / - skip]  │
+   │ Customer     [✓ X passed / ✗ Y failed / - skip] │
+   └──────────────────────────────────────────────────┘
+   ```
+
+   **If a validation FAILS**:
+   - Do NOT halt implementation automatically.
+   - Display the failure prominently above the dashboard.
+   - Continue to the next task.
+   - Failures are addressed in the E2E phase or by user decision.
+
+   **If a validation WARNS** (performance only):
+   - Log the warning in the dashboard.
+   - Continue implementation.
+
+9. Completion validation — Wholesome E2E (all tasks marked [X]):
+
+   Run the full E2E validation suite in sequence:
+
+   a. **`/specpack.functionalvalidation --e2e`**
+      - Full test suite run.
+      - Spec coverage check (every requirement in `spec.md` has a test).
+      - Cross-feature regression check.
+
+   b. **`/specpack.performancevalidation --e2e`**
+      - Full load test at customer-scale (`PEAK_CONCURRENT` from customer profile).
+      - Test: normal load, peak load, spike (2x peak × 30s).
+      - Compare all metrics against `profiles/performance-profile.md → Performance Validation Targets`.
+
+   c. **`/specpack.customervalidation --e2e`**
+      - Critical feature coverage for all segments.
+      - Scale simulation: `PEAK_CONCURRENT` users running top 3 flows concurrently.
+      - Cross-reference: customer scale × performance baselines.
+      - Regression check on existing customer flows.
+
+   All three run **sequentially** (E2E results from one inform the next).
+
+   **Final consolidated status**:
+   ```
+   ╔══════════════════════════════════════════════════════╗
+   ║  SpecPack Implementation Complete                    ║
+   ╠══════════════════════════════════════════════════════╣
+   ║  Functional   ✓ PASS / ✗ FAIL                       ║
+   ║  Performance  ✓ PASS / ⚠ WARN / ✗ FAIL             ║
+   ║  Customer     ✓ PASS / ✗ FAIL                       ║
+   ╠══════════════════════════════════════════════════════╣
+   ║  Overall:  READY FOR REVIEW / NEEDS FIXES           ║
+   ╚══════════════════════════════════════════════════════╝
+   ```
+
+   If any FAIL: output a prioritised fix list. User decides next steps.
+
+Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `/specpack.tasks` first to regenerate the task list.
 
 10. **Check for extension hooks**: After completion validation, check if `.specify/extensions.yml` exists in the project root.
     - If it exists, read it and look for entries under the `hooks.after_implement` key
