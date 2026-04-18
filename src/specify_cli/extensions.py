@@ -1,8 +1,8 @@
 """
-Extension Manager for Spec Kit
+Extension Manager for SpecPack
 
-Handles installation, removal, and management of Spec Kit extensions.
-Extensions are modular packages that add commands and functionality to spec-kit
+Handles installation, removal, and management of SpecPack extensions.
+Extensions are modular packages that add commands and functionality to specpack
 without bloating the core framework.
 """
 
@@ -36,9 +36,9 @@ _FALLBACK_CORE_COMMAND_NAMES = frozenset({
     "tasks",
     "taskstoissues",
 })
-EXTENSION_COMMAND_NAME_PATTERN = re.compile(r"^speckit\.([a-z0-9-]+)\.([a-z0-9-]+)$")
+EXTENSION_COMMAND_NAME_PATTERN = re.compile(r"^specpack\.([a-z0-9-]+)\.([a-z0-9-]+)$")
 
-REINSTALL_COMMAND = "uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git"
+REINSTALL_COMMAND = "uv tool install specpack-cli --force --from git+https://github.com/PraveenAnandhanathan/specpack.git"
 
 
 def _load_core_command_names() -> frozenset[str]:
@@ -181,8 +181,8 @@ class ExtensionManifest:
 
         # Validate requires section
         requires = self.data["requires"]
-        if "speckit_version" not in requires:
-            raise ValidationError("Missing requires.speckit_version")
+        if "specpack_version" not in requires:
+            raise ValidationError("Missing requires.specpack_version")
 
         # Validate provides section
         provides = self.data["provides"]
@@ -234,7 +234,7 @@ class ExtensionManifest:
                 if corrected:
                     self.warnings.append(
                         f"Command name '{cmd['name']}' does not follow the required pattern "
-                        f"'speckit.{{extension}}.{{command}}'. Registering as '{corrected}'. "
+                        f"'specpack.{{extension}}.{{command}}'. Registering as '{corrected}'. "
                         f"The extension author should update the manifest to use this name."
                     )
                     rename_map[cmd["name"]] = corrected
@@ -242,12 +242,12 @@ class ExtensionManifest:
                 else:
                     raise ValidationError(
                         f"Invalid command name '{cmd['name']}': "
-                        "must follow pattern 'speckit.{extension}.{command}'"
+                        "must follow pattern 'specpack.{extension}.{command}'"
                     )
 
             # Validate alias types; no pattern enforcement on aliases — they are
             # intentionally free-form to preserve community extension compatibility
-            # (e.g. 'speckit.verify' short aliases used by existing extensions).
+            # (e.g. 'specpack.verify' short aliases used by existing extensions).
             aliases = cmd.get("aliases")
             if aliases is None:
                 cmd["aliases"] = []
@@ -263,7 +263,7 @@ class ExtensionManifest:
                     )
 
         # Rewrite any hook command references that pointed at a renamed command or
-        # an alias-form ref (ext.cmd → speckit.ext.cmd).  Always emit a warning when
+        # an alias-form ref (ext.cmd → specpack.ext.cmd).  Always emit a warning when
         # the reference is changed so extension authors know to update the manifest.
         for hook_name, hook_data in self.data.get("hooks", {}).items():
             if not isinstance(hook_data, dict):
@@ -275,10 +275,10 @@ class ExtensionManifest:
                 continue
             # Step 1: apply any rename from the auto-correction pass.
             after_rename = rename_map.get(command_ref, command_ref)
-            # Step 2: lift alias-form '{ext_id}.cmd' to canonical 'speckit.{ext_id}.cmd'.
+            # Step 2: lift alias-form '{ext_id}.cmd' to canonical 'specpack.{ext_id}.cmd'.
             parts = after_rename.split(".")
             if len(parts) == 2 and parts[0] == ext["id"]:
-                final_ref = f"speckit.{ext['id']}.{parts[1]}"
+                final_ref = f"specpack.{ext['id']}.{parts[1]}"
             else:
                 final_ref = after_rename
             if final_ref != command_ref:
@@ -294,8 +294,8 @@ class ExtensionManifest:
         """Try to auto-correct a non-conforming command name to the required pattern.
 
         Handles the two legacy formats used by community extensions:
-          - 'speckit.command'  → 'speckit.{ext_id}.command'
-          - '{ext_id}.command' → 'speckit.{ext_id}.command'
+          - 'specpack.command'  → 'specpack.{ext_id}.command'
+          - '{ext_id}.command' → 'specpack.{ext_id}.command'
 
         The 'X.Y' form is only corrected when X matches ext_id to ensure the
         result passes the install-time namespace check. Any other prefix is
@@ -305,8 +305,8 @@ class ExtensionManifest:
         """
         parts = name.split('.')
         if len(parts) == 2:
-            if parts[0] == 'speckit' or parts[0] == ext_id:
-                candidate = f"speckit.{ext_id}.{parts[1]}"
+            if parts[0] == 'specpack' or parts[0] == ext_id:
+                candidate = f"specpack.{ext_id}.{parts[1]}"
                 if EXTENSION_COMMAND_NAME_PATTERN.match(candidate):
                     return candidate
         return None
@@ -332,9 +332,9 @@ class ExtensionManifest:
         return self.data["extension"]["description"]
 
     @property
-    def requires_speckit_version(self) -> str:
-        """Get required spec-kit version range."""
-        return self.data["requires"]["speckit_version"]
+    def requires_specpack_version(self) -> str:
+        """Get required specpack version range."""
+        return self.data["requires"]["specpack_version"]
 
     @property
     def commands(self) -> List[Dict[str, Any]]:
@@ -607,7 +607,7 @@ class ExtensionManager:
         """Collect command and alias names declared by a manifest.
 
         Performs install-time validation for extension-specific constraints:
-        - primary commands must use the canonical `speckit.{extension}.{command}` shape
+        - primary commands must use the canonical `specpack.{extension}.{command}` shape
         - primary commands must use this extension's namespace
         - command namespaces must not shadow core commands
         - duplicate command/alias names inside one manifest are rejected
@@ -655,7 +655,7 @@ class ExtensionManager:
                     if match is None:
                         raise ValidationError(
                             f"Invalid {kind} '{name}': "
-                            "must follow pattern 'speckit.{extension}.{command}'"
+                            "must follow pattern 'specpack.{extension}.{command}'"
                         )
 
                     namespace = match.group(1)
@@ -885,9 +885,9 @@ class ExtensionManager:
             # Derive skill name from command name using the same hyphenated
             # convention as hook rendering and preset skill registration.
             short_name_raw = cmd_name
-            if short_name_raw.startswith("speckit."):
-                short_name_raw = short_name_raw[len("speckit."):]
-            skill_name = f"speckit-{short_name_raw.replace('.', '-')}"
+            if short_name_raw.startswith("specpack."):
+                short_name_raw = short_name_raw[len("specpack."):]
+            skill_name = f"specpack-{short_name_raw.replace('.', '-')}"
 
             # Check if skill already exists before creating the directory
             skill_subdir = skills_dir / skill_name
@@ -930,8 +930,8 @@ class ExtensionManager:
 
             # Derive a human-friendly title from the command name
             short_name = cmd_name
-            if short_name.startswith("speckit."):
-                short_name = short_name[len("speckit."):]
+            if short_name.startswith("specpack."):
+                short_name = short_name[len("specpack."):]
             title_name = short_name.replace(".", " ").replace("-", " ").title()
 
             skill_content = (
@@ -1073,13 +1073,13 @@ class ExtensionManager:
     def check_compatibility(
         self,
         manifest: ExtensionManifest,
-        speckit_version: str
+        specpack_version: str
     ) -> bool:
-        """Check if extension is compatible with current spec-kit version.
+        """Check if extension is compatible with current specpack version.
 
         Args:
             manifest: Extension manifest
-            speckit_version: Current spec-kit version
+            specpack_version: Current specpack version
 
         Returns:
             True if compatible
@@ -1087,17 +1087,17 @@ class ExtensionManager:
         Raises:
             CompatibilityError: If extension is incompatible
         """
-        required = manifest.requires_speckit_version
-        current = pkg_version.Version(speckit_version)
+        required = manifest.requires_specpack_version
+        current = pkg_version.Version(specpack_version)
 
         # Parse version specifier (e.g., ">=0.1.0,<2.0.0")
         try:
             specifier = SpecifierSet(required)
             if current not in specifier:
                 raise CompatibilityError(
-                    f"Extension requires spec-kit {required}, "
-                    f"but {speckit_version} is installed.\n"
-                    f"Upgrade spec-kit with: uv tool install specify-cli --force"
+                    f"Extension requires specpack {required}, "
+                    f"but {specpack_version} is installed.\n"
+                    f"Upgrade specpack with: uv tool install specify-cli --force"
                 )
         except InvalidSpecifier:
             raise CompatibilityError(f"Invalid version specifier: {required}")
@@ -1107,7 +1107,7 @@ class ExtensionManager:
     def install_from_directory(
         self,
         source_dir: Path,
-        speckit_version: str,
+        specpack_version: str,
         register_commands: bool = True,
         priority: int = 10,
     ) -> ExtensionManifest:
@@ -1115,7 +1115,7 @@ class ExtensionManager:
 
         Args:
             source_dir: Path to extension directory
-            speckit_version: Current spec-kit version
+            specpack_version: Current specpack version
             register_commands: If True, register commands with AI agents
             priority: Resolution priority (lower = higher precedence, default 10)
 
@@ -1135,7 +1135,7 @@ class ExtensionManager:
         manifest = ExtensionManifest(manifest_path)
 
         # Check compatibility
-        self.check_compatibility(manifest, speckit_version)
+        self.check_compatibility(manifest, specpack_version)
 
         # Check if already installed
         if self.registry.is_installed(manifest.id):
@@ -1188,14 +1188,14 @@ class ExtensionManager:
     def install_from_zip(
         self,
         zip_path: Path,
-        speckit_version: str,
+        specpack_version: str,
         priority: int = 10,
     ) -> ExtensionManifest:
         """Install extension from ZIP file.
 
         Args:
             zip_path: Path to extension ZIP file
-            speckit_version: Current spec-kit version
+            specpack_version: Current specpack version
             priority: Resolution priority (lower = higher precedence, default 10)
 
         Returns:
@@ -1243,7 +1243,7 @@ class ExtensionManager:
                 raise ValidationError("No extension.yml found in ZIP file")
 
             # Install from extracted directory
-            return self.install_from_directory(extension_dir, speckit_version, priority=priority)
+            return self.install_from_directory(extension_dir, specpack_version, priority=priority)
 
     def remove(self, extension_id: str, keep_config: bool = False) -> bool:
         """Remove an installed extension.
@@ -1497,15 +1497,15 @@ class CommandRegistrar:
 class ExtensionCatalog:
     """Manages extension catalog fetching, caching, and searching."""
 
-    DEFAULT_CATALOG_URL = "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.json"
-    COMMUNITY_CATALOG_URL = "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json"
+    DEFAULT_CATALOG_URL = "https://raw.githubusercontent.com/PraveenAnandhanathan/specpack/main/extensions/catalog.json"
+    COMMUNITY_CATALOG_URL = "https://raw.githubusercontent.com/PraveenAnandhanathan/specpack/main/extensions/catalog.community.json"
     CACHE_DURATION = 3600  # 1 hour in seconds
 
     def __init__(self, project_root: Path):
         """Initialize extension catalog manager.
 
         Args:
-            project_root: Root directory of the spec-kit project
+            project_root: Root directory of the specpack project
         """
         self.project_root = project_root
         self.extensions_dir = project_root / ".specify" / "extensions"
@@ -1613,7 +1613,7 @@ class ExtensionCatalog:
         """Get the ordered list of active catalogs.
 
         Resolution order:
-        1. SPECKIT_CATALOG_URL env var — single catalog replacing all defaults
+        1. SPECPACK_CATALOG_URL env var — single catalog replacing all defaults
         2. Project-level .specify/extension-catalogs.yml
         3. User-level ~/.specify/extension-catalogs.yml
         4. Built-in default stack (default + community)
@@ -1626,8 +1626,8 @@ class ExtensionCatalog:
         """
         import sys
 
-        # 1. SPECKIT_CATALOG_URL env var replaces all defaults for backward compat
-        if env_value := os.environ.get("SPECKIT_CATALOG_URL"):
+        # 1. SPECPACK_CATALOG_URL env var replaces all defaults for backward compat
+        if env_value := os.environ.get("SPECPACK_CATALOG_URL"):
             catalog_url = env_value.strip()
             self._validate_catalog_url(catalog_url)
             if catalog_url != self.DEFAULT_CATALOG_URL:
@@ -1638,7 +1638,7 @@ class ExtensionCatalog:
                         file=sys.stderr,
                     )
                     self._non_default_catalog_warning_shown = True
-            return [CatalogEntry(url=catalog_url, name="custom", priority=1, install_allowed=True, description="Custom catalog via SPECKIT_CATALOG_URL")]
+            return [CatalogEntry(url=catalog_url, name="custom", priority=1, install_allowed=True, description="Custom catalog via SPECPACK_CATALOG_URL")]
 
         # 2. Project-level config overrides all defaults
         project_config_path = self.project_root / ".specify" / "extension-catalogs.yml"
@@ -1963,7 +1963,7 @@ class ExtensionCatalog:
         # Bundled extensions without a download URL must be installed locally
         if ext_info.get("bundled") and not ext_info.get("download_url"):
             raise ExtensionError(
-                f"Extension '{extension_id}' is bundled with spec-kit and has no download URL. "
+                f"Extension '{extension_id}' is bundled with specpack and has no download URL. "
                 f"It should be installed from the local package. "
                 f"Try reinstalling: {REINSTALL_COMMAND}"
             )
@@ -2032,7 +2032,7 @@ class ConfigManager:
         """Initialize config manager for an extension.
 
         Args:
-            project_root: Root directory of the spec-kit project
+            project_root: Root directory of the specpack project
             extension_id: ID of the extension
         """
         self.project_root = project_root
@@ -2224,7 +2224,7 @@ class HookExecutor:
         """Initialize hook executor.
 
         Args:
-            project_root: Root directory of the spec-kit project
+            project_root: Root directory of the specpack project
         """
         self.project_root = project_root
         self.extensions_dir = project_root / ".specify" / "extensions"
@@ -2246,13 +2246,13 @@ class HookExecutor:
 
     @staticmethod
     def _skill_name_from_command(command: Any) -> str:
-        """Map a command id like speckit.plan to speckit-plan skill name."""
+        """Map a command id like specpack.plan to specpack-plan skill name."""
         if not isinstance(command, str):
             return ""
         command_id = command.strip()
-        if not command_id.startswith("speckit."):
+        if not command_id.startswith("specpack."):
             return ""
-        return f"speckit-{command_id[len('speckit.'):].replace('.', '-')}"
+        return f"specpack-{command_id[len('specpack.'):].replace('.', '-')}"
 
     def _render_hook_invocation(self, command: Any) -> str:
         """Render an agent-specific invocation string for a hook command."""

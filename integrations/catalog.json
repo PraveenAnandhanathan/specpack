@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
   "updated_at": "2026-04-08T00:00:00Z",
-  "catalog_url": "https://raw.githubusercontent.com/github/spec-kit/main/integrations/catalog.json",
+  "catalog_url": "https://raw.githubusercontent.com/github/specpack/main/integrations/catalog.json",
   "integrations": {
     "claude": {
       "id": "claude",
       "name": "Claude Code",
       "version": "1.0.0",
       "description": "Anthropic Claude Code CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli", "anthropic"]
     },
     "copilot": {
@@ -17,8 +17,8 @@
       "name": "GitHub Copilot",
       "version": "1.0.0",
       "description": "GitHub Copilot IDE integration with agent commands and prompt files",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide", "github"]
     },
     "gemini": {
@@ -26,8 +26,8 @@
       "name": "Gemini CLI",
       "version": "1.0.0",
       "description": "Google Gemini CLI integration with TOML command format",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli", "google"]
     },
     "cursor-agent": {
@@ -35,8 +35,8 @@
       "name": "Cursor",
       "version": "1.0.0",
       "description": "Cursor IDE integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide"]
     },
     "windsurf": {
@@ -44,8 +44,8 @@
       "name": "Windsurf",
       "version": "1.0.0",
       "description": "Windsurf IDE workflow integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide"]
     },
     "amp": {
@@ -53,8 +53,8 @@
       "name": "Amp",
       "version": "1.0.0",
       "description": "Amp CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "codex": {
@@ -62,8 +62,8 @@
       "name": "Codex CLI",
       "version": "1.0.0",
       "description": "Codex CLI skills-based integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli", "skills"]
     },
     "qwen": {
@@ -71,8 +71,8 @@
       "name": "Qwen Code",
       "version": "1.0.0",
       "description": "Alibaba Qwen Code CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli", "alibaba"]
     },
     "opencode": {
@@ -80,8 +80,8 @@
       "name": "opencode",
       "version": "1.0.0",
       "description": "opencode CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "forge": {
@@ -89,8 +89,8 @@
       "name": "Forge",
       "version": "1.0.0",
       "description": "Forge CLI integration with parameter-based commands",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "kiro-cli": {
@@ -98,8 +98,8 @@
       "name": "Kiro CLI",
       "version": "1.0.0",
       "description": "Kiro CLI prompt-based integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "junie": {
@@ -107,8 +107,8 @@
       "name": "Junie",
       "version": "1.0.0",
       "description": "Junie by JetBrains CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli", "jetbrains"]
     },
     "auggie": {
@@ -116,8 +116,8 @@
       "name": "Auggie CLI",
       "version": "1.0.0",
       "description": "Auggie CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "shai": {
@@ -125,8 +125,8 @@
       "name": "SHAI",
       "version": "1.0.0",
       "description": "SHAI CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "tabnine": {
@@ -134,8 +134,8 @@
       "name": "Tabnine CLI",
       "version": "1.0.0",
       "description": "Tabnine CLI integration with TOML command format",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "kilocode": {
@@ -143,8 +143,8 @@
       "name": "Kilo Code",
       "version": "1.0.0",
       "description": "Kilo Code IDE workflow integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide"]
     },
     "roo": {
@@ -152,8 +152,8 @@
       "name": "Roo Code",
       "version": "1.0.0",
       "description": "Roo Code IDE integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide"]
     },
     "bob": {
@@ -161,8 +161,8 @@
       "name": "IBM Bob",
       "version": "1.0.0",
       "description": "IBM Bob IDE integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide", "ibm"]
     },
     "trae": {
@@ -170,8 +170,8 @@
       "name": "Trae",
       "version": "1.0.0",
       "description": "Trae IDE rules-based integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide"]
     },
     "codebuddy": {
@@ -179,8 +179,8 @@
       "name": "CodeBuddy",
       "version": "1.0.0",
       "description": "CodeBuddy CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "qodercli": {
@@ -188,8 +188,8 @@
       "name": "Qoder CLI",
       "version": "1.0.0",
       "description": "Qoder CLI integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "kimi": {
@@ -197,8 +197,8 @@
       "name": "Kimi Code",
       "version": "1.0.0",
       "description": "Kimi Code CLI skills-based integration by Moonshot AI",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli", "skills"]
     },
     "pi": {
@@ -206,8 +206,8 @@
       "name": "Pi Coding Agent",
       "version": "1.0.0",
       "description": "Pi terminal coding agent prompt-based integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "iflow": {
@@ -215,8 +215,8 @@
       "name": "iFlow CLI",
       "version": "1.0.0",
       "description": "iFlow CLI integration by iflow-ai",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     },
     "vibe": {
@@ -224,8 +224,8 @@
       "name": "Mistral Vibe",
       "version": "1.0.0",
       "description": "Mistral Vibe CLI prompt-based integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli", "mistral"]
     },
     "agy": {
@@ -233,8 +233,8 @@
       "name": "Antigravity",
       "version": "1.0.0",
       "description": "Antigravity IDE skills-based integration",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["ide", "skills"]
     },
     "generic": {
@@ -242,8 +242,8 @@
       "name": "Generic (bring your own agent)",
       "version": "1.0.0",
       "description": "Generic integration for any agent via --ai-commands-dir",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["generic"]
     },
     "goose": {
@@ -251,8 +251,8 @@
       "name": "Goose",
       "version": "1.0.0",
       "description": "Goose CLI integration with YAML recipe format",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     }
   }

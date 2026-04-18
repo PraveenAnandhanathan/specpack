@@ -17,20 +17,20 @@ extension:
   author: "Your Name"
 
   # CUSTOMIZE: GitHub repository URL (create before publishing)
-  repository: "https://github.com/your-org/spec-kit-my-extension"
+  repository: "https://github.com/your-org/specpack-my-extension"
 
   # REVIEW: License (MIT is recommended for open source)
   license: "MIT"
 
   # CUSTOMIZE: Extension homepage (can be same as repository)
-  homepage: "https://github.com/your-org/spec-kit-my-extension"
+  homepage: "https://github.com/your-org/specpack-my-extension"
 
 # Requirements for this extension
 requires:
-  # CUSTOMIZE: Minimum spec-kit version required
+  # CUSTOMIZE: Minimum specpack version required
   # Use >=X.Y.Z for minimum version
   # Use >=X.Y.Z,<Y.0.0 for version range
-  speckit_version: ">=0.1.0"
+  specpack_version: ">=0.1.0"
 
   # CUSTOMIZE: Add MCP tools or other dependencies
   # Remove if no external tools required
@@ -43,15 +43,15 @@ requires:
 provides:
   commands:
     # CUSTOMIZE: Define your commands
-    # Pattern: speckit.{extension-id}.{command-name}
-    - name: "speckit.my-extension.example"
+    # Pattern: specpack.{extension-id}.{command-name}
+    - name: "specpack.my-extension.example"
       file: "commands/example.md"
       description: "Example command that demonstrates functionality"
       # Optional: Add aliases in the same namespaced format
-      aliases: ["speckit.my-extension.example-short"]
+      aliases: ["specpack.my-extension.example-short"]
 
     # ADD MORE COMMANDS: Copy this block for each command
-    # - name: "speckit.my-extension.another-command"
+    # - name: "specpack.my-extension.another-command"
     #   file: "commands/another-command.md"
     #   description: "Another command"
 
@@ -65,9 +65,9 @@ provides:
 # CUSTOMIZE: Define hooks (optional)
 # Remove if no hooks needed
 hooks:
-  # Hook that runs after /speckit.tasks
+  # Hook that runs after /specpack.tasks
   after_tasks:
-    command: "speckit.my-extension.example"
+    command: "specpack.my-extension.example"
     optional: true # User will be prompted
     prompt: "Run example command?"
     description: "Demonstrates hook functionality"
@@ -75,7 +75,7 @@ hooks:
 
   # ADD MORE HOOKS: Copy this block for other events
   # after_implement:
-  #   command: "speckit.my-extension.another"
+  #   command: "specpack.my-extension.another"
   #   optional: false  # Auto-execute without prompting
   #   description: "Runs automatically after implementation"
 

@@ -20,7 +20,7 @@ specify init [<project_name>]
 | `--preset <id>`          | Install a preset during initialization                                   |
 | `--branch-numbering`     | Branch numbering strategy: `sequential` (default) or `timestamp`         |
 
-Creates a new Spec Kit project with the necessary directory structure, templates, scripts, and AI coding agent integration files.
+Creates a new SpecPack project with the necessary directory structure, templates, scripts, and AI coding agent integration files.
 
 Use `<project_name>` to create a new directory, or `--here` (or `.`) to initialize in the current directory. If the directory already has files, use `--force` to merge without confirmation.
 
@@ -53,7 +53,7 @@ specify init my-project --integration copilot --branch-numbering timestamp
 
 | Variable          | Description                                                              |
 | ----------------- | ------------------------------------------------------------------------ |
-| `SPECIFY_FEATURE` | Override feature detection for non-Git repositories. Set to the feature directory name (e.g., `001-photo-albums`) to work on a specific feature when not using Git branches. Must be set in the context of the agent prior to using `/speckit.plan` or follow-up commands. |
+| `SPECIFY_FEATURE` | Override feature detection for non-Git repositories. Set to the feature directory name (e.g., `001-photo-albums`) to work on a specific feature when not using Git branches. Must be set in the context of the agent prior to using `/specpack.plan` or follow-up commands. |
 
 ## Check Installed Tools
 
@@ -69,7 +69,7 @@ Checks that required tools are available on your system: `git` and any CLI-based
 specify version
 ```
 
-Displays the Spec Kit CLI version, Python version, platform, and architecture.
+Displays the SpecPack CLI version, Python version, platform, and architecture.
 
 A quick version check is also available via:
 

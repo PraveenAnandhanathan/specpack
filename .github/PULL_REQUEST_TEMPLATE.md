@@ -13,7 +13,7 @@
 ## AI Disclosure
 
 <!-- Per our Contributing guidelines, AI assistance must be disclosed. -->
-<!-- See: https://github.com/github/spec-kit/blob/main/CONTRIBUTING.md#ai-contributions-in-spec-kit -->
+<!-- See: https://github.com/github/specpack/blob/main/CONTRIBUTING.md#ai-contributions-in-specpack -->
 
 - [ ] I **did not** use AI assistance for this contribution
 - [ ] I **did** use AI assistance (describe below)

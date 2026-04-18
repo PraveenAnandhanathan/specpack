@@ -2,7 +2,7 @@
 # Common PowerShell functions analogous to common.sh
 
 # Find repository root by searching upward for .specify directory
-# This is the primary marker for spec-kit projects
+# This is the primary marker for specpack projects
 function Find-SpecifyRoot {
     param([string]$StartDir = (Get-Location).Path)
 
@@ -25,9 +25,9 @@ function Find-SpecifyRoot {
 }
 
 # Get repository root, prioritizing .specify directory over git
-# This prevents using a parent git repo when spec-kit is initialized in a subdirectory
+# This prevents using a parent git repo when specpack is initialized in a subdirectory
 function Get-RepoRoot {
-    # First, look for .specify directory (spec-kit's own marker)
+    # First, look for .specify directory (specpack's own marker)
     $specifyRoot = Find-SpecifyRoot
     if ($specifyRoot) {
         return $specifyRoot
@@ -54,7 +54,7 @@ function Get-CurrentBranch {
         return $env:SPECIFY_FEATURE
     }
 
-    # Then check git if available at the spec-kit root (not parent)
+    # Then check git if available at the specpack root (not parent)
     $repoRoot = Get-RepoRoot
     if (Test-HasGit) {
         try {
@@ -104,7 +104,7 @@ function Get-CurrentBranch {
     return "main"
 }
 
-# Check if we have git available at the spec-kit root level
+# Check if we have git available at the specpack root level
 # Returns true only if git is installed and the repo root is inside a git work tree
 # Handles both regular repos (.git directory) and worktrees/submodules (.git file)
 function Test-HasGit {
@@ -129,7 +129,7 @@ function Test-HasGit {
 
 # Strip a single optional path segment (e.g. gitflow "feat/004-name" -> "004-name").
 # Only when the full name is exactly two slash-free segments; otherwise returns the raw name.
-function Get-SpecKitEffectiveBranchName {
+function Get-SpecPackEffectiveBranchName {
     param([string]$Branch)
     if ($Branch -match '^([^/]+)/([^/]+)$') {
         return $Matches[2]
@@ -150,7 +150,7 @@ function Test-FeatureBranch {
     }
 
     $raw = $Branch
-    $Branch = Get-SpecKitEffectiveBranchName $raw
+    $Branch = Get-SpecPackEffectiveBranchName $raw
     
     # Accept sequential prefix (3+ digits) but exclude malformed timestamps
     # Malformed: 7-or-8 digit date + 6-digit time with no trailing slug (e.g. "2026031-143022" or "20260319-143022")
@@ -171,7 +171,7 @@ function Find-FeatureDirByPrefix {
         [Parameter(Mandatory = $true)][string]$Branch
     )
     $specsDir = Join-Path $RepoRoot 'specs'
-    $branchName = Get-SpecKitEffectiveBranchName $Branch
+    $branchName = Get-SpecPackEffectiveBranchName $Branch
 
     $prefix = $null
     if ($branchName -match '^(\d{8}-\d{6})-') {
@@ -220,7 +220,7 @@ function Get-FeaturePathsEnv {
 
     # Resolve feature directory.  Priority:
     #   1. SPECIFY_FEATURE_DIRECTORY env var (explicit override)
-    #   2. .specify/feature.json "feature_directory" key (persisted by /speckit.specify)
+    #   2. .specify/feature.json "feature_directory" key (persisted by /specpack.specify)
     #   3. Branch-name-based prefix lookup (same as scripts/bash/common.sh)
     $featureJson = Join-Path $repoRoot '.specify/feature.json'
     if ($env:SPECIFY_FEATURE_DIRECTORY) {

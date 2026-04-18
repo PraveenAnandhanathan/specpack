@@ -129,18 +129,18 @@ class WorkflowCatalog:
     """Manages workflow catalog fetching, caching, and searching.
 
     Resolution order for catalog sources:
-    1. ``SPECKIT_WORKFLOW_CATALOG_URL`` env var (overrides all)
+    1. ``SPECPACK_WORKFLOW_CATALOG_URL`` env var (overrides all)
     2. Project-level ``.specify/workflow-catalogs.yml``
     3. User-level ``~/.specify/workflow-catalogs.yml``
     4. Built-in defaults (official + community)
     """
 
     DEFAULT_CATALOG_URL = (
-        "https://raw.githubusercontent.com/github/spec-kit/main/"
+        "https://raw.githubusercontent.com/PraveenAnandhanathan/specpack/main/"
         "workflows/catalog.json"
     )
     COMMUNITY_CATALOG_URL = (
-        "https://raw.githubusercontent.com/github/spec-kit/main/"
+        "https://raw.githubusercontent.com/PraveenAnandhanathan/specpack/main/"
         "workflows/catalog.community.json"
     )
     CACHE_DURATION = 3600  # 1 hour
@@ -241,7 +241,7 @@ class WorkflowCatalog:
     def get_active_catalogs(self) -> list[WorkflowCatalogEntry]:
         """Get the ordered list of active catalogs."""
         # 1. Environment variable override
-        env_url = os.environ.get("SPECKIT_WORKFLOW_CATALOG_URL", "").strip()
+        env_url = os.environ.get("SPECPACK_WORKFLOW_CATALOG_URL", "").strip()
         if env_url:
             self._validate_catalog_url(env_url)
             return [
@@ -250,7 +250,7 @@ class WorkflowCatalog:
                     name="env-override",
                     priority=1,
                     install_allowed=True,
-                    description="From SPECKIT_WORKFLOW_CATALOG_URL",
+                    description="From SPECPACK_WORKFLOW_CATALOG_URL",
                 )
             ]
 

@@ -1,10 +1,10 @@
 ---
-description: "Auto-commit changes after a Spec Kit command completes"
+description: "Auto-commit changes after a SpecPack command completes"
 ---
 
 # Auto-Commit Changes
 
-Automatically stage and commit all changes after a Spec Kit command completes.
+Automatically stage and commit all changes after a SpecPack command completes.
 
 ## Behavior
 
@@ -35,10 +35,10 @@ auto_commit:
   default: false          # Global toggle — set true to enable for all commands
   after_specify:
     enabled: true          # Override per-command
-    message: "[Spec Kit] Add specification"
+    message: "[SpecPack] Add specification"
   after_plan:
     enabled: false
-    message: "[Spec Kit] Add implementation plan"
+    message: "[SpecPack] Add implementation plan"
 ```
 
 ## Graceful Degradation

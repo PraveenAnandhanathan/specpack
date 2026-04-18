@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug or unexpected behavior in Specify CLI or Spec Kit
+description: Report a bug or unexpected behavior in Specify CLI or SpecPack
 title: "[Bug]: "
 labels: ["bug", "needs-triage"]
 body:
@@ -51,7 +51,7 @@ body:
     id: version
     attributes:
       label: Specify CLI Version
-      description: "Run `specify version` or `pip show spec-kit`"
+      description: "Run `specify version` or `pip show specpack`"
       placeholder: "e.g., 1.3.0"
     validations:
       required: true

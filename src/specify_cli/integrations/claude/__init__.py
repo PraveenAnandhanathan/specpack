@@ -17,7 +17,7 @@ from ..manifest import IntegrationManifest
 _HOOK_COMMAND_NOTE = (
     "- When constructing slash commands from hook command names, "
     "replace dots (`.`) with hyphens (`-`). "
-    "For example, `speckit.git.commit` → `/speckit-git-commit`.\n"
+    "For example, `specpack.git.commit` → `/specpack-git-commit`.\n"
 )
 
 # Mapping of command template stem → argument-hint text shown inline
@@ -104,7 +104,7 @@ class ClaudeIntegration(SkillsIntegration):
 
     def _render_skill(self, template_name: str, frontmatter: dict[str, Any], body: str) -> str:
         """Render a processed command template as a Claude skill."""
-        skill_name = f"speckit-{template_name.replace('.', '-')}"
+        skill_name = f"specpack-{template_name.replace('.', '-')}"
         description = frontmatter.get(
             "description",
             f"Spec-kit workflow command: {template_name}",
@@ -223,10 +223,10 @@ class ClaudeIntegration(SkillsIntegration):
             updated = self.post_process_skill_content(content)
 
             # Inject argument-hint if available for this skill
-            skill_dir_name = path.parent.name  # e.g. "speckit-plan"
+            skill_dir_name = path.parent.name  # e.g. "specpack-plan"
             stem = skill_dir_name
-            if stem.startswith("speckit-"):
-                stem = stem[len("speckit-"):]
+            if stem.startswith("specpack-"):
+                stem = stem[len("specpack-"):]
             hint = ARGUMENT_HINTS.get(stem, "")
             if hint:
                 updated = self.inject_argument_hint(updated, hint)

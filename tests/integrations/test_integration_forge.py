@@ -9,40 +9,40 @@ class TestForgeCommandNameFormatter:
     """Test the centralized Forge command name formatter."""
 
     def test_simple_name_without_prefix(self):
-        """Test formatting a simple name without 'speckit.' prefix."""
-        assert format_forge_command_name("plan") == "speckit-plan"
-        assert format_forge_command_name("tasks") == "speckit-tasks"
-        assert format_forge_command_name("specify") == "speckit-specify"
+        """Test formatting a simple name without 'specpack.' prefix."""
+        assert format_forge_command_name("plan") == "specpack-plan"
+        assert format_forge_command_name("tasks") == "specpack-tasks"
+        assert format_forge_command_name("specify") == "specpack-specify"
 
-    def test_name_with_speckit_prefix(self):
-        """Test formatting a name that already has 'speckit.' prefix."""
-        assert format_forge_command_name("speckit.plan") == "speckit-plan"
-        assert format_forge_command_name("speckit.tasks") == "speckit-tasks"
+    def test_name_with_specpack_prefix(self):
+        """Test formatting a name that already has 'specpack.' prefix."""
+        assert format_forge_command_name("specpack.plan") == "specpack-plan"
+        assert format_forge_command_name("specpack.tasks") == "specpack-tasks"
 
     def test_extension_command_name(self):
         """Test formatting extension command names with dots."""
-        assert format_forge_command_name("speckit.my-extension.example") == "speckit-my-extension-example"
-        assert format_forge_command_name("my-extension.example") == "speckit-my-extension-example"
+        assert format_forge_command_name("specpack.my-extension.example") == "specpack-my-extension-example"
+        assert format_forge_command_name("my-extension.example") == "specpack-my-extension-example"
 
     def test_complex_nested_name(self):
         """Test formatting deeply nested command names."""
-        assert format_forge_command_name("speckit.jira.sync-status") == "speckit-jira-sync-status"
-        assert format_forge_command_name("speckit.foo.bar.baz") == "speckit-foo-bar-baz"
+        assert format_forge_command_name("specpack.jira.sync-status") == "specpack-jira-sync-status"
+        assert format_forge_command_name("specpack.foo.bar.baz") == "specpack-foo-bar-baz"
 
     def test_name_with_hyphens_preserved(self):
         """Test that existing hyphens are preserved."""
-        assert format_forge_command_name("my-extension") == "speckit-my-extension"
-        assert format_forge_command_name("speckit.my-ext.test-cmd") == "speckit-my-ext-test-cmd"
+        assert format_forge_command_name("my-extension") == "specpack-my-extension"
+        assert format_forge_command_name("specpack.my-ext.test-cmd") == "specpack-my-ext-test-cmd"
 
     def test_alias_formatting(self):
         """Test formatting alias names."""
-        assert format_forge_command_name("speckit.my-extension.example-short") == "speckit-my-extension-example-short"
+        assert format_forge_command_name("specpack.my-extension.example-short") == "specpack-my-extension-example-short"
 
     def test_idempotent_already_hyphenated(self):
         """Test that already-hyphenated names are returned unchanged (idempotent)."""
-        assert format_forge_command_name("speckit-plan") == "speckit-plan"
-        assert format_forge_command_name("speckit-my-extension-example") == "speckit-my-extension-example"
-        assert format_forge_command_name("speckit-jira-sync-status") == "speckit-jira-sync-status"
+        assert format_forge_command_name("specpack-plan") == "specpack-plan"
+        assert format_forge_command_name("specpack-my-extension-example") == "specpack-my-extension-example"
+        assert format_forge_command_name("specpack-jira-sync-status") == "specpack-jira-sync-status"
 
 
 class TestForgeIntegration:
@@ -59,7 +59,7 @@ class TestForgeIntegration:
 
     def test_command_filename_md(self):
         forge = get_integration("forge")
-        assert forge.command_filename("plan") == "speckit.plan.md"
+        assert forge.command_filename("plan") == "specpack.plan.md"
 
     def test_setup_creates_md_files(self, tmp_path):
         from specify_cli.integrations.forge import ForgeIntegration
@@ -81,8 +81,8 @@ class TestForgeIntegration:
         ctx_path = tmp_path / forge.context_file
         assert ctx_path.exists()
         content = ctx_path.read_text(encoding="utf-8")
-        assert "<!-- SPECKIT START -->" in content
-        assert "<!-- SPECKIT END -->" in content
+        assert "<!-- SPECPACK START -->" in content
+        assert "<!-- SPECPACK END -->" in content
 
     def test_all_created_files_tracked_in_manifest(self, tmp_path):
         from specify_cli.integrations.forge import ForgeIntegration
@@ -135,9 +135,9 @@ class TestForgeIntegration:
         assert len(expected_commands) > 0, "No command templates found"
 
         # Check generated files match templates
-        command_files = sorted(commands_dir.glob("speckit.*.md"))
+        command_files = sorted(commands_dir.glob("specpack.*.md"))
         assert len(command_files) == len(expected_commands)
-        actual_commands = {f.name.removeprefix("speckit.").removesuffix(".md") for f in command_files}
+        actual_commands = {f.name.removeprefix("specpack.").removesuffix(".md") for f in command_files}
         assert actual_commands == expected_commands
 
     def test_templates_are_processed(self, tmp_path):
@@ -146,7 +146,7 @@ class TestForgeIntegration:
         m = IntegrationManifest("forge", tmp_path)
         forge.setup(tmp_path, m)
         commands_dir = tmp_path / ".forge" / "commands"
-        for cmd_file in commands_dir.glob("speckit.*.md"):
+        for cmd_file in commands_dir.glob("specpack.*.md"):
             content = cmd_file.read_text(encoding="utf-8")
             # Check standard replacements
             assert "{SCRIPT}" not in content, f"{cmd_file.name} has unprocessed {{SCRIPT}}"
@@ -163,7 +163,7 @@ class TestForgeIntegration:
         forge = ForgeIntegration()
         m = IntegrationManifest("forge", tmp_path)
         forge.setup(tmp_path, m)
-        plan_file = tmp_path / ".forge" / "commands" / "speckit.plan.md"
+        plan_file = tmp_path / ".forge" / "commands" / "specpack.plan.md"
         assert plan_file.exists()
         content = plan_file.read_text(encoding="utf-8")
         assert forge.context_file in content, (
@@ -181,7 +181,7 @@ class TestForgeIntegration:
         commands_dir = tmp_path / ".forge" / "commands"
 
         registrar = CommandRegistrar()
-        for cmd_file in commands_dir.glob("speckit.*.md"):
+        for cmd_file in commands_dir.glob("specpack.*.md"):
             content = cmd_file.read_text(encoding="utf-8")
             frontmatter, _ = registrar.parse_frontmatter(content)
 
@@ -206,7 +206,7 @@ class TestForgeIntegration:
         commands_dir = tmp_path / ".forge" / "commands"
 
         # Check all generated command files
-        for cmd_file in commands_dir.glob("speckit.*.md"):
+        for cmd_file in commands_dir.glob("specpack.*.md"):
             content = cmd_file.read_text(encoding="utf-8")
             # $ARGUMENTS should be replaced with {{parameters}}
             assert "$ARGUMENTS" not in content, (
@@ -216,7 +216,7 @@ class TestForgeIntegration:
             # We'll check the checklist file specifically as it has a User Input section
 
         # Verify checklist specifically has {{parameters}} in the User Input section
-        checklist = commands_dir / "speckit.checklist.md"
+        checklist = commands_dir / "specpack.checklist.md"
         if checklist.exists():
             content = checklist.read_text(encoding="utf-8")
             assert "{{parameters}}" in content, (
@@ -224,7 +224,7 @@ class TestForgeIntegration:
             )
 
     def test_name_field_uses_hyphenated_format(self, tmp_path):
-        """Verify that injected name fields use hyphenated format (speckit-plan, not speckit.plan)."""
+        """Verify that injected name fields use hyphenated format (specpack-plan, not specpack.plan)."""
         from specify_cli.integrations.forge import ForgeIntegration
         from specify_cli.agents import CommandRegistrar
         forge = ForgeIntegration()
@@ -234,7 +234,7 @@ class TestForgeIntegration:
 
         # Check that name fields use hyphenated format
         registrar = CommandRegistrar()
-        for cmd_file in commands_dir.glob("speckit.*.md"):
+        for cmd_file in commands_dir.glob("specpack.*.md"):
             content = cmd_file.read_text(encoding="utf-8")
             # Extract the name field from frontmatter using the parser
             frontmatter, _ = registrar.parse_frontmatter(content)
@@ -247,8 +247,8 @@ class TestForgeIntegration:
                 f"{cmd_file.name} has name field with dots: {name_value} "
                 f"(should use hyphens for Forge/ZSH compatibility)"
             )
-            assert name_value.startswith("speckit-"), (
-                f"{cmd_file.name} name field should start with 'speckit-': {name_value}"
+            assert name_value.startswith("specpack-"), (
+                f"{cmd_file.name} name field should start with 'specpack-': {name_value}"
             )
 
 
@@ -279,7 +279,7 @@ class TestForgeCommandRegistrar:
         registrar = CommandRegistrar()
         commands = [
             {
-                "name": "speckit.my-extension.example",
+                "name": "specpack.my-extension.example",
                 "file": "commands/example.md"
             }
         ]
@@ -293,10 +293,10 @@ class TestForgeCommandRegistrar:
         )
         
         # Verify registration succeeded
-        assert "speckit.my-extension.example" in registered
+        assert "specpack.my-extension.example" in registered
         
         # Check the generated file has hyphenated name in frontmatter
-        forge_cmd = tmp_path / ".forge" / "commands" / "speckit.my-extension.example.md"
+        forge_cmd = tmp_path / ".forge" / "commands" / "specpack.my-extension.example.md"
         assert forge_cmd.exists()
         
         content = forge_cmd.read_text(encoding="utf-8")
@@ -304,7 +304,7 @@ class TestForgeCommandRegistrar:
         frontmatter, _ = registrar.parse_frontmatter(content)
         assert "name" in frontmatter, "name field should be injected in frontmatter"
         # Name field should use hyphens, not dots
-        assert frontmatter["name"] == "speckit-my-extension-example"
+        assert frontmatter["name"] == "specpack-my-extension-example"
 
     def test_registrar_formats_alias_names_for_forge(self, tmp_path):
         """Verify CommandRegistrar converts alias names to hyphens for Forge."""
@@ -329,9 +329,9 @@ class TestForgeCommandRegistrar:
         registrar = CommandRegistrar()
         commands = [
             {
-                "name": "speckit.my-extension.example",
+                "name": "specpack.my-extension.example",
                 "file": "commands/example.md",
-                "aliases": ["speckit.my-extension.ex"]
+                "aliases": ["specpack.my-extension.ex"]
             }
         ]
         
@@ -344,7 +344,7 @@ class TestForgeCommandRegistrar:
         )
         
         # Check the alias file has hyphenated name in frontmatter
-        alias_file = tmp_path / ".forge" / "commands" / "speckit.my-extension.ex.md"
+        alias_file = tmp_path / ".forge" / "commands" / "specpack.my-extension.ex.md"
         assert alias_file.exists()
         
         content = alias_file.read_text(encoding="utf-8")
@@ -352,7 +352,7 @@ class TestForgeCommandRegistrar:
         frontmatter, _ = registrar.parse_frontmatter(content)
         assert "name" in frontmatter, "name field should be injected in alias frontmatter"
         # Alias name field should also use hyphens
-        assert frontmatter["name"] == "speckit-my-extension-ex"
+        assert frontmatter["name"] == "specpack-my-extension-ex"
 
     def test_registrar_does_not_affect_other_agents(self, tmp_path):
         """Verify format_name callback is Forge-specific and doesn't affect other agents."""
@@ -377,7 +377,7 @@ class TestForgeCommandRegistrar:
         registrar = CommandRegistrar()
         commands = [
             {
-                "name": "speckit.my-extension.example",
+                "name": "specpack.my-extension.example",
                 "file": "commands/example.md"
             }
         ]
@@ -392,7 +392,7 @@ class TestForgeCommandRegistrar:
         
         # Windsurf uses standard markdown format without name injection.
         # The format_name callback should not be invoked for non-Forge agents.
-        windsurf_cmd = tmp_path / ".windsurf" / "workflows" / "speckit.my-extension.example.md"
+        windsurf_cmd = tmp_path / ".windsurf" / "workflows" / "specpack.my-extension.example.md"
         assert windsurf_cmd.exists()
         
         content = windsurf_cmd.read_text(encoding="utf-8")

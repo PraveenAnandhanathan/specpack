@@ -1,6 +1,6 @@
 """Cursor IDE integration.
 
-Cursor Agent uses the ``.cursor/skills/speckit-<name>/SKILL.md`` layout.
+Cursor Agent uses the ``.cursor/skills/specpack-<name>/SKILL.md`` layout.
 Commands are deprecated; ``--skills`` defaults to ``True``.
 """
 

@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-	"name": "SpecKitDevContainer",
+	"name": "SpecPackDevContainer",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/python:3.13-trixie", // based on Debian "Trixie" (13)
 	"features": {
@@ -59,11 +59,11 @@
 		// Specify settings for Github Copilot
 		"git.autofetch": true,
 		"chat.promptFilesRecommendations": {
-			"speckit.constitution": true,
-			"speckit.specify": true,
-			"speckit.plan": true,
-			"speckit.tasks": true,
-			"speckit.implement": true
+			"specpack.constitution": true,
+			"specpack.specify": true,
+			"specpack.plan": true,
+			"specpack.tasks": true,
+			"specpack.implement": true
 		},
 		"chat.tools.terminal.autoApprove": {
 			".specify/scripts/bash/": true,

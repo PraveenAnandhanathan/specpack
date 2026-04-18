@@ -85,7 +85,7 @@ class TestGenericIntegration:
         cmd_files = [f for f in created if "scripts" not in f.parts]
         assert len(cmd_files) > 0
         for f in cmd_files:
-            assert f.name.startswith("speckit.")
+            assert f.name.startswith("specpack.")
             assert f.name.endswith(".md")
 
     def test_templates_are_processed(self, tmp_path):
@@ -168,15 +168,15 @@ class TestGenericIntegration:
             ctx_path = tmp_path / i.context_file
             assert ctx_path.exists()
             content = ctx_path.read_text(encoding="utf-8")
-            assert "<!-- SPECKIT START -->" in content
-            assert "<!-- SPECKIT END -->" in content
+            assert "<!-- SPECPACK START -->" in content
+            assert "<!-- SPECPACK END -->" in content
 
     def test_plan_references_correct_context_file(self, tmp_path):
         """The generated plan command must reference generic's context file."""
         i = get_integration("generic")
         m = IntegrationManifest("generic", tmp_path)
         i.setup(tmp_path, m, parsed_options={"commands_dir": ".custom/cmds"})
-        plan_file = tmp_path / ".custom" / "cmds" / "speckit.plan.md"
+        plan_file = tmp_path / ".custom" / "cmds" / "specpack.plan.md"
         assert plan_file.exists()
         content = plan_file.read_text(encoding="utf-8")
         assert i.context_file in content, (
@@ -245,19 +245,19 @@ class TestGenericIntegration:
         )
         expected = sorted([
             "AGENTS.md",
-            ".myagent/commands/speckit.analyze.md",
-            ".myagent/commands/speckit.checklist.md",
-            ".myagent/commands/speckit.clarify.md",
-            ".myagent/commands/speckit.constitution.md",
-            ".myagent/commands/speckit.implement.md",
-            ".myagent/commands/speckit.plan.md",
-            ".myagent/commands/speckit.specify.md",
-            ".myagent/commands/speckit.tasks.md",
-            ".myagent/commands/speckit.taskstoissues.md",
+            ".myagent/commands/specpack.analyze.md",
+            ".myagent/commands/specpack.checklist.md",
+            ".myagent/commands/specpack.clarify.md",
+            ".myagent/commands/specpack.constitution.md",
+            ".myagent/commands/specpack.implement.md",
+            ".myagent/commands/specpack.plan.md",
+            ".myagent/commands/specpack.specify.md",
+            ".myagent/commands/specpack.tasks.md",
+            ".myagent/commands/specpack.taskstoissues.md",
             ".specify/init-options.json",
             ".specify/integration.json",
             ".specify/integrations/generic.manifest.json",
-            ".specify/integrations/speckit.manifest.json",
+            ".specify/integrations/specpack.manifest.json",
             ".specify/memory/constitution.md",
             ".specify/scripts/bash/check-prerequisites.sh",
             ".specify/scripts/bash/common.sh",
@@ -268,7 +268,7 @@ class TestGenericIntegration:
             ".specify/templates/plan-template.md",
             ".specify/templates/spec-template.md",
             ".specify/templates/tasks-template.md",
-            ".specify/workflows/speckit/workflow.yml",
+            ".specify/workflows/specpack/workflow.yml",
             ".specify/workflows/workflow-registry.json",
         ])
         assert actual == expected, (
@@ -300,19 +300,19 @@ class TestGenericIntegration:
         )
         expected = sorted([
             "AGENTS.md",
-            ".myagent/commands/speckit.analyze.md",
-            ".myagent/commands/speckit.checklist.md",
-            ".myagent/commands/speckit.clarify.md",
-            ".myagent/commands/speckit.constitution.md",
-            ".myagent/commands/speckit.implement.md",
-            ".myagent/commands/speckit.plan.md",
-            ".myagent/commands/speckit.specify.md",
-            ".myagent/commands/speckit.tasks.md",
-            ".myagent/commands/speckit.taskstoissues.md",
+            ".myagent/commands/specpack.analyze.md",
+            ".myagent/commands/specpack.checklist.md",
+            ".myagent/commands/specpack.clarify.md",
+            ".myagent/commands/specpack.constitution.md",
+            ".myagent/commands/specpack.implement.md",
+            ".myagent/commands/specpack.plan.md",
+            ".myagent/commands/specpack.specify.md",
+            ".myagent/commands/specpack.tasks.md",
+            ".myagent/commands/specpack.taskstoissues.md",
             ".specify/init-options.json",
             ".specify/integration.json",
             ".specify/integrations/generic.manifest.json",
-            ".specify/integrations/speckit.manifest.json",
+            ".specify/integrations/specpack.manifest.json",
             ".specify/memory/constitution.md",
             ".specify/scripts/powershell/check-prerequisites.ps1",
             ".specify/scripts/powershell/common.ps1",
@@ -323,7 +323,7 @@ class TestGenericIntegration:
             ".specify/templates/plan-template.md",
             ".specify/templates/spec-template.md",
             ".specify/templates/tasks-template.md",
-            ".specify/workflows/speckit/workflow.yml",
+            ".specify/workflows/specpack/workflow.yml",
             ".specify/workflows/workflow-registry.json",
         ])
         assert actual == expected, (

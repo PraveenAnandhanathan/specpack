@@ -52,10 +52,10 @@ class CopilotIntegration(IntegrationBase):
         # GitHub Copilot CLI uses ``copilot -p "prompt"`` for
         # non-interactive mode.  --allow-all-tools is required for the
         # agent to perform file edits and shell commands.  Controlled
-        # by SPECKIT_ALLOW_ALL_TOOLS env var (default: enabled).
+        # by SPECPACK_ALLOW_ALL_TOOLS env var (default: enabled).
         import os
         args = ["copilot", "-p", prompt]
-        if os.environ.get("SPECKIT_ALLOW_ALL_TOOLS", "1") != "0":
+        if os.environ.get("SPECPACK_ALLOW_ALL_TOOLS", "1") != "0":
             args.append("--allow-all-tools")
         if model:
             args.extend(["--model", model])
@@ -77,7 +77,7 @@ class CopilotIntegration(IntegrationBase):
         timeout: int = 600,
         stream: bool = True,
     ) -> dict[str, Any]:
-        """Dispatch via ``--agent speckit.<stem>`` instead of slash-commands.
+        """Dispatch via ``--agent specpack.<stem>`` instead of slash-commands.
 
         Copilot ``.agent.md`` files are agents, not skills.  The CLI
         selects them with ``--agent <name>`` and the prompt is just
@@ -88,7 +88,7 @@ class CopilotIntegration(IntegrationBase):
         stem = command_name
         if "." in stem:
             stem = stem.rsplit(".", 1)[-1]
-        agent_name = f"speckit.{stem}"
+        agent_name = f"specpack.{stem}"
 
         prompt = args or ""
         import os
@@ -96,7 +96,7 @@ class CopilotIntegration(IntegrationBase):
             "copilot", "-p", prompt,
             "--agent", agent_name,
         ]
-        if os.environ.get("SPECKIT_ALLOW_ALL_TOOLS", "1") != "0":
+        if os.environ.get("SPECPACK_ALLOW_ALL_TOOLS", "1") != "0":
             cli_args.append("--allow-all-tools")
         if model:
             cli_args.extend(["--model", model])
@@ -139,7 +139,7 @@ class CopilotIntegration(IntegrationBase):
 
     def command_filename(self, template_name: str) -> str:
         """Copilot commands use ``.agent.md`` extension."""
-        return f"speckit.{template_name}.agent.md"
+        return f"specpack.{template_name}.agent.md"
 
     def setup(
         self,
@@ -196,7 +196,7 @@ class CopilotIntegration(IntegrationBase):
         # 2. Generate companion .prompt.md files from the templates we just wrote
         prompts_dir = project_root / ".github" / "prompts"
         for src_file in templates:
-            cmd_name = f"speckit.{src_file.stem}"
+            cmd_name = f"specpack.{src_file.stem}"
             prompt_content = f"---\nagent: {cmd_name}\n---\n"
             prompt_file = self.write_file_and_record(
                 prompt_content,

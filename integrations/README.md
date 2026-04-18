@@ -1,12 +1,12 @@
-# Spec Kit Integration Catalog
+# SpecPack Integration Catalog
 
-The integration catalog enables discovery, versioning, and distribution of AI agent integrations for Spec Kit.
+The integration catalog enables discovery, versioning, and distribution of AI agent integrations for SpecPack.
 
 ## Catalog Files
 
 ### Built-In Catalog (`catalog.json`)
 
-Contains integrations that ship with Spec Kit. These are maintained by the core team and always installable.
+Contains integrations that ship with SpecPack. These are maintained by the core team and always installable.
 
 ### Community Catalog (`catalog.community.json`)
 
@@ -16,7 +16,7 @@ Community-contributed integrations. Listed for discovery only — users install 
 
 The catalog stack is resolved in this order (first match wins):
 
-1. **Environment variable** — `SPECKIT_INTEGRATION_CATALOG_URL` overrides all catalogs with a single URL
+1. **Environment variable** — `SPECPACK_INTEGRATION_CATALOG_URL` overrides all catalogs with a single URL
 2. **Project config** — `.specify/integration-catalogs.yml` in the project root
 3. **User config** — `~/.specify/integration-catalogs.yml` in the user home directory
 4. **Built-in defaults** — `catalog.json` + `catalog.community.json`
@@ -62,20 +62,20 @@ integration:
   version: "1.0.0"
   description: "Integration for My Agent"
   author: "my-org"
-  repository: "https://github.com/my-org/speckit-my-agent"
+  repository: "https://github.com/my-org/specpack-my-agent"
   license: "MIT"
 requires:
-  speckit_version: ">=0.6.0"
+  specpack_version: ">=0.6.0"
   tools:
     - name: "my-agent"
       version: ">=1.0.0"
       required: true
 provides:
   commands:
-    - name: "speckit.specify"
-      file: "templates/speckit.specify.md"
-    - name: "speckit.plan"
-      file: "templates/speckit.plan.md"
+    - name: "specpack.specify"
+      file: "templates/specpack.specify.md"
+    - name: "specpack.plan"
+      file: "templates/specpack.plan.md"
   scripts:
     - update-context.sh
     - update-context.ps1
@@ -97,7 +97,7 @@ Both catalog files follow the same JSON schema:
       "version": "1.0.0",
       "description": "Integration for My Agent",
       "author": "my-org",
-      "repository": "https://github.com/my-org/speckit-my-agent",
+      "repository": "https://github.com/my-org/specpack-my-agent",
       "tags": ["cli"]
     }
   }

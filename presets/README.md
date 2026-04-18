@@ -1,19 +1,19 @@
 # Presets
 
-Presets are stackable, priority-ordered collections of template and command overrides for Spec Kit. They let you customize both the artifacts produced by the Spec-Driven Development workflow (specs, plans, tasks, checklists, constitutions) and the commands that guide the LLM in creating them — without forking or modifying core files.
+Presets are stackable, priority-ordered collections of template and command overrides for SpecPack. They let you customize both the artifacts produced by the Spec-Driven Development workflow (specs, plans, tasks, checklists, constitutions) and the commands that guide the LLM in creating them — without forking or modifying core files.
 
 ## How It Works
 
-When Spec Kit needs a template (e.g. `spec-template`), it walks a resolution stack:
+When SpecPack needs a template (e.g. `spec-template`), it walks a resolution stack:
 
 1. `.specify/templates/overrides/` — project-local one-off overrides
 2. `.specify/presets/<preset-id>/templates/` — installed presets (sorted by priority)
 3. `.specify/extensions/<ext-id>/templates/` — extension-provided templates
-4. `.specify/templates/` — core templates shipped with Spec Kit
+4. `.specify/templates/` — core templates shipped with SpecPack
 
 If no preset is installed, core templates are used — exactly the same behavior as before presets existed.
 
-Template resolution happens **at runtime** — although preset files are copied into `.specify/presets/<id>/` during installation, Spec Kit walks the resolution stack on every template lookup rather than merging templates into a single location.
+Template resolution happens **at runtime** — although preset files are copied into `.specify/presets/<id>/` during installation, SpecPack walks the resolution stack on every template lookup rather than merging templates into a single location.
 
 For detailed resolution and command registration flows, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -65,10 +65,10 @@ Presets **override**, they don't merge. If two presets both provide `spec-templa
 
 ## Catalog Management
 
-Presets are discovered through catalogs. By default, Spec Kit uses the official and community catalogs:
+Presets are discovered through catalogs. By default, SpecPack uses the official and community catalogs:
 
 > [!NOTE]
-> Community presets are independently created and maintained by their respective authors. GitHub and the Spec Kit maintainers may review pull requests that add entries to the community catalog for formatting, catalog structure, or policy compliance, but they do **not review, audit, endorse, or support the preset code itself**. Review preset source code before installation and use at your own discretion.
+> Community presets are independently created and maintained by their respective authors. GitHub and the SpecPack maintainers may review pull requests that add entries to the community catalog for formatting, catalog structure, or policy compliance, but they do **not review, audit, endorse, or support the preset code itself**. Review preset source code before installation and use at your own discretion.
 
 ```bash
 # List active catalogs
@@ -95,7 +95,7 @@ See [scaffold/](scaffold/) for a scaffold you can copy to create your own preset
 
 | Variable | Description |
 |----------|-------------|
-| `SPECKIT_PRESET_CATALOG_URL` | Override the catalog URL (replaces all defaults) |
+| `SPECPACK_PRESET_CATALOG_URL` | Override the catalog URL (replaces all defaults) |
 
 ## Configuration Files
 

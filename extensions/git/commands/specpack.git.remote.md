@@ -26,8 +26,8 @@ git config --get remote.origin.url
 
 Parse the remote URL and determine:
 
-1. **Repository owner**: Extract from the URL (e.g., `github` from `https://github.com/github/spec-kit.git`)
-2. **Repository name**: Extract from the URL (e.g., `spec-kit` from `https://github.com/github/spec-kit.git`)
+1. **Repository owner**: Extract from the URL (e.g., `github` from `https://github.com/github/specpack.git`)
+2. **Repository name**: Extract from the URL (e.g., `specpack` from `https://github.com/github/specpack.git`)
 3. **Is GitHub**: Whether the remote points to a GitHub repository
 
 Supported URL formats:

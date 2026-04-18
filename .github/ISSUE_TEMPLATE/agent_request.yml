@@ -1,5 +1,5 @@
 name: Agent Request
-description: Request support for a new AI agent/assistant in Spec Kit
+description: Request support for a new AI agent/assistant in SpecPack
 title: "[Agent]: Add support for "
 labels: ["agent-request", "enhancement", "needs-triage"]
 body:
@@ -105,7 +105,7 @@ body:
     id: use-case
     attributes:
       label: Use Case
-      description: Why do you want this agent supported in Spec Kit?
+      description: Why do you want this agent supported in SpecPack?
       placeholder: Explain your workflow and how this agent fits into your development process
     validations:
       required: true

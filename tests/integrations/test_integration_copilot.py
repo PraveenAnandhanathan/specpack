@@ -19,7 +19,7 @@ class TestCopilotIntegration:
 
     def test_command_filename_agent_md(self):
         copilot = get_integration("copilot")
-        assert copilot.command_filename("plan") == "speckit.plan.agent.md"
+        assert copilot.command_filename("plan") == "specpack.plan.agent.md"
 
     def test_setup_creates_agent_md_files(self, tmp_path):
         from specify_cli.integrations.copilot import CopilotIntegration
@@ -43,7 +43,7 @@ class TestCopilotIntegration:
         for f in prompt_files:
             assert f.name.endswith(".prompt.md")
             content = f.read_text(encoding="utf-8")
-            assert content.startswith("---\nagent: speckit.")
+            assert content.startswith("---\nagent: specpack.")
 
     def test_agent_and_prompt_counts_match(self, tmp_path):
         from specify_cli.integrations.copilot import CopilotIntegration
@@ -122,13 +122,13 @@ class TestCopilotIntegration:
         copilot.setup(tmp_path, m)
         agents_dir = tmp_path / ".github" / "agents"
         assert agents_dir.is_dir()
-        agent_files = sorted(agents_dir.glob("speckit.*.agent.md"))
+        agent_files = sorted(agents_dir.glob("specpack.*.agent.md"))
         assert len(agent_files) == 9
         expected_commands = {
             "analyze", "checklist", "clarify", "constitution",
             "implement", "plan", "specify", "tasks", "taskstoissues",
         }
-        actual_commands = {f.name.removeprefix("speckit.").removesuffix(".agent.md") for f in agent_files}
+        actual_commands = {f.name.removeprefix("specpack.").removesuffix(".agent.md") for f in agent_files}
         assert actual_commands == expected_commands
 
     def test_templates_are_processed(self, tmp_path):
@@ -137,7 +137,7 @@ class TestCopilotIntegration:
         m = IntegrationManifest("copilot", tmp_path)
         copilot.setup(tmp_path, m)
         agents_dir = tmp_path / ".github" / "agents"
-        for agent_file in agents_dir.glob("speckit.*.agent.md"):
+        for agent_file in agents_dir.glob("specpack.*.agent.md"):
             content = agent_file.read_text(encoding="utf-8")
             assert "{SCRIPT}" not in content, f"{agent_file.name} has unprocessed {{SCRIPT}}"
             assert "__AGENT__" not in content, f"{agent_file.name} has unprocessed __AGENT__"
@@ -150,7 +150,7 @@ class TestCopilotIntegration:
         copilot = CopilotIntegration()
         m = IntegrationManifest("copilot", tmp_path)
         copilot.setup(tmp_path, m)
-        plan_file = tmp_path / ".github" / "agents" / "speckit.plan.agent.md"
+        plan_file = tmp_path / ".github" / "agents" / "specpack.plan.agent.md"
         assert plan_file.exists()
         content = plan_file.read_text(encoding="utf-8")
         assert copilot.context_file in content, (
@@ -175,30 +175,30 @@ class TestCopilotIntegration:
         assert result.exit_code == 0
         actual = sorted(p.relative_to(project).as_posix() for p in project.rglob("*") if p.is_file())
         expected = sorted([
-            ".github/agents/speckit.analyze.agent.md",
-            ".github/agents/speckit.checklist.agent.md",
-            ".github/agents/speckit.clarify.agent.md",
-            ".github/agents/speckit.constitution.agent.md",
-            ".github/agents/speckit.implement.agent.md",
-            ".github/agents/speckit.plan.agent.md",
-            ".github/agents/speckit.specify.agent.md",
-            ".github/agents/speckit.tasks.agent.md",
-            ".github/agents/speckit.taskstoissues.agent.md",
-            ".github/prompts/speckit.analyze.prompt.md",
-            ".github/prompts/speckit.checklist.prompt.md",
-            ".github/prompts/speckit.clarify.prompt.md",
-            ".github/prompts/speckit.constitution.prompt.md",
-            ".github/prompts/speckit.implement.prompt.md",
-            ".github/prompts/speckit.plan.prompt.md",
-            ".github/prompts/speckit.specify.prompt.md",
-            ".github/prompts/speckit.tasks.prompt.md",
-            ".github/prompts/speckit.taskstoissues.prompt.md",
+            ".github/agents/specpack.analyze.agent.md",
+            ".github/agents/specpack.checklist.agent.md",
+            ".github/agents/specpack.clarify.agent.md",
+            ".github/agents/specpack.constitution.agent.md",
+            ".github/agents/specpack.implement.agent.md",
+            ".github/agents/specpack.plan.agent.md",
+            ".github/agents/specpack.specify.agent.md",
+            ".github/agents/specpack.tasks.agent.md",
+            ".github/agents/specpack.taskstoissues.agent.md",
+            ".github/prompts/specpack.analyze.prompt.md",
+            ".github/prompts/specpack.checklist.prompt.md",
+            ".github/prompts/specpack.clarify.prompt.md",
+            ".github/prompts/specpack.constitution.prompt.md",
+            ".github/prompts/specpack.implement.prompt.md",
+            ".github/prompts/specpack.plan.prompt.md",
+            ".github/prompts/specpack.specify.prompt.md",
+            ".github/prompts/specpack.tasks.prompt.md",
+            ".github/prompts/specpack.taskstoissues.prompt.md",
             ".vscode/settings.json",
             ".github/copilot-instructions.md",
             ".specify/integration.json",
             ".specify/init-options.json",
             ".specify/integrations/copilot.manifest.json",
-            ".specify/integrations/speckit.manifest.json",
+            ".specify/integrations/specpack.manifest.json",
             ".specify/scripts/bash/check-prerequisites.sh",
             ".specify/scripts/bash/common.sh",
             ".specify/scripts/bash/create-new-feature.sh",
@@ -209,7 +209,7 @@ class TestCopilotIntegration:
             ".specify/templates/spec-template.md",
             ".specify/templates/tasks-template.md",
             ".specify/memory/constitution.md",
-            ".specify/workflows/speckit/workflow.yml",
+            ".specify/workflows/specpack/workflow.yml",
             ".specify/workflows/workflow-registry.json",
         ])
         assert actual == expected, (
@@ -234,30 +234,30 @@ class TestCopilotIntegration:
         assert result.exit_code == 0
         actual = sorted(p.relative_to(project).as_posix() for p in project.rglob("*") if p.is_file())
         expected = sorted([
-            ".github/agents/speckit.analyze.agent.md",
-            ".github/agents/speckit.checklist.agent.md",
-            ".github/agents/speckit.clarify.agent.md",
-            ".github/agents/speckit.constitution.agent.md",
-            ".github/agents/speckit.implement.agent.md",
-            ".github/agents/speckit.plan.agent.md",
-            ".github/agents/speckit.specify.agent.md",
-            ".github/agents/speckit.tasks.agent.md",
-            ".github/agents/speckit.taskstoissues.agent.md",
-            ".github/prompts/speckit.analyze.prompt.md",
-            ".github/prompts/speckit.checklist.prompt.md",
-            ".github/prompts/speckit.clarify.prompt.md",
-            ".github/prompts/speckit.constitution.prompt.md",
-            ".github/prompts/speckit.implement.prompt.md",
-            ".github/prompts/speckit.plan.prompt.md",
-            ".github/prompts/speckit.specify.prompt.md",
-            ".github/prompts/speckit.tasks.prompt.md",
-            ".github/prompts/speckit.taskstoissues.prompt.md",
+            ".github/agents/specpack.analyze.agent.md",
+            ".github/agents/specpack.checklist.agent.md",
+            ".github/agents/specpack.clarify.agent.md",
+            ".github/agents/specpack.constitution.agent.md",
+            ".github/agents/specpack.implement.agent.md",
+            ".github/agents/specpack.plan.agent.md",
+            ".github/agents/specpack.specify.agent.md",
+            ".github/agents/specpack.tasks.agent.md",
+            ".github/agents/specpack.taskstoissues.agent.md",
+            ".github/prompts/specpack.analyze.prompt.md",
+            ".github/prompts/specpack.checklist.prompt.md",
+            ".github/prompts/specpack.clarify.prompt.md",
+            ".github/prompts/specpack.constitution.prompt.md",
+            ".github/prompts/specpack.implement.prompt.md",
+            ".github/prompts/specpack.plan.prompt.md",
+            ".github/prompts/specpack.specify.prompt.md",
+            ".github/prompts/specpack.tasks.prompt.md",
+            ".github/prompts/specpack.taskstoissues.prompt.md",
             ".vscode/settings.json",
             ".github/copilot-instructions.md",
             ".specify/integration.json",
             ".specify/init-options.json",
             ".specify/integrations/copilot.manifest.json",
-            ".specify/integrations/speckit.manifest.json",
+            ".specify/integrations/specpack.manifest.json",
             ".specify/scripts/powershell/check-prerequisites.ps1",
             ".specify/scripts/powershell/common.ps1",
             ".specify/scripts/powershell/create-new-feature.ps1",
@@ -268,7 +268,7 @@ class TestCopilotIntegration:
             ".specify/templates/spec-template.md",
             ".specify/templates/tasks-template.md",
             ".specify/memory/constitution.md",
-            ".specify/workflows/speckit/workflow.yml",
+            ".specify/workflows/specpack/workflow.yml",
             ".specify/workflows/workflow-registry.json",
         ])
         assert actual == expected, (

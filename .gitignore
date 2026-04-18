@@ -40,7 +40,7 @@ env/
 .env.local
 *.lock
 
-# Spec Kit-specific files
+# SpecPack-specific files
 .genreleases/
 *.zip
 sdd-*/

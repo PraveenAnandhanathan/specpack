@@ -1,6 +1,6 @@
 # Extensions
 
-Extensions add new capabilities to Spec Kit — domain-specific commands, external tool integrations, quality gates, and more. They introduce new commands and templates that go beyond the built-in Spec-Driven Development workflow.
+Extensions add new capabilities to SpecPack — domain-specific commands, external tool integrations, quality gates, and more. They introduce new commands and templates that go beyond the built-in Spec-Driven Development workflow.
 
 ## Search Available Extensions
 
@@ -130,7 +130,7 @@ Removes a catalog from the project configuration.
 
 Catalogs are resolved in this order (first match wins):
 
-1. **Environment variable** — `SPECKIT_CATALOG_URL` overrides all catalogs
+1. **Environment variable** — `SPECPACK_CATALOG_URL` overrides all catalogs
 2. **Project config** — `.specify/extension-catalogs.yml`
 3. **User config** — `~/.specify/extension-catalogs.yml`
 4. **Built-in defaults** — official catalog + community catalog
@@ -194,8 +194,8 @@ See [Extension Configuration](#extension-configuration) for details on config la
 
 ### How do I resolve an incompatible version error?
 
-Update Spec Kit to the version required by the extension.
+Update SpecPack to the version required by the extension.
 
 ### Who maintains extensions?
 
-Most extensions are independently created and maintained by their respective authors. The Spec Kit maintainers do not review, audit, endorse, or support extension code. Review an extension's source code before installing and use at your own discretion. For issues with a specific extension, contact its author or file an issue on the extension's repository.
+Most extensions are independently created and maintained by their respective authors. The SpecPack maintainers do not review, audit, endorse, or support extension code. Review an extension's source code before installing and use at your own discretion. For issues with a specific extension, contact its author or file an issue on the extension's repository.

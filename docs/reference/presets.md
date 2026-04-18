@@ -1,6 +1,6 @@
 # Presets
 
-Presets customize how Spec Kit works — overriding templates, commands, and terminology without changing any tooling. They let you enforce organizational standards, adapt the workflow to your methodology, or localize the entire experience. Multiple presets can be stacked with priority ordering.
+Presets customize how SpecPack works — overriding templates, commands, and terminology without changing any tooling. They let you enforce organizational standards, adapt the workflow to your methodology, or localize the entire experience. Multiple presets can be stacked with priority ordering.
 
 ## Search Available Presets
 
@@ -119,7 +119,7 @@ Removes a catalog from the project configuration.
 
 Catalogs are resolved in this order (first match wins):
 
-1. **Environment variable** — `SPECKIT_PRESET_CATALOG_URL` overrides all catalogs
+1. **Environment variable** — `SPECPACK_PRESET_CATALOG_URL` overrides all catalogs
 2. **Project config** — `.specify/preset-catalogs.yml`
 3. **User config** — `~/.specify/preset-catalogs.yml`
 4. **Built-in defaults** — official catalog + community catalog
@@ -146,7 +146,7 @@ The resolution stack, from highest to lowest precedence:
 1. **Project-local overrides** — `.specify/templates/overrides/`
 2. **Installed presets** — sorted by priority (lower = checked first)
 3. **Installed extensions** — sorted by priority
-4. **Spec Kit core** — `.specify/templates/`
+4. **SpecPack core** — `.specify/templates/`
 
 Commands are registered at install time (not resolved through the stack at runtime).
 
@@ -159,7 +159,7 @@ flowchart TB
         A["⬆ Highest precedence<br/><br/>1. Project-local overrides<br/>.specify/templates/overrides/"]
         B["2. Presets — by priority<br/>.specify/presets/‹id›/"]
         C["3. Extensions — by priority<br/>.specify/extensions/‹id›/"]
-        D["4. Spec Kit core<br/>.specify/templates/<br/><br/>⬇ Lowest precedence"]
+        D["4. SpecPack core<br/>.specify/templates/<br/><br/>⬇ Lowest precedence"]
     end
 
     A --> B --> C --> D
@@ -190,7 +190,7 @@ flowchart TB
     D -- Found --> Z
     D -- Not found --> E{"Extension files?"}
     E -- Found --> Z
-    E -- Not found --> F["Spec Kit core"]
+    E -- Not found --> F["SpecPack core"]
     F --> Z
 ```
 
@@ -221,4 +221,4 @@ Run `specify preset resolve <name>` to trace the resolution stack and see which 
 
 ### Who maintains presets?
 
-Most presets are independently created and maintained by their respective authors. The Spec Kit maintainers do not review, audit, endorse, or support preset code. Review a preset's source code before installing and use at your own discretion. For issues with a specific preset, contact its author or file an issue on the preset's repository.
+Most presets are independently created and maintained by their respective authors. The SpecPack maintainers do not review, audit, endorse, or support preset code. Review a preset's source code before installing and use at your own discretion. For issues with a specific preset, contact its author or file an issue on the preset's repository.

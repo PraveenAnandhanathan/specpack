@@ -1,6 +1,6 @@
 # Extension Publishing Guide
 
-This guide explains how to publish your extension to the Spec Kit extension catalog, making it discoverable by `specify extension search`.
+This guide explains how to publish your extension to the SpecPack extension catalog, making it discoverable by `specify extension search`.
 
 ## Table of Contents
 
@@ -64,16 +64,16 @@ extension:
   version: "1.0.0"                # Semantic version
   description: "Brief description (one sentence)"
   author: "Your Name or Organization"
-  repository: "https://github.com/your-org/spec-kit-your-extension"
+  repository: "https://github.com/your-org/specpack-your-extension"
   license: "MIT"
-  homepage: "https://github.com/your-org/spec-kit-your-extension"
+  homepage: "https://github.com/your-org/specpack-your-extension"
 
 requires:
-  speckit_version: ">=0.1.0"    # Required spec-kit version
+  specpack_version: ">=0.1.0"    # Required specpack version
 
 provides:
   commands:                       # List all commands
-    - name: "speckit.your-extension.command"
+    - name: "specpack.your-extension.command"
       file: "commands/command.md"
       description: "Command description"
 
@@ -101,7 +101,7 @@ git tag v1.0.0
 git push origin v1.0.0
 
 # Create release on GitHub
-# Go to: https://github.com/your-org/spec-kit-your-extension/releases/new
+# Go to: https://github.com/your-org/specpack-your-extension/releases/new
 # - Tag: v1.0.0
 # - Title: v1.0.0 - Release Name
 # - Description: Changelog/release notes
@@ -110,7 +110,7 @@ git push origin v1.0.0
 The release archive URL will be:
 
 ```text
-https://github.com/your-org/spec-kit-your-extension/archive/refs/tags/v1.0.0.zip
+https://github.com/your-org/specpack-your-extension/archive/refs/tags/v1.0.0.zip
 ```
 
 ### 4. Test Installation
@@ -122,7 +122,7 @@ Test that users can install from your release:
 specify extension add --dev /path/to/your-extension
 
 # Test from GitHub archive
-specify extension add <extension-name> --from https://github.com/your-org/spec-kit-your-extension/archive/refs/tags/v1.0.0.zip
+specify extension add <extension-name> --from https://github.com/your-org/specpack-your-extension/archive/refs/tags/v1.0.0.zip
 ```
 
 ---
@@ -131,19 +131,19 @@ specify extension add <extension-name> --from https://github.com/your-org/spec-k
 
 ### Understanding the Catalogs
 
-Spec Kit uses a dual-catalog system. For details about how catalogs work, see the main [Extensions README](README.md#extension-catalogs).
+SpecPack uses a dual-catalog system. For details about how catalogs work, see the main [Extensions README](README.md#extension-catalogs).
 
 **For extension publishing**: All community extensions should be added to `catalog.community.json`. Users browse this catalog and copy extensions they trust into their own `catalog.json`.
 
-### 1. Fork the spec-kit Repository
+### 1. Fork the specpack Repository
 
 ```bash
 # Fork on GitHub
-# https://github.com/github/spec-kit/fork
+# https://github.com/github/specpack/fork
 
 # Clone your fork
-git clone https://github.com/YOUR-USERNAME/spec-kit.git
-cd spec-kit
+git clone https://github.com/YOUR-USERNAME/specpack.git
+cd specpack
 ```
 
 ### 2. Add Extension to Community Catalog
@@ -154,7 +154,7 @@ Edit `extensions/catalog.community.json` and add your extension:
 {
   "schema_version": "1.0",
   "updated_at": "2026-01-28T15:54:00Z",
-  "catalog_url": "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json",
+  "catalog_url": "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.community.json",
   "extensions": {
     "your-extension": {
       "name": "Your Extension Name",
@@ -162,14 +162,14 @@ Edit `extensions/catalog.community.json` and add your extension:
       "description": "Brief description of your extension",
       "author": "Your Name",
       "version": "1.0.0",
-      "download_url": "https://github.com/your-org/spec-kit-your-extension/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/your-org/spec-kit-your-extension",
-      "homepage": "https://github.com/your-org/spec-kit-your-extension",
-      "documentation": "https://github.com/your-org/spec-kit-your-extension/blob/main/docs/",
-      "changelog": "https://github.com/your-org/spec-kit-your-extension/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/your-org/specpack-your-extension/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/your-org/specpack-your-extension",
+      "homepage": "https://github.com/your-org/specpack-your-extension",
+      "documentation": "https://github.com/your-org/specpack-your-extension/blob/main/docs/",
+      "changelog": "https://github.com/your-org/specpack-your-extension/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0",
+        "specpack_version": ">=0.1.0",
         "tools": [
           {
             "name": "required-mcp-tool",
@@ -209,7 +209,7 @@ Edit `extensions/catalog.community.json` and add your extension:
 Add your extension to the Community Extensions table in the project root `README.md`:
 
 ```markdown
-| Your Extension Name | Brief description of what it does | `<category>` | <effect> | [repo-name](https://github.com/your-org/spec-kit-your-extension) |
+| Your Extension Name | Brief description of what it does | `<category>` | <effect> | [repo-name](https://github.com/your-org/specpack-your-extension) |
 ```
 
 **(Table) Category** — pick the one that best fits your extension:
@@ -247,7 +247,7 @@ git commit -m "Add your-extension to community catalog
 git push origin add-your-extension
 
 # Create Pull Request on GitHub
-# https://github.com/github/spec-kit/compare
+# https://github.com/github/specpack/compare
 ```
 
 **Pull Request Template**:
@@ -259,7 +259,7 @@ git push origin add-your-extension
 **Extension ID**: your-extension
 **Version**: 1.0.0
 **Author**: Your Name
-**Repository**: https://github.com/your-org/spec-kit-your-extension
+**Repository**: https://github.com/your-org/specpack-your-extension
 
 ### Description
 Brief description of what your extension does.
@@ -277,7 +277,7 @@ Brief description of what your extension does.
 
 ### Testing
 Tested on:
-- macOS 13.0+ with spec-kit 0.1.0
+- macOS 13.0+ with specpack 0.1.0
 - Project: [Your test project]
 
 ### Additional Notes
@@ -388,12 +388,12 @@ When releasing a new version:
 4. **Update catalog**:
 
    ```bash
-   # Fork spec-kit repo (or update existing fork)
-   cd spec-kit
+   # Fork specpack repo (or update existing fork)
+   cd specpack
 
    # Update extensions/catalog.json
    jq '.extensions["your-extension"].version = "1.1.0"' extensions/catalog.json > tmp.json && mv tmp.json extensions/catalog.json
-   jq '.extensions["your-extension"].download_url = "https://github.com/your-org/spec-kit-your-extension/archive/refs/tags/v1.1.0.zip"' extensions/catalog.json > tmp.json && mv tmp.json extensions/catalog.json
+   jq '.extensions["your-extension"].download_url = "https://github.com/your-org/specpack-your-extension/archive/refs/tags/v1.1.0.zip"' extensions/catalog.json > tmp.json && mv tmp.json extensions/catalog.json
    jq '.extensions["your-extension"].updated_at = "2026-02-15T00:00:00Z"' extensions/catalog.json > tmp.json && mv tmp.json extensions/catalog.json
    jq '.updated_at = "2026-02-15T00:00:00Z"' extensions/catalog.json > tmp.json && mv tmp.json extensions/catalog.json
 
@@ -497,8 +497,8 @@ A: Extensions should be free and open-source. Commercial support/services are al
 
 ## Support
 
-- **Catalog Issues**: <https://github.com/statsperform/spec-kit/issues>
-- **Extension Template**: <https://github.com/statsperform/spec-kit-extension-template> (coming soon)
+- **Catalog Issues**: <https://github.com/statsperform/specpack/issues>
+- **Extension Template**: <https://github.com/statsperform/specpack-extension-template> (coming soon)
 - **Development Guide**: See EXTENSION-DEVELOPMENT-GUIDE.md
 - **Community**: Discussions and Q&A
 
@@ -522,7 +522,7 @@ A: Extensions should be free and open-source. Commercial support/services are al
   "changelog": "string (optional, valid URL)",
   "license": "string (required)",
   "requires": {
-    "speckit_version": "string (required, version specifier)",
+    "specpack_version": "string (required, version specifier)",
     "tools": [
       {
         "name": "string (required)",

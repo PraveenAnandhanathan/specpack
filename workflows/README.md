@@ -1,6 +1,6 @@
 # Workflows
 
-Workflows are multi-step, resumable automation pipelines defined in YAML. They orchestrate Spec Kit commands across integrations, evaluate control flow, and pause at human review gates — enabling end-to-end Spec-Driven Development cycles without manual step-by-step invocation.
+Workflows are multi-step, resumable automation pipelines defined in YAML. They orchestrate SpecPack commands across integrations, evaluate control flow, and pause at human review gates — enabling end-to-end Spec-Driven Development cycles without manual step-by-step invocation.
 
 ## How It Works
 
@@ -9,7 +9,7 @@ A workflow definition declares a sequence of steps. The engine executes them in 
 ```yaml
 steps:
   - id: specify
-    command: speckit.specify
+    command: specpack.specify
     input:
       args: "{{ inputs.spec }}"
 
@@ -20,7 +20,7 @@ steps:
     on_reject: abort
 
   - id: plan
-    command: speckit.plan
+    command: specpack.plan
 ```
 
 For detailed architecture and internals, see [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -32,13 +32,13 @@ For detailed architecture and internals, see [ARCHITECTURE.md](ARCHITECTURE.md).
 specify workflow search
 
 # Install the built-in SDD workflow
-specify workflow add speckit
+specify workflow add specpack
 
 # Or run directly from a local YAML file
 specify workflow run ./workflow.yml --input spec="Build a user authentication system with OAuth support"
 
 # Run an installed workflow with inputs
-specify workflow run speckit --input spec="Build a user authentication system with OAuth support"
+specify workflow run specpack --input spec="Build a user authentication system with OAuth support"
 
 # Check run status
 specify workflow status
@@ -47,10 +47,10 @@ specify workflow status
 specify workflow resume <run_id>
 
 # Get detailed workflow info
-specify workflow info speckit
+specify workflow info specpack
 
 # Remove a workflow
-specify workflow remove speckit
+specify workflow remove specpack
 ```
 
 ## Running Workflows
@@ -58,8 +58,8 @@ specify workflow remove speckit
 ### From an Installed Workflow
 
 ```bash
-specify workflow add speckit
-specify workflow run speckit --input spec="Build a user authentication system with OAuth support"
+specify workflow add specpack
+specify workflow run specpack --input spec="Build a user authentication system with OAuth support"
 ```
 
 ### From a Local YAML File
@@ -71,7 +71,7 @@ specify workflow run ./my-workflow.yml --input spec="Build a user authentication
 ### Multiple Inputs
 
 ```bash
-specify workflow run speckit \
+specify workflow run specpack \
   --input spec="Build a user authentication system with OAuth support" \
   --input scope="backend-only"
 ```
@@ -82,11 +82,11 @@ Workflows support 10 built-in step types:
 
 ### Command Steps (default)
 
-Invoke an installed Spec Kit command by name via the integration CLI:
+Invoke an installed SpecPack command by name via the integration CLI:
 
 ```yaml
 - id: specify
-  command: speckit.specify
+  command: specpack.specify
   input:
     args: "{{ inputs.spec }}"
   integration: claude        # Optional: override workflow default
@@ -136,10 +136,10 @@ Conditional branching based on an expression:
   condition: "{{ inputs.scope == 'full' }}"
   then:
     - id: full-plan
-      command: speckit.plan
+      command: specpack.plan
   else:
     - id: quick-plan
-      command: speckit.plan
+      command: specpack.plan
       options:
         quick: true
 ```
@@ -155,7 +155,7 @@ Multi-branch dispatch on an expression value:
   cases:
     approve:
       - id: plan
-        command: speckit.plan
+        command: specpack.plan
     reject:
       - id: log
         type: shell
@@ -177,7 +177,7 @@ Repeat steps while a condition is truthy:
   max_iterations: 5
   steps:
     - id: fix
-      command: speckit.implement
+      command: specpack.implement
 ```
 
 ### Do-While Loop Steps
@@ -191,7 +191,7 @@ Execute steps at least once, then repeat while condition holds:
   max_iterations: 3
   steps:
     - id: revise
-      command: speckit.specify
+      command: specpack.specify
 ```
 
 ### Fan-Out Steps
@@ -205,7 +205,7 @@ Dispatch a step template for each item in a collection (sequential):
   max_concurrency: 3
   step:
     id: impl
-    command: speckit.implement
+    command: specpack.implement
 ```
 
 ### Fan-In Steps
@@ -289,10 +289,10 @@ Run states: `created` → `running` → `completed` | `paused` | `failed` | `abo
 
 ## Catalog Management
 
-Workflows are discovered through catalogs. By default, Spec Kit uses the official and community catalogs:
+Workflows are discovered through catalogs. By default, SpecPack uses the official and community catalogs:
 
 > [!NOTE]
-> Community workflows are independently created and maintained by their respective authors. GitHub and the Spec Kit maintainers may review pull requests that add entries to the community catalog for formatting and structure, but they do **not review, audit, endorse, or support the workflow definitions themselves**. Review workflow source before installation and use at your own discretion.
+> Community workflows are independently created and maintained by their respective authors. GitHub and the SpecPack maintainers may review pull requests that add entries to the community catalog for formatting and structure, but they do **not review, audit, endorse, or support the workflow definitions themselves**. Review workflow source before installation and use at your own discretion.
 
 ```bash
 # List active catalogs
@@ -316,7 +316,7 @@ specify workflow catalog remove <index>
 
 | Variable | Description |
 |----------|-------------|
-| `SPECKIT_WORKFLOW_CATALOG_URL` | Override the catalog URL (replaces all defaults) |
+| `SPECPACK_WORKFLOW_CATALOG_URL` | Override the catalog URL (replaces all defaults) |
 
 ## Configuration Files
 
@@ -334,6 +334,6 @@ workflows/
 ├── README.md                               # This file
 ├── catalog.json                            # Official workflow catalog
 ├── catalog.community.json                  # Community workflow catalog
-└── speckit/                                # Built-in SDD cycle workflow
+└── specpack/                                # Built-in SDD cycle workflow
     └── workflow.yml
 ```

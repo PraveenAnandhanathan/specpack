@@ -17,15 +17,15 @@ preset:
   author: "Your Name"
 
   # CUSTOMIZE: GitHub repository URL (create before publishing)
-  repository: "https://github.com/your-org/spec-kit-preset-my-preset"
+  repository: "https://github.com/your-org/specpack-preset-my-preset"
 
   # REVIEW: License (MIT is recommended for open source)
   license: "MIT"
 
 # Requirements for this preset
 requires:
-  # CUSTOMIZE: Minimum spec-kit version required
-  speckit_version: ">=0.1.0"
+  # CUSTOMIZE: Minimum specpack version required
+  specpack_version: ">=0.1.0"
 
 # Templates provided by this preset
 provides:
@@ -65,17 +65,17 @@ provides:
 
     # Override a core command:
     - type: "command"
-      name: "speckit.specify"
-      file: "commands/speckit.specify.md"
+      name: "specpack.specify"
+      file: "commands/specpack.specify.md"
       description: "Custom specification command"
-      replaces: "speckit.specify"
+      replaces: "specpack.specify"
 
     # Override an extension command (e.g. from the "myext" extension):
     - type: "command"
-      name: "speckit.myext.myextcmd"
-      file: "commands/speckit.myext.myextcmd.md"
+      name: "specpack.myext.myextcmd"
+      file: "commands/specpack.myext.myextcmd.md"
       description: "Override myext's myextcmd command with custom workflow"
-      replaces: "speckit.myext.myextcmd"
+      replaces: "specpack.myext.myextcmd"
 
     # Script templates (reserved for future use)
     # - type: "script"

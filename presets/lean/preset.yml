@@ -6,43 +6,43 @@ preset:
   version: "1.0.0"
   description: "Minimal core workflow commands - just the prompt, just the artifact"
   author: "github"
-  repository: "https://github.com/github/spec-kit"
+  repository: "https://github.com/github/specpack"
   license: "MIT"
 
 requires:
-  speckit_version: ">=0.6.0"
+  specpack_version: ">=0.6.0"
 
 provides:
   templates:
     - type: "command"
-      name: "speckit.specify"
-      file: "commands/speckit.specify.md"
+      name: "specpack.specify"
+      file: "commands/specpack.specify.md"
       description: "Lean specify - create spec.md from a feature description"
-      replaces: "speckit.specify"
+      replaces: "specpack.specify"
 
     - type: "command"
-      name: "speckit.plan"
-      file: "commands/speckit.plan.md"
+      name: "specpack.plan"
+      file: "commands/specpack.plan.md"
       description: "Lean plan - create plan.md from the spec"
-      replaces: "speckit.plan"
+      replaces: "specpack.plan"
 
     - type: "command"
-      name: "speckit.tasks"
-      file: "commands/speckit.tasks.md"
+      name: "specpack.tasks"
+      file: "commands/specpack.tasks.md"
       description: "Lean tasks - create tasks.md from plan and spec"
-      replaces: "speckit.tasks"
+      replaces: "specpack.tasks"
 
     - type: "command"
-      name: "speckit.implement"
-      file: "commands/speckit.implement.md"
+      name: "specpack.implement"
+      file: "commands/specpack.implement.md"
       description: "Lean implement - execute tasks from tasks.md"
-      replaces: "speckit.implement"
+      replaces: "specpack.implement"
 
     - type: "command"
-      name: "speckit.constitution"
-      file: "commands/speckit.constitution.md"
+      name: "specpack.constitution"
+      file: "commands/specpack.constitution.md"
       description: "Lean constitution - create or update project constitution"
-      replaces: "speckit.constitution"
+      replaces: "specpack.constitution"
 
 tags:
   - "lean"

@@ -1,6 +1,6 @@
 # Preset Publishing Guide
 
-This guide explains how to publish your preset to the Spec Kit preset catalog, making it discoverable by `specify preset search`.
+This guide explains how to publish your preset to the SpecPack preset catalog, making it discoverable by `specify preset search`.
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ your-preset/
 │   └── ...
 │
 └── commands/                  # Command overrides (optional)
-    └── speckit.specify.md
+    └── specpack.specify.md
 ```
 
 Start from the [scaffold](scaffold/) if you're creating a new preset.
@@ -63,11 +63,11 @@ preset:
   version: "1.0.0"                # Semantic version
   description: "Brief description (one sentence)"
   author: "Your Name or Organization"
-  repository: "https://github.com/your-org/spec-kit-preset-your-preset"
+  repository: "https://github.com/your-org/specpack-preset-your-preset"
   license: "MIT"
 
 requires:
-  speckit_version: ">=0.1.0"      # Required spec-kit version
+  specpack_version: ">=0.1.0"      # Required specpack version
 
 provides:
   templates:
@@ -90,7 +90,7 @@ tags:                              # 2-5 relevant tags
 - ✅ `repository` URL is valid and public
 - ✅ All template and command files exist in the preset directory
 - ✅ Template names are lowercase with hyphens only
-- ✅ Command names use dot notation (e.g. `speckit.specify`)
+- ✅ Command names use dot notation (e.g. `specpack.specify`)
 - ✅ Tags are lowercase and descriptive
 
 ### 3. Test Locally
@@ -116,13 +116,13 @@ If your preset includes command overrides, verify they appear in the agent direc
 
 ```bash
 # Check Claude commands (if using Claude)
-ls .claude/commands/speckit.*.md
+ls .claude/commands/specpack.*.md
 
 # Check Copilot commands (if using Copilot)
-ls .github/agents/speckit.*.agent.md
+ls .github/agents/specpack.*.agent.md
 
 # Check Gemini commands (if using Gemini)
-ls .gemini/commands/speckit.*.toml
+ls .gemini/commands/specpack.*.toml
 ```
 
 ### 4. Create GitHub Release
@@ -138,13 +138,13 @@ git push origin v1.0.0
 The release archive URL will be:
 
 ```text
-https://github.com/your-org/spec-kit-preset-your-preset/archive/refs/tags/v1.0.0.zip
+https://github.com/your-org/specpack-preset-your-preset/archive/refs/tags/v1.0.0.zip
 ```
 
 ### 5. Test Installation from Archive
 
 ```bash
-specify preset add --from https://github.com/your-org/spec-kit-preset-your-preset/archive/refs/tags/v1.0.0.zip
+specify preset add --from https://github.com/your-org/specpack-preset-your-preset/archive/refs/tags/v1.0.0.zip
 ```
 
 ---
@@ -153,18 +153,18 @@ specify preset add --from https://github.com/your-org/spec-kit-preset-your-prese
 
 ### Understanding the Catalogs
 
-Spec Kit uses a dual-catalog system:
+SpecPack uses a dual-catalog system:
 
 - **`catalog.json`** — Official, verified presets (install allowed by default)
 - **`catalog.community.json`** — Community-contributed presets (discovery only by default)
 
 All community presets should be submitted to `catalog.community.json`.
 
-### 1. Fork the spec-kit Repository
+### 1. Fork the specpack Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/spec-kit.git
-cd spec-kit
+git clone https://github.com/YOUR-USERNAME/specpack.git
+cd specpack
 ```
 
 ### 2. Add Preset to Community Catalog
@@ -177,18 +177,18 @@ Edit `presets/catalog.community.json` and add your preset.
 {
   "schema_version": "1.0",
   "updated_at": "2026-03-10T00:00:00Z",
-  "catalog_url": "https://raw.githubusercontent.com/github/spec-kit/main/presets/catalog.community.json",
+  "catalog_url": "https://raw.githubusercontent.com/github/specpack/main/presets/catalog.community.json",
   "presets": {
     "your-preset": {
       "name": "Your Preset Name",
       "description": "Brief description of what your preset provides",
       "author": "Your Name",
       "version": "1.0.0",
-      "download_url": "https://github.com/your-org/spec-kit-preset-your-preset/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/your-org/spec-kit-preset-your-preset",
+      "download_url": "https://github.com/your-org/specpack-preset-your-preset/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/your-org/specpack-preset-your-preset",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "templates": 3,
@@ -228,7 +228,7 @@ git push origin add-your-preset
 **Preset Name**: Your Preset Name
 **Preset ID**: your-preset
 **Version**: 1.0.0
-**Repository**: https://github.com/your-org/spec-kit-preset-your-preset
+**Repository**: https://github.com/your-org/specpack-preset-your-preset
 
 ### Checklist
 - [ ] Valid preset.yml manifest

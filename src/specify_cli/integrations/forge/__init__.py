@@ -4,7 +4,7 @@ Forge has several unique behaviors compared to standard markdown agents:
 - Uses `{{parameters}}` instead of `$ARGUMENTS` for argument passing
 - Strips `handoffs` frontmatter key (Claude Code feature that causes Forge to hang)
 - Injects `name` field into frontmatter when missing
-- Uses a hyphenated frontmatter `name` value (e.g., `speckit-foo-bar`) for shell compatibility, especially with ZSH
+- Uses a hyphenated frontmatter `name` value (e.g., `specpack-foo-bar`) for shell compatibility, especially with ZSH
 """
 
 from __future__ import annotations
@@ -27,39 +27,39 @@ def format_forge_command_name(cmd_name: str) -> str:
     
     Examples:
         >>> format_forge_command_name("plan")
-        'speckit-plan'
-        >>> format_forge_command_name("speckit.plan")
-        'speckit-plan'
-        >>> format_forge_command_name("speckit-plan")
-        'speckit-plan'
-        >>> format_forge_command_name("speckit.my-extension.example")
-        'speckit-my-extension-example'
-        >>> format_forge_command_name("speckit-my-extension-example")
-        'speckit-my-extension-example'
-        >>> format_forge_command_name("speckit.jira.sync-status")
-        'speckit-jira-sync-status'
+        'specpack-plan'
+        >>> format_forge_command_name("specpack.plan")
+        'specpack-plan'
+        >>> format_forge_command_name("specpack-plan")
+        'specpack-plan'
+        >>> format_forge_command_name("specpack.my-extension.example")
+        'specpack-my-extension-example'
+        >>> format_forge_command_name("specpack-my-extension-example")
+        'specpack-my-extension-example'
+        >>> format_forge_command_name("specpack.jira.sync-status")
+        'specpack-jira-sync-status'
     
     Args:
-        cmd_name: Command name in dot notation (speckit.foo.bar), 
-                  hyphenated format (speckit-foo-bar), or plain name (foo)
+        cmd_name: Command name in dot notation (specpack.foo.bar), 
+                  hyphenated format (specpack-foo-bar), or plain name (foo)
     
     Returns:
-        Hyphenated command name with 'speckit-' prefix
+        Hyphenated command name with 'specpack-' prefix
     """
     # Already in hyphenated format - return as-is (idempotent)
-    if cmd_name.startswith("speckit-"):
+    if cmd_name.startswith("specpack-"):
         return cmd_name
     
-    # Strip 'speckit.' prefix if present
+    # Strip 'specpack.' prefix if present
     short_name = cmd_name
-    if short_name.startswith("speckit."):
-        short_name = short_name[len("speckit."):]
+    if short_name.startswith("specpack."):
+        short_name = short_name[len("specpack."):]
     
     # Replace all dots with hyphens
     short_name = short_name.replace(".", "-")
     
-    # Return with 'speckit-' prefix
-    return f"speckit-{short_name}"
+    # Return with 'specpack-' prefix
+    return f"specpack-{short_name}"
 
 
 class ForgeIntegration(MarkdownIntegration):

@@ -57,10 +57,10 @@ class IntegrationCatalog:
     """Manages integration catalog fetching, caching, and searching."""
 
     DEFAULT_CATALOG_URL = (
-        "https://raw.githubusercontent.com/github/spec-kit/main/integrations/catalog.json"
+        "https://raw.githubusercontent.com/github/specpack/main/integrations/catalog.json"
     )
     COMMUNITY_CATALOG_URL = (
-        "https://raw.githubusercontent.com/github/spec-kit/main/integrations/catalog.community.json"
+        "https://raw.githubusercontent.com/github/specpack/main/integrations/catalog.community.json"
     )
     CACHE_DURATION = 3600  # 1 hour
 
@@ -168,14 +168,14 @@ class IntegrationCatalog:
         """Return the ordered list of active integration catalogs.
 
         Resolution:
-        1. ``SPECKIT_INTEGRATION_CATALOG_URL`` env var
+        1. ``SPECPACK_INTEGRATION_CATALOG_URL`` env var
         2. Project ``.specify/integration-catalogs.yml``
         3. User ``~/.specify/integration-catalogs.yml``
         4. Built-in defaults (built-in + community)
         """
         import sys
 
-        env_value = os.environ.get("SPECKIT_INTEGRATION_CATALOG_URL", "").strip()
+        env_value = os.environ.get("SPECPACK_INTEGRATION_CATALOG_URL", "").strip()
         if env_value:
             self._validate_catalog_url(env_value)
             if env_value != self.DEFAULT_CATALOG_URL:
@@ -192,7 +192,7 @@ class IntegrationCatalog:
                     name="custom",
                     priority=1,
                     install_allowed=True,
-                    description="Custom catalog via SPECKIT_INTEGRATION_CATALOG_URL",
+                    description="Custom catalog via SPECPACK_INTEGRATION_CATALOG_URL",
                 )
             ]
 
@@ -426,7 +426,7 @@ class IntegrationDescriptor:
           description: "Integration for My Agent"
           author: "my-org"
         requires:
-          speckit_version: ">=0.6.0"
+          specpack_version: ">=0.6.0"
           tools: [...]
         provides:
           commands: [...]
@@ -509,13 +509,13 @@ class IntegrationDescriptor:
             raise IntegrationDescriptorError(
                 "'requires' must be a mapping"
             )
-        if "speckit_version" not in requires:
+        if "specpack_version" not in requires:
             raise IntegrationDescriptorError(
-                "Missing requires.speckit_version"
+                "Missing requires.specpack_version"
             )
-        if not isinstance(requires["speckit_version"], str) or not requires["speckit_version"].strip():
+        if not isinstance(requires["specpack_version"], str) or not requires["specpack_version"].strip():
             raise IntegrationDescriptorError(
-                "requires.speckit_version must be a non-empty string"
+                "requires.specpack_version must be a non-empty string"
             )
         tools = requires.get("tools")
         if tools is not None:
@@ -605,8 +605,8 @@ class IntegrationDescriptor:
         return self.data["integration"]["description"]
 
     @property
-    def requires_speckit_version(self) -> str:
-        return self.data["requires"]["speckit_version"]
+    def requires_specpack_version(self) -> str:
+        return self.data["requires"]["specpack_version"]
 
     @property
     def commands(self) -> List[Dict[str, Any]]:

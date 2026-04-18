@@ -9,13 +9,13 @@ This command drives a self-test simulating the developer experience with the `$A
 ## Goal
 
 Validate the end-to-end lifecycle (discovery, installation, registration) for the extension: `$ARGUMENTS`.
-If `$ARGUMENTS` is empty, you must tell the user to provide an extension name, for example: `/speckit.selftest.extension linear`.
+If `$ARGUMENTS` is empty, you must tell the user to provide an extension name, for example: `/specpack.selftest.extension linear`.
 
 ## Steps
 
 ### Step 1: Catalog Discovery Validation
 
-Check if the extension exists in the Spec Kit catalog.
+Check if the extension exists in the SpecPack catalog.
 Execute this command and verify that it completes successfully and that the returned extension ID exactly matches `$ARGUMENTS`. If the command fails or the ID does not match `$ARGUMENTS`, fail the test.
 
 ```bash

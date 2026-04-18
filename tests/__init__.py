@@ -1,1 +1,1 @@
-"""Unit tests for Spec Kit."""
+"""Unit tests for SpecPack."""

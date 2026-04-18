@@ -1,6 +1,6 @@
 # Extension Development Guide
 
-A guide for creating Spec Kit extensions.
+A guide for creating SpecPack extensions.
 
 ---
 
@@ -24,24 +24,24 @@ extension:
   version: "1.0.0"                      # Semantic versioning
   description: "My custom extension"
   author: "Your Name"
-  repository: "https://github.com/you/spec-kit-my-ext"
+  repository: "https://github.com/you/specpack-my-ext"
   license: "MIT"
 
 requires:
-  speckit_version: ">=0.1.0"            # Minimum spec-kit version
+  specpack_version: ">=0.1.0"            # Minimum specpack version
   tools:                                # Optional: External tools required
     - name: "my-tool"
       required: true
       version: ">=1.0.0"
   commands:                             # Optional: Core commands needed
-    - "speckit.tasks"
+    - "specpack.tasks"
 
 provides:
   commands:
-    - name: "speckit.my-ext.hello"      # Must follow pattern: speckit.{ext-id}.{cmd}
+    - name: "specpack.my-ext.hello"      # Must follow pattern: specpack.{ext-id}.{cmd}
       file: "commands/hello.md"
       description: "Say hello"
-      aliases: ["speckit.my-ext.hi"]    # Optional aliases, same pattern
+      aliases: ["specpack.my-ext.hi"]    # Optional aliases, same pattern
 
   config:                               # Optional: Config files
     - name: "my-ext-config.yml"
@@ -51,7 +51,7 @@ provides:
 
 hooks:                                  # Optional: Integration hooks
   after_tasks:
-    command: "speckit.my-ext.hello"
+    command: "specpack.my-ext.hello"
     optional: true
     prompt: "Run hello command?"
 
@@ -105,7 +105,7 @@ Load extension config from `.specify/extensions/my-ext/my-ext-config.yml`.
 ### 5. Test Locally
 
 ```bash
-cd /path/to/spec-kit-project
+cd /path/to/specpack-project
 specify extension add --dev /path/to/my-extension
 ```
 
@@ -126,10 +126,10 @@ If using Claude:
 
 ```bash
 claude
-> /speckit.my-ext.hello world
+> /specpack.my-ext.hello world
 ```
 
-The command will be available in `.claude/commands/speckit.my-ext.hello.md`.
+The command will be available in `.claude/commands/specpack.my-ext.hello.md`.
 
 ---
 
@@ -165,12 +165,12 @@ Compatibility requirements.
 
 **Required sub-fields**:
 
-- `speckit_version`: Semantic version specifier (e.g., ">=0.1.0,<2.0.0")
+- `specpack_version`: Semantic version specifier (e.g., ">=0.1.0,<2.0.0")
 
 **Optional sub-fields**:
 
 - `tools`: External tools required (array of tool objects)
-- `commands`: Core spec-kit commands needed (array of command names)
+- `commands`: Core specpack commands needed (array of command names)
 - `scripts`: Core scripts required (array of script names)
 
 #### `provides`
@@ -183,10 +183,10 @@ What the extension provides.
 
 **Command object**:
 
-- `name`: Command name (must match `speckit.{ext-id}.{command}`)
+- `name`: Command name (must match `specpack.{ext-id}.{command}`)
 - `file`: Path to command file (relative to extension root)
 - `description`: Command description (optional)
-- `aliases`: Alternative command names (optional, array; each must match `speckit.{ext-id}.{command}`)
+- `aliases`: Alternative command names (optional, array; each must match `specpack.{ext-id}.{command}`)
 
 ### Optional Fields
 
@@ -282,7 +282,7 @@ scripts:
   sh: .specify/scripts/bash/helper.sh
 ```
 
-This allows scripts to reference core spec-kit scripts.
+This allows scripts to reference core specpack scripts.
 
 ---
 
@@ -416,9 +416,9 @@ The following `.gitignore` features are **not applicable** in this context:
 
 ### Command Name
 
-- **Pattern**: `^speckit\.[a-z0-9-]+\.[a-z0-9-]+$`
-- **Valid**: `speckit.my-ext.hello`, `speckit.tool.cmd`
-- **Invalid**: `my-ext.hello` (missing prefix), `speckit.hello` (no extension namespace)
+- **Pattern**: `^specpack\.[a-z0-9-]+\.[a-z0-9-]+$`
+- **Valid**: `specpack.my-ext.hello`, `specpack.tool.cmd`
+- **Invalid**: `my-ext.hello` (missing prefix), `specpack.hello` (no extension namespace)
 
 ### Command File Path
 
@@ -449,7 +449,7 @@ The following `.gitignore` features are **not applicable** in this context:
 5. **Check command registration**:
 
    ```bash
-   ls .claude/commands/speckit.my-ext.*
+   ls .claude/commands/specpack.my-ext.*
    ```
 
 6. **Remove extension**:
@@ -488,11 +488,11 @@ def test_command_files_exist():
 
 ### Option 1: GitHub Repository
 
-1. **Create repository**: `spec-kit-my-ext`
+1. **Create repository**: `specpack-my-ext`
 2. **Add files**:
 
    ```text
-   spec-kit-my-ext/
+   specpack-my-ext/
    ├── extension.yml
    ├── commands/
    ├── scripts/
@@ -506,8 +506,8 @@ def test_command_files_exist():
 4. **Install from repo**:
 
    ```bash
-   git clone https://github.com/you/spec-kit-my-ext
-   specify extension add --dev spec-kit-my-ext/
+   git clone https://github.com/you/specpack-my-ext
+   specify extension add --dev specpack-my-ext/
    ```
 
 ### Option 2: ZIP Archive (Future)
@@ -515,20 +515,20 @@ def test_command_files_exist():
 Create ZIP archive and host on GitHub Releases:
 
 ```bash
-zip -r spec-kit-my-ext-1.0.0.zip extension.yml commands/ scripts/ docs/
+zip -r specpack-my-ext-1.0.0.zip extension.yml commands/ scripts/ docs/
 ```
 
 Users install with:
 
 ```bash
-specify extension add <extension-name> --from https://github.com/.../spec-kit-my-ext-1.0.0.zip
+specify extension add <extension-name> --from https://github.com/.../specpack-my-ext-1.0.0.zip
 ```
 
 ### Option 3: Community Reference Catalog
 
 Submit to the community catalog for public discovery:
 
-1. **Fork** spec-kit repository
+1. **Fork** specpack repository
 2. **Add entry** to `extensions/catalog.community.json`
 3. **Update** the Community Extensions table in `README.md` with your extension
 4. **Create PR** following the [Extension Publishing Guide](EXTENSION-PUBLISHING-GUIDE.md)
@@ -592,10 +592,10 @@ extension:
   version: "1.0.0"
   description: "Minimal example"
 requires:
-  speckit_version: ">=0.1.0"
+  specpack_version: ">=0.1.0"
 provides:
   commands:
-    - name: "speckit.minimal.hello"
+    - name: "specpack.minimal.hello"
       file: "commands/hello.md"
 ```
 
@@ -652,7 +652,7 @@ Extension that runs automatically:
 # extension.yml
 hooks:
   after_tasks:
-    command: "speckit.auto.analyze"
+    command: "specpack.auto.analyze"
     optional: false  # Always run
     description: "Analyze tasks after generation"
 ```
@@ -667,9 +667,9 @@ hooks:
 
 - **Fix**: Use lowercase, alphanumeric + hyphens only
 
-**Error**: `Extension requires spec-kit >=0.2.0`
+**Error**: `Extension requires specpack >=0.2.0`
 
-- **Fix**: Update spec-kit with `uv tool install specify-cli --force`
+- **Fix**: Update specpack with `uv tool install specify-cli --force`
 
 **Error**: `Command file not found`
 
@@ -705,7 +705,7 @@ hooks:
 
 - **Issues**: Report bugs at GitHub repository
 - **Discussions**: Ask questions in GitHub Discussions
-- **Examples**: See `spec-kit-jira` for full-featured example (Phase B)
+- **Examples**: See `specpack-jira` for full-featured example (Phase B)
 
 ---
 

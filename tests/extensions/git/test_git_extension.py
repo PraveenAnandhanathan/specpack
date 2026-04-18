@@ -142,11 +142,11 @@ class TestGitExtensionManifest:
 
         m = ExtensionManifest(EXT_DIR / "extension.yml")
         names = [c["name"] for c in m.commands]
-        assert "speckit.git.feature" in names
-        assert "speckit.git.validate" in names
-        assert "speckit.git.remote" in names
-        assert "speckit.git.initialize" in names
-        assert "speckit.git.commit" in names
+        assert "specpack.git.feature" in names
+        assert "specpack.git.validate" in names
+        assert "specpack.git.remote" in names
+        assert "specpack.git.initialize" in names
+        assert "specpack.git.commit" in names
 
     def test_manifest_hooks(self):
         """Manifest declares expected hooks."""
@@ -157,8 +157,8 @@ class TestGitExtensionManifest:
         assert "before_specify" in m.hooks
         assert "after_specify" in m.hooks
         assert "after_implement" in m.hooks
-        assert m.hooks["before_constitution"]["command"] == "speckit.git.initialize"
-        assert m.hooks["before_specify"]["command"] == "speckit.git.feature"
+        assert m.hooks["before_constitution"]["command"] == "specpack.git.initialize"
+        assert m.hooks["before_specify"]["command"] == "specpack.git.feature"
 
     def test_manifest_command_files_exist(self):
         """All command files referenced in the manifest exist."""

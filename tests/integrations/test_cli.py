@@ -50,8 +50,8 @@ class TestInitIntegrationFlag:
         finally:
             os.chdir(old_cwd)
         assert result.exit_code == 0, f"init failed: {result.output}"
-        assert (project / ".github" / "agents" / "speckit.plan.agent.md").exists()
-        assert (project / ".github" / "prompts" / "speckit.plan.prompt.md").exists()
+        assert (project / ".github" / "agents" / "specpack.plan.agent.md").exists()
+        assert (project / ".github" / "prompts" / "specpack.plan.prompt.md").exists()
         assert (project / ".specify" / "scripts" / "bash" / "common.sh").exists()
 
         data = json.loads((project / ".specify" / "integration.json").read_text(encoding="utf-8"))
@@ -67,10 +67,10 @@ class TestInitIntegrationFlag:
         ctx_file = project / ".github" / "copilot-instructions.md"
         assert ctx_file.exists()
         ctx_content = ctx_file.read_text(encoding="utf-8")
-        assert "<!-- SPECKIT START -->" in ctx_content
-        assert "<!-- SPECKIT END -->" in ctx_content
+        assert "<!-- SPECPACK START -->" in ctx_content
+        assert "<!-- SPECPACK END -->" in ctx_content
 
-        shared_manifest = project / ".specify" / "integrations" / "speckit.manifest.json"
+        shared_manifest = project / ".specify" / "integrations" / "specpack.manifest.json"
         assert shared_manifest.exists()
 
     def test_ai_copilot_auto_promotes(self, tmp_path):
@@ -88,7 +88,7 @@ class TestInitIntegrationFlag:
         finally:
             os.chdir(old_cwd)
         assert result.exit_code == 0
-        assert (project / ".github" / "agents" / "speckit.plan.agent.md").exists()
+        assert (project / ".github" / "agents" / "specpack.plan.agent.md").exists()
 
     def test_ai_emits_deprecation_warning_with_integration_replacement(self, tmp_path):
         from typer.testing import CliRunner
@@ -115,7 +115,7 @@ class TestInitIntegrationFlag:
         assert "1.0.0" in normalized_output
         assert "--integration copilot" in normalized_output
         assert normalized_output.index("Deprecation Warning") < normalized_output.index("Next Steps")
-        assert (project / ".github" / "agents" / "speckit.plan.agent.md").exists()
+        assert (project / ".github" / "agents" / "specpack.plan.agent.md").exists()
 
     def test_ai_generic_warning_suggests_integration_options_equivalent(self, tmp_path):
         from typer.testing import CliRunner
@@ -141,7 +141,7 @@ class TestInitIntegrationFlag:
         assert "--integration-options" in normalized_output
         assert ".myagent/commands" in normalized_output
         assert normalized_output.index("Deprecation Warning") < normalized_output.index("Next Steps")
-        assert (project / ".myagent" / "commands" / "speckit.plan.md").exists()
+        assert (project / ".myagent" / "commands" / "specpack.plan.md").exists()
 
     def test_ai_claude_here_preserves_preexisting_commands(self, tmp_path):
         from typer.testing import CliRunner
@@ -151,7 +151,7 @@ class TestInitIntegrationFlag:
         project.mkdir()
         commands_dir = project / ".claude" / "skills"
         commands_dir.mkdir(parents=True)
-        skill_dir = commands_dir / "speckit-specify"
+        skill_dir = commands_dir / "specpack-specify"
         skill_dir.mkdir(parents=True)
         command_file = skill_dir / "SKILL.md"
         command_file.write_text("# preexisting command\n", encoding="utf-8")
@@ -170,8 +170,8 @@ class TestInitIntegrationFlag:
         assert command_file.exists()
         # init replaces skills (not additive); verify the file has valid skill content
         assert command_file.exists()
-        assert "speckit-specify" in command_file.read_text(encoding="utf-8")
-        assert (project / ".claude" / "skills" / "speckit-plan" / "SKILL.md").exists()
+        assert "specpack-specify" in command_file.read_text(encoding="utf-8")
+        assert (project / ".claude" / "skills" / "specpack-plan" / "SKILL.md").exists()
 
     def test_shared_infra_skips_existing_files(self, tmp_path):
         """Pre-existing shared files are not overwritten by _install_shared_infra."""
@@ -242,7 +242,7 @@ class TestForceExistingDirectory:
         # Pre-existing file should survive
         assert marker.read_text(encoding="utf-8") == "keep me"
 
-        # Spec Kit files should be installed
+        # SpecPack files should be installed
         assert (target / ".specify" / "init-options.json").exists()
         assert (target / ".specify" / "templates" / "spec-template.md").exists()
 
@@ -352,5 +352,5 @@ class TestGitExtensionAutoInstall:
         # Git extension commands should be registered with the agent
         claude_skills = project / ".claude" / "skills"
         assert claude_skills.exists(), "Claude skills directory was not created"
-        git_skills = [f for f in claude_skills.iterdir() if f.name.startswith("speckit-git-")]
+        git_skills = [f for f in claude_skills.iterdir() if f.name.startswith("specpack-git-")]
         assert len(git_skills) > 0, "no git extension commands registered"

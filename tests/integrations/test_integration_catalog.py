@@ -76,7 +76,7 @@ class TestActiveCatalogs:
     def test_defaults_when_no_config(self, tmp_path, monkeypatch):
         monkeypatch.setenv("HOME", str(tmp_path))
         monkeypatch.setenv("USERPROFILE", str(tmp_path))
-        monkeypatch.delenv("SPECKIT_INTEGRATION_CATALOG_URL", raising=False)
+        monkeypatch.delenv("SPECPACK_INTEGRATION_CATALOG_URL", raising=False)
         (tmp_path / ".specify").mkdir()
         cat = IntegrationCatalog(tmp_path)
         active = cat.get_active_catalogs()
@@ -87,7 +87,7 @@ class TestActiveCatalogs:
     def test_env_var_override(self, tmp_path, monkeypatch):
         (tmp_path / ".specify").mkdir()
         monkeypatch.setenv(
-            "SPECKIT_INTEGRATION_CATALOG_URL",
+            "SPECPACK_INTEGRATION_CATALOG_URL",
             "https://custom.example.com/catalog.json",
         )
         cat = IntegrationCatalog(tmp_path)
@@ -156,7 +156,7 @@ class TestCatalogFetch:
     def test_fetch_and_search_all(self, tmp_path, monkeypatch):
         monkeypatch.setenv("HOME", str(tmp_path))
         monkeypatch.setenv("USERPROFILE", str(tmp_path))
-        monkeypatch.delenv("SPECKIT_INTEGRATION_CATALOG_URL", raising=False)
+        monkeypatch.delenv("SPECPACK_INTEGRATION_CATALOG_URL", raising=False)
         (tmp_path / ".specify").mkdir()
         cat = IntegrationCatalog(tmp_path)
 
@@ -184,7 +184,7 @@ class TestCatalogFetch:
     def test_search_by_tag(self, tmp_path, monkeypatch):
         monkeypatch.setenv("HOME", str(tmp_path))
         monkeypatch.setenv("USERPROFILE", str(tmp_path))
-        monkeypatch.delenv("SPECKIT_INTEGRATION_CATALOG_URL", raising=False)
+        monkeypatch.delenv("SPECPACK_INTEGRATION_CATALOG_URL", raising=False)
         (tmp_path / ".specify").mkdir()
         cat = IntegrationCatalog(tmp_path)
 
@@ -204,7 +204,7 @@ class TestCatalogFetch:
     def test_search_by_query(self, tmp_path, monkeypatch):
         monkeypatch.setenv("HOME", str(tmp_path))
         monkeypatch.setenv("USERPROFILE", str(tmp_path))
-        monkeypatch.delenv("SPECKIT_INTEGRATION_CATALOG_URL", raising=False)
+        monkeypatch.delenv("SPECPACK_INTEGRATION_CATALOG_URL", raising=False)
         (tmp_path / ".specify").mkdir()
         cat = IntegrationCatalog(tmp_path)
 
@@ -225,7 +225,7 @@ class TestCatalogFetch:
     def test_get_integration_info(self, tmp_path, monkeypatch):
         monkeypatch.setenv("HOME", str(tmp_path))
         monkeypatch.setenv("USERPROFILE", str(tmp_path))
-        monkeypatch.delenv("SPECKIT_INTEGRATION_CATALOG_URL", raising=False)
+        monkeypatch.delenv("SPECPACK_INTEGRATION_CATALOG_URL", raising=False)
         (tmp_path / ".specify").mkdir()
         cat = IntegrationCatalog(tmp_path)
 
@@ -247,7 +247,7 @@ class TestCatalogFetch:
     def test_invalid_catalog_format(self, tmp_path, monkeypatch):
         monkeypatch.setenv("HOME", str(tmp_path))
         monkeypatch.setenv("USERPROFILE", str(tmp_path))
-        monkeypatch.delenv("SPECKIT_INTEGRATION_CATALOG_URL", raising=False)
+        monkeypatch.delenv("SPECPACK_INTEGRATION_CATALOG_URL", raising=False)
         (tmp_path / ".specify").mkdir()
         cat = IntegrationCatalog(tmp_path)
 
@@ -279,11 +279,11 @@ VALID_DESCRIPTOR = {
         "author": "my-org",
     },
     "requires": {
-        "speckit_version": ">=0.6.0",
+        "specpack_version": ">=0.6.0",
     },
     "provides": {
         "commands": [
-            {"name": "speckit.specify", "file": "templates/speckit.specify.md"},
+            {"name": "specpack.specify", "file": "templates/specpack.specify.md"},
         ],
         "scripts": [],
     },
@@ -303,7 +303,7 @@ class TestIntegrationDescriptor:
         assert desc.name == "My Agent"
         assert desc.version == "1.0.0"
         assert desc.description == "Integration for My Agent"
-        assert desc.requires_speckit_version == ">=0.6.0"
+        assert desc.requires_specpack_version == ">=0.6.0"
         assert len(desc.commands) == 1
         assert desc.scripts == []
 
@@ -340,10 +340,10 @@ class TestIntegrationDescriptor:
         with pytest.raises(IntegrationDescriptorError, match="Invalid version"):
             IntegrationDescriptor(p)
 
-    def test_missing_speckit_version(self, tmp_path):
+    def test_missing_specpack_version(self, tmp_path):
         data = {**VALID_DESCRIPTOR, "requires": {}}
         p = self._write(tmp_path, data)
-        with pytest.raises(IntegrationDescriptorError, match="requires.speckit_version"):
+        with pytest.raises(IntegrationDescriptorError, match="requires.specpack_version"):
             IntegrationDescriptor(p)
 
     def test_no_commands_or_scripts(self, tmp_path):
@@ -388,7 +388,7 @@ class TestIntegrationDescriptor:
 
     def test_tools_accessor(self, tmp_path):
         data = {**VALID_DESCRIPTOR, "requires": {
-            "speckit_version": ">=0.6.0",
+            "specpack_version": ">=0.6.0",
             "tools": [{"name": "my-agent", "version": ">=1.0.0", "required": True}],
         }}
         p = self._write(tmp_path, data)
@@ -406,7 +406,7 @@ class TestIntegrationListCatalog:
     """Test ``specify integration list --catalog``."""
 
     def _init_project(self, tmp_path):
-        """Create a minimal spec-kit project."""
+        """Create a minimal specpack project."""
         from typer.testing import CliRunner
         from specify_cli import app
         runner = CliRunner()
@@ -524,7 +524,7 @@ class TestIntegrationUpgrade:
         assert result.exit_code == 0, result.output
         return project
 
-    def test_upgrade_requires_speckit_project(self, tmp_path):
+    def test_upgrade_requires_specpack_project(self, tmp_path):
         from typer.testing import CliRunner
         from specify_cli import app
         runner = CliRunner()
@@ -535,7 +535,7 @@ class TestIntegrationUpgrade:
         finally:
             os.chdir(old)
         assert result.exit_code != 0
-        assert "Not a spec-kit project" in result.output
+        assert "Not a specpack project" in result.output
 
     def test_upgrade_no_integration_installed(self, tmp_path):
         from typer.testing import CliRunner

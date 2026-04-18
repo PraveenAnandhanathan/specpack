@@ -12,7 +12,7 @@ runner = CliRunner()
 
 
 def _init_project(tmp_path, integration="copilot"):
-    """Helper: init a spec-kit project with the given integration."""
+    """Helper: init a specpack project with the given integration."""
     project = tmp_path / "proj"
     project.mkdir()
     old_cwd = os.getcwd()
@@ -35,7 +35,7 @@ def _init_project(tmp_path, integration="copilot"):
 
 
 class TestIntegrationList:
-    def test_list_requires_speckit_project(self, tmp_path):
+    def test_list_requires_specpack_project(self, tmp_path):
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
@@ -43,7 +43,7 @@ class TestIntegrationList:
         finally:
             os.chdir(old_cwd)
         assert result.exit_code != 0
-        assert "Not a spec-kit project" in result.output
+        assert "Not a specpack project" in result.output
 
     def test_list_shows_installed(self, tmp_path):
         project = _init_project(tmp_path, "copilot")
@@ -75,7 +75,7 @@ class TestIntegrationList:
 
 
 class TestIntegrationInstall:
-    def test_install_requires_speckit_project(self, tmp_path):
+    def test_install_requires_specpack_project(self, tmp_path):
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
@@ -83,7 +83,7 @@ class TestIntegrationInstall:
         finally:
             os.chdir(old_cwd)
         assert result.exit_code != 0
-        assert "Not a spec-kit project" in result.output
+        assert "Not a specpack project" in result.output
 
     def test_install_unknown_integration(self, tmp_path):
         project = _init_project(tmp_path)
@@ -145,7 +145,7 @@ class TestIntegrationInstall:
         assert (project / ".specify" / "integrations" / "claude.manifest.json").exists()
 
         # Claude uses skills directory (not commands)
-        assert (project / ".claude" / "skills" / "speckit-plan" / "SKILL.md").exists()
+        assert (project / ".claude" / "skills" / "specpack-plan" / "SKILL.md").exists()
 
     def test_install_bare_project_gets_shared_infra(self, tmp_path):
         """Installing into a bare project should create shared scripts and templates."""
@@ -172,7 +172,7 @@ class TestIntegrationInstall:
 
 
 class TestIntegrationUninstall:
-    def test_uninstall_requires_speckit_project(self, tmp_path):
+    def test_uninstall_requires_specpack_project(self, tmp_path):
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
@@ -180,7 +180,7 @@ class TestIntegrationUninstall:
         finally:
             os.chdir(old_cwd)
         assert result.exit_code != 0
-        assert "Not a spec-kit project" in result.output
+        assert "Not a specpack project" in result.output
 
     def test_uninstall_no_integration(self, tmp_path):
         project = tmp_path / "proj"
@@ -198,7 +198,7 @@ class TestIntegrationUninstall:
     def test_uninstall_removes_files(self, tmp_path):
         project = _init_project(tmp_path, "claude")
         # Claude uses skills directory
-        assert (project / ".claude" / "skills" / "speckit-plan" / "SKILL.md").exists()
+        assert (project / ".claude" / "skills" / "specpack-plan" / "SKILL.md").exists()
         assert (project / ".specify" / "integrations" / "claude.manifest.json").exists()
 
         old_cwd = os.getcwd()
@@ -211,7 +211,7 @@ class TestIntegrationUninstall:
         assert "uninstalled" in result.output
 
         # Command files removed
-        assert not (project / ".claude" / "skills" / "speckit-plan" / "SKILL.md").exists()
+        assert not (project / ".claude" / "skills" / "specpack-plan" / "SKILL.md").exists()
 
         # Manifest removed
         assert not (project / ".specify" / "integrations" / "claude.manifest.json").exists()
@@ -222,7 +222,7 @@ class TestIntegrationUninstall:
     def test_uninstall_preserves_modified_files(self, tmp_path):
         """Full lifecycle: install → modify → uninstall → modified file kept."""
         project = _init_project(tmp_path, "claude")
-        plan_file = project / ".claude" / "skills" / "speckit-plan" / "SKILL.md"
+        plan_file = project / ".claude" / "skills" / "specpack-plan" / "SKILL.md"
         assert plan_file.exists()
 
         # Modify a file
@@ -275,7 +275,7 @@ class TestIntegrationUninstall:
 
 
 class TestIntegrationSwitch:
-    def test_switch_requires_speckit_project(self, tmp_path):
+    def test_switch_requires_specpack_project(self, tmp_path):
         old_cwd = os.getcwd()
         try:
             os.chdir(tmp_path)
@@ -283,7 +283,7 @@ class TestIntegrationSwitch:
         finally:
             os.chdir(old_cwd)
         assert result.exit_code != 0
-        assert "Not a spec-kit project" in result.output
+        assert "Not a specpack project" in result.output
 
     def test_switch_unknown_target(self, tmp_path):
         project = _init_project(tmp_path)
@@ -310,7 +310,7 @@ class TestIntegrationSwitch:
     def test_switch_between_integrations(self, tmp_path):
         project = _init_project(tmp_path, "claude")
         # Verify claude files exist (claude uses skills)
-        assert (project / ".claude" / "skills" / "speckit-plan" / "SKILL.md").exists()
+        assert (project / ".claude" / "skills" / "specpack-plan" / "SKILL.md").exists()
 
         old_cwd = os.getcwd()
         try:
@@ -325,10 +325,10 @@ class TestIntegrationSwitch:
         assert "Switched to" in result.output
 
         # Old claude files removed
-        assert not (project / ".claude" / "skills" / "speckit-plan" / "SKILL.md").exists()
+        assert not (project / ".claude" / "skills" / "specpack-plan" / "SKILL.md").exists()
 
         # New copilot files created
-        assert (project / ".github" / "agents" / "speckit.plan.agent.md").exists()
+        assert (project / ".github" / "agents" / "specpack.plan.agent.md").exists()
 
         # integration.json updated
         data = json.loads((project / ".specify" / "integration.json").read_text(encoding="utf-8"))
@@ -400,7 +400,7 @@ class TestIntegrationLifecycle:
             assert "installed successfully" in result.output
 
             # Claude uses skills directory
-            plan_file = project / ".claude" / "skills" / "speckit-plan" / "SKILL.md"
+            plan_file = project / ".claude" / "skills" / "specpack-plan" / "SKILL.md"
             assert plan_file.exists()
 
             # Modify one file

@@ -17,7 +17,7 @@ Runs a workflow from a catalog ID, URL, or local file path. Inputs declared by t
 Example:
 
 ```bash
-specify workflow run speckit -i spec="Build a kanban board with drag-and-drop task management" -i scope=full
+specify workflow run specpack -i spec="Build a kanban board with drag-and-drop task management" -i scope=full
 ```
 
 > **Note:** All workflow commands require a project already initialized with `specify init`.
@@ -118,26 +118,26 @@ Removes a catalog by its index in the catalog list.
 
 Catalogs are resolved in this order (first match wins):
 
-1. **Environment variable** — `SPECKIT_WORKFLOW_CATALOG_URL` overrides all catalogs
+1. **Environment variable** — `SPECPACK_WORKFLOW_CATALOG_URL` overrides all catalogs
 2. **Project config** — `.specify/workflow-catalogs.yml`
 3. **User config** — `~/.specify/workflow-catalogs.yml`
 4. **Built-in defaults** — official catalog + community catalog
 
 ## Workflow Definition
 
-Workflows are defined in YAML files. Here is the built-in **Full SDD Cycle** workflow that ships with Spec Kit:
+Workflows are defined in YAML files. Here is the built-in **Full SDD Cycle** workflow that ships with SpecPack:
 
 ```yaml
 schema_version: "1.0"
 workflow:
-  id: "speckit"
+  id: "specpack"
   name: "Full SDD Cycle"
   version: "1.0.0"
   author: "GitHub"
   description: "Runs specify → plan → tasks → implement with review gates"
 
 requires:
-  speckit_version: ">=0.7.2"
+  specpack_version: ">=0.7.2"
   integrations:
     any: ["copilot", "claude", "gemini"]
 
@@ -157,7 +157,7 @@ inputs:
 
 steps:
   - id: specify
-    command: speckit.specify
+    command: specpack.specify
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
@@ -169,7 +169,7 @@ steps:
     on_reject: abort
 
   - id: plan
-    command: speckit.plan
+    command: specpack.plan
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
@@ -181,13 +181,13 @@ steps:
     on_reject: abort
 
   - id: tasks
-    command: speckit.tasks
+    command: specpack.tasks
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
 
   - id: implement
-    command: speckit.implement
+    command: specpack.implement
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
@@ -218,14 +218,14 @@ flowchart TB
 Run it with:
 
 ```bash
-specify workflow run speckit -i spec="Build a kanban board with drag-and-drop task management"
+specify workflow run specpack -i spec="Build a kanban board with drag-and-drop task management"
 ```
 
 ## Step Types
 
 | Type         | Purpose                                          |
 | ------------ | ------------------------------------------------ |
-| `command`    | Invoke a Spec Kit command (e.g., `speckit.plan`) |
+| `command`    | Invoke a SpecPack command (e.g., `specpack.plan`) |
 | `prompt`     | Send an arbitrary prompt to the AI coding agent  |
 | `shell`      | Execute a shell command and capture output       |
 | `gate`       | Pause for human approval before continuing       |
@@ -286,4 +286,4 @@ Yes. Each run gets a unique ID and its own state directory. Use `specify workflo
 
 ### Who maintains workflows?
 
-Most workflows are independently created and maintained by their respective authors. The Spec Kit maintainers do not review, audit, endorse, or support workflow code. Review a workflow's source before installing and use at your own discretion.
+Most workflows are independently created and maintained by their respective authors. The SpecPack maintainers do not review, audit, endorse, or support workflow code. Review a workflow's source before installing and use at your own discretion.

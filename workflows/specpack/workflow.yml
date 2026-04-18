@@ -1,13 +1,13 @@
 schema_version: "1.0"
 workflow:
-  id: "speckit"
+  id: "specpack"
   name: "Full SDD Cycle"
   version: "1.0.0"
   author: "GitHub"
   description: "Runs specify → plan → tasks → implement with review gates"
 
 requires:
-  speckit_version: ">=0.7.2"
+  specpack_version: ">=0.7.2"
   integrations:
     any: ["copilot", "claude", "gemini"]
 
@@ -27,7 +27,7 @@ inputs:
 
 steps:
   - id: specify
-    command: speckit.specify
+    command: specpack.specify
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
@@ -39,7 +39,7 @@ steps:
     on_reject: abort
 
   - id: plan
-    command: speckit.plan
+    command: specpack.plan
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
@@ -51,13 +51,13 @@ steps:
     on_reject: abort
 
   - id: tasks
-    command: speckit.tasks
+    command: specpack.tasks
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"
 
   - id: implement
-    command: speckit.implement
+    command: specpack.implement
     integration: "{{ inputs.integration }}"
     input:
       args: "{{ inputs.spec }}"

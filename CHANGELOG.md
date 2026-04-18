@@ -9,7 +9,7 @@
 - fix: replace shell-based context updates with marker-based upsert (#2259)
 - Add Community Friends page to docs site (#2261)
 - Add Spec Scope extension to community catalog (#2172)
-- docs: add Community-maintained plugin for Claude Code and GitHub Copilot CLI that installs Spec Kit skills via the plugin marketplace to README (#2250)
+- docs: add Community-maintained plugin for Claude Code and GitHub Copilot CLI that installs SpecPack skills via the plugin marketplace to README (#2250)
 - fix: suppress CRLF warnings in auto-commit.ps1 (#2258)
 - feat: register Blueprint in community catalog (#2252)
 - preset: Update preset-fiction-book-writing to community catalog -> v1.5.0 (#2256)
@@ -81,7 +81,7 @@
 - Add PR Bridge extension to community catalog (#2148)
 - feat(cursor-agent): migrate from .cursor/commands to .cursor/skills (#2156)
 - Add TinySpec extension to community catalog (#2147)
-- chore: bump spec-kit-verify to 1.0.3 and spec-kit-review to 1.0.1 (#2146)
+- chore: bump specpack-verify to 1.0.3 and specpack-review to 1.0.1 (#2146)
 - Add Status Report extension to community catalog (#2123)
 - chore: release 0.6.0, begin 0.6.1.dev0 development (#2144)
 
@@ -94,7 +94,7 @@
 - Add multi-repo-branching preset to community catalog (#2139)
 - Readme clarity (#2013)
 - Rewrite AGENTS.md for integration architecture (#2119)
-- docs: add SpecKit Companion to Community Friends section (#2140)
+- docs: add SpecPack Companion to Community Friends section (#2140)
 - feat: add memorylint extension to community catalog (#2138)
 - chore: release 0.5.1, begin 0.5.2.dev0 development (#2137)
 
@@ -117,7 +117,7 @@
 - Add explicit-task-dependencies community preset to catalog and README (#2091)
 - Add toc-navigation community preset to catalog and README (#2080)
 - fix: prevent ambiguous TOML closing quotes when body ends with `"` (#2113) (#2115)
-- fix speckit issue for trae (#2112)
+- fix specpack issue for trae (#2112)
 - feat: Git extension stage 1 — bundled `extensions/git` with hooks on all core commands (#1941)
 - Upgraded confluence extension to v.1.1.1 (#2109)
 - Update V-Model Extension Pack to v0.5.0 (#2108)
@@ -138,7 +138,7 @@
 - Update conduct extension to v1.0.1 (#2078)
 - chore(deps): bump astral-sh/setup-uv from 7.6.0 to 8.0.0 (#2072)
 - chore(deps): bump actions/configure-pages from 5 to 6 (#2071)
-- feat: add spec-kit-fixit extension to community catalog (#2024)
+- feat: add specpack-fixit extension to community catalog (#2024)
 - chore: release 0.5.0, begin 0.5.1.dev0 development (#2070)
 - feat: add Forgecode agent support (#2034)
 
@@ -188,7 +188,7 @@
 - Fix Claude Code CLI detection for npm-local installs (#1978)
 - fix(scripts): honor PowerShell agent and script filters (#1969)
 - feat: add MAQA extension suite (7 extensions) to community catalog (#1981)
-- feat: add spec-kit-onboard extension to community catalog (#1991)
+- feat: add specpack-onboard extension to community catalog (#1991)
 - Add plan-review-gate to community catalog (#1993)
 - chore(deps): bump actions/deploy-pages from 4 to 5 (#1990)
 - chore(deps): bump DavidAnson/markdownlint-cli2-action from 19 to 23 (#1989)
@@ -214,7 +214,7 @@
 - docs(readme): consolidate Community Friends sections and fix ToC anchors (#1958)
 - fix(commands): rename NFR references to success criteria in analyze and clarify (#1935)
 - Add Community Friends section to README (#1956)
-- docs: add Community Friends section with Spec Kit Assistant VS Code extension (#1944)
+- docs: add Community Friends section with SpecPack Assistant VS Code extension (#1944)
 
 ## [0.4.1] - 2026-03-24
 
@@ -250,23 +250,23 @@
 - feat(presets): add enable/disable toggle and update semantics (#1891)
 - feat: add iFlow CLI support (#1875)
 - feat(commands): wire before/after hook events into specify and plan templates (#1886)
-- docs(catalog): add speckit-utils to community catalog (#1896)
+- docs(catalog): add specpack-utils to community catalog (#1896)
 - docs: Add Extensions & Presets section to README (#1898)
 - chore: update DocGuard extension to v0.9.11 (#1899)
 - Update cognitive-squad catalog entry — Triadic Model, full lifecycle (#1884)
-- feat: register spec-kit-iterate extension (#1887)
+- feat: register specpack-iterate extension (#1887)
 - fix(scripts): add explicit positional binding to PowerShell create-new-feature params (#1885)
 - fix(scripts): encode residual JSON control chars as \uXXXX instead of stripping (#1872)
 - chore: update DocGuard extension to v0.9.10 (#1890)
 - Feature/spec kit add pi coding agent pullrequest (#1853)
-- feat: register spec-kit-learn extension (#1883)
+- feat: register specpack-learn extension (#1883)
 
 ## [0.3.1] - 2026-03-17
 
 ### Changed
 
 - docs: add greenfield Spring Boot pirate-speak preset demo to README (#1878)
-- fix(ai-skills): exclude non-speckit copilot agent markdown from skills (#1867)
+- fix(ai-skills): exclude non-specpack copilot agent markdown from skills (#1867)
 - feat: add Trae IDE support as a new agent (#1817)
 - feat(cli): polite deep merge for settings.json and support JSONC (#1874)
 - feat(extensions,presets): add priority-based resolution ordering (#1855)
@@ -319,7 +319,7 @@
 - Update README with project initialization instructions (#1772)
 - feat: add review extension to community catalog (#1775)
 - Add fleet extension to community catalog (#1771)
-- Integration of Mistral vibe support into speckit (#1725)
+- Integration of Mistral vibe support into specpack (#1725)
 - fix: Remove duplicate options in specify.md (#1765)
 - fix: use global branch numbering instead of per-short-name detection (#1757)
 - Add Community Walkthroughs section to README (#1766)
@@ -566,7 +566,7 @@
 - docs: reorganize upgrade documentation structure
 - docs: remove related documentation section from upgrading guide
 - fix: remove broken link to existing project guide
-- docs: Add comprehensive upgrading guide for Spec Kit
+- docs: Add comprehensive upgrading guide for SpecPack
 - Refactor ESLint configuration checks in implement.md to address deprecation
 
 ## [0.0.83] - 2025-11-14
@@ -669,7 +669,7 @@
 - revert vscode auto remove extra space
 - fix: correct command references in implement.md
 - fix regarding copilot suggestion
-- fix: correct command references in speckit.analyze.md
+- fix: correct command references in specpack.analyze.md
 - Support more lang/Devops of Common Patterns by Technology
 - chore: replace `bun` by `node/npm` in the `devcontainer` (as many CLI-based agents actually require a `node` runtime)
 - chore: add Claude Code extension to devcontainer configuration
@@ -699,7 +699,7 @@
 - fix: broken media files
 - Update README.md
 - The function parameters lack type hints. Consider adding type annotations for better code clarity and IDE support.
-- - **Smart JSON Merging for VS Code Settings**: `.vscode/settings.json` is now intelligently merged instead of being overwritten during `specify init --here` or `specify init .`   - Existing settings are preserved   - New Spec Kit settings are added   - Nested objects are merged recursively   - Prevents accidental loss of custom VS Code workspace configurations
+- - **Smart JSON Merging for VS Code Settings**: `.vscode/settings.json` is now intelligently merged instead of being overwritten during `specify init --here` or `specify init .`   - Existing settings are preserved   - New SpecPack settings are added   - Nested objects are merged recursively   - Prevents accidental loss of custom VS Code workspace configurations
 - Fix: incorrect command formatting in agent context file, refix #895
 
 ## [0.0.69] - 2025-10-15
@@ -760,7 +760,7 @@
 ### Changed
 
 - fix: update CODEBUDDY file path in agent context scripts
-- docs(readme): add /speckit.tasks step and renumber walkthrough
+- docs(readme): add /specpack.tasks step and renumber walkthrough
 
 ## [0.0.62] - 2025-10-11
 
@@ -801,7 +801,7 @@
 - Update CHANGELOG.md
 - Update changelog
 - Update plan.md
-- Add ignore file verification step to /speckit.implement command
+- Add ignore file verification step to /specpack.implement command
 - Escape backslashes in TOML outputs
 - update CodeBuddy to international site
 - feat: support codebuddy ai
@@ -1071,7 +1071,7 @@
 
 - chore(release): bump version to 0.0.5 and update changelog
 - chore: address review feedback - remove comment and fix numbering
-- feat: add Qwen Code support to Spec Kit
+- feat: add Qwen Code support to SpecPack
 
 ## [0.0.34] - 2025-09-15
 

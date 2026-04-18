@@ -81,7 +81,7 @@ The engine ships with 10 built-in step types, each in its own subpackage under `
 
 | Type Key | Class | Purpose | Returns `next_steps`? |
 |----------|-------|---------|-----------------------|
-| `command` | `CommandStep` | Invoke an installed Spec Kit command via integration CLI | No |
+| `command` | `CommandStep` | Invoke an installed SpecPack command via integration CLI | No |
 | `prompt` | `PromptStep` | Send an arbitrary inline prompt to integration CLI | No |
 | `shell` | `ShellStep` | Run a shell command, capture output | No |
 | `gate` | `GateStep` | Interactive human review/approval | No (pauses in CI) |
@@ -150,7 +150,7 @@ Missing required inputs raise `ValueError`. Inputs with `default` values use the
 ```mermaid
 flowchart TD
     A["specify workflow search"] --> B["WorkflowCatalog.get_active_catalogs()"]
-    B --> C{SPECKIT_WORKFLOW_CATALOG_URL set?}
+    B --> C{SPECPACK_WORKFLOW_CATALOG_URL set?}
     C -- Yes --> D["Single custom catalog"]
     C -- No --> E{.specify/workflow-catalogs.yml exists?}
     E -- Yes --> F["Project-level catalog stack"]

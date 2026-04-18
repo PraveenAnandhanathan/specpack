@@ -1,5 +1,5 @@
 """
-Agent Command Registrar for Spec Kit
+Agent Command Registrar for SpecPack
 
 Shared infrastructure for registering commands with AI agents.
 Used by both the extension system and the preset system to write
@@ -308,9 +308,9 @@ class CommandRegistrar:
         skill_frontmatter = {
             "name": skill_name,
             "description": description,
-            "compatibility": "Requires spec-kit project structure with .specify/ directory",
+            "compatibility": "Requires specpack project structure with .specify/ directory",
             "metadata": {
-                "author": "github-spec-kit",
+                "author": "github-specpack",
                 "source": source,
             },
         }
@@ -393,11 +393,11 @@ class CommandRegistrar:
             return cmd_name
 
         short_name = cmd_name
-        if short_name.startswith("speckit."):
-            short_name = short_name[len("speckit.") :]
+        if short_name.startswith("specpack."):
+            short_name = short_name[len("specpack.") :]
         short_name = short_name.replace(".", "-")
 
-        return f"speckit-{short_name}"
+        return f"specpack-{short_name}"
 
     def register_commands(
         self,
@@ -570,7 +570,7 @@ class CommandRegistrar:
 
         Args:
             project_root: Path to project root
-            cmd_name: Command name (e.g. 'speckit.my-ext.example')
+            cmd_name: Command name (e.g. 'specpack.my-ext.example')
         """
         prompts_dir = project_root / ".github" / "prompts"
         prompts_dir.mkdir(parents=True, exist_ok=True)
@@ -645,7 +645,7 @@ class CommandRegistrar:
                 if cmd_file.exists():
                     cmd_file.unlink()
                     # For SKILL.md agents each command lives in its own subdirectory
-                    # (e.g. .agents/skills/speckit-ext-cmd/SKILL.md). Remove the
+                    # (e.g. .agents/skills/specpack-ext-cmd/SKILL.md). Remove the
                     # parent dir when it becomes empty to avoid orphaned directories.
                     parent = cmd_file.parent
                     if parent != commands_dir and parent.exists():

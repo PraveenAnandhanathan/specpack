@@ -1,4 +1,4 @@
-"""Command step — dispatches a Spec Kit command to an integration CLI."""
+"""Command step — dispatches a SpecPack command to an integration CLI."""
 
 from __future__ import annotations
 
@@ -11,12 +11,12 @@ from specify_cli.workflows.expressions import evaluate_expression
 
 
 class CommandStep(StepBase):
-    """Default step type — invokes a Spec Kit command via the integration CLI.
+    """Default step type — invokes a SpecPack command via the integration CLI.
 
     The command files (skills, markdown, TOML) are already installed in
     the integration's directory on disk.  This step tells the CLI to
-    execute the command by name (e.g. ``/speckit.specify`` or
-    ``/speckit-specify``) rather than reading the file contents.
+    execute the command by name (e.g. ``/specpack.specify`` or
+    ``/specpack-specify``) rather than reading the file contents.
 
     .. note::
 
@@ -106,8 +106,8 @@ class CommandStep(StepBase):
         """Invoke *command* by name through the integration CLI.
 
         The integration's ``dispatch_command`` builds the native
-        slash-command invocation (e.g. ``/speckit.specify`` for
-        markdown agents, ``/speckit-specify`` for skills agents),
+        slash-command invocation (e.g. ``/specpack.specify`` for
+        markdown agents, ``/specpack-specify`` for skills agents),
         then executes the CLI non-interactively.
 
         Returns the dispatch result dict, or ``None`` if dispatch is

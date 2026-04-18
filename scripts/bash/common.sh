@@ -2,7 +2,7 @@
 # Common functions and variables for all scripts
 
 # Find repository root by searching upward for .specify directory
-# This is the primary marker for spec-kit projects
+# This is the primary marker for specpack projects
 find_specify_root() {
     local dir="${1:-$(pwd)}"
     # Normalize to absolute path to prevent infinite loop with relative paths
@@ -25,9 +25,9 @@ find_specify_root() {
 }
 
 # Get repository root, prioritizing .specify directory over git
-# This prevents using a parent git repo when spec-kit is initialized in a subdirectory
+# This prevents using a parent git repo when specpack is initialized in a subdirectory
 get_repo_root() {
-    # First, look for .specify directory (spec-kit's own marker)
+    # First, look for .specify directory (specpack's own marker)
     local specify_root
     if specify_root=$(find_specify_root); then
         echo "$specify_root"
@@ -53,7 +53,7 @@ get_current_branch() {
         return
     fi
 
-    # Then check git if available at the spec-kit root (not parent)
+    # Then check git if available at the specpack root (not parent)
     local repo_root=$(get_repo_root)
     if has_git; then
         git -C "$repo_root" rev-parse --abbrev-ref HEAD
@@ -101,7 +101,7 @@ get_current_branch() {
     echo "main"  # Final fallback
 }
 
-# Check if we have git available at the spec-kit root level
+# Check if we have git available at the specpack root level
 # Returns true only if git is installed and the repo root is inside a git work tree
 # Handles both regular repos (.git directory) and worktrees/submodules (.git file)
 has_git() {
@@ -209,7 +209,7 @@ get_feature_paths() {
 
     # Resolve feature directory.  Priority:
     #   1. SPECIFY_FEATURE_DIRECTORY env var (explicit override)
-    #   2. .specify/feature.json "feature_directory" key (persisted by /speckit.specify)
+    #   2. .specify/feature.json "feature_directory" key (persisted by /specpack.specify)
     #   3. Branch-name-based prefix lookup (legacy fallback)
     local feature_dir
     if [[ -n "${SPECIFY_FEATURE_DIRECTORY:-}" ]]; then
@@ -314,10 +314,10 @@ resolve_template() {
             # The python3 call is wrapped in an if-condition so that set -e does not
             # abort the function when python3 exits non-zero (e.g. invalid JSON).
             local sorted_presets=""
-            if sorted_presets=$(SPECKIT_REGISTRY="$registry_file" python3 -c "
+            if sorted_presets=$(SPECPACK_REGISTRY="$registry_file" python3 -c "
 import json, sys, os
 try:
-    with open(os.environ['SPECKIT_REGISTRY']) as f:
+    with open(os.environ['SPECPACK_REGISTRY']) as f:
         data = json.load(f)
     presets = data.get('presets', {})
     for pid, meta in sorted(presets.items(), key=lambda x: x[1].get('priority', 10)):

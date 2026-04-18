@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 # Git extension: auto-commit.ps1
-# Automatically commit changes after a Spec Kit command completes.
+# Automatically commit changes after a SpecPack command completes.
 # Checks per-command config keys in git-config.yml before committing.
 #
 # Usage: auto-commit.ps1 <event_name>
@@ -146,7 +146,7 @@ $phase = if ($EventName -match '^before_') { 'before' } else { 'after' }
 
 # Use custom message if configured, otherwise default
 if (-not $commitMsg) {
-    $commitMsg = "[Spec Kit] Auto-commit $phase $commandName"
+    $commitMsg = "[SpecPack] Auto-commit $phase $commandName"
 }
 
 # Stage and commit

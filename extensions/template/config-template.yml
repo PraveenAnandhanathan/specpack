@@ -33,7 +33,7 @@ features:
 # Example: Default values
 defaults:
   # Labels to apply
-  labels: []  # e.g., ["automated", "spec-kit"]
+  labels: []  # e.g., ["automated", "specpack"]
 
   # Priority level
   priority: "medium"  # Options: "low", "medium", "high"

@@ -1,6 +1,6 @@
 # Extension User Guide
 
-Complete guide for using Spec Kit extensions to enhance your workflow.
+Complete guide for using SpecPack extensions to enhance your workflow.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ Complete guide for using Spec Kit extensions to enhance your workflow.
 
 ### What are Extensions?
 
-Extensions are modular packages that add new commands and functionality to Spec Kit without bloating the core framework. They allow you to:
+Extensions are modular packages that add new commands and functionality to SpecPack without bloating the core framework. They allow you to:
 
 - **Integrate** with external tools (Jira, Linear, GitHub, etc.)
 - **Automate** repetitive tasks with hooks
@@ -29,7 +29,7 @@ Extensions are modular packages that add new commands and functionality to Spec 
 
 ### Why Use Extensions?
 
-- **Clean Core**: Keeps spec-kit lightweight and focused
+- **Clean Core**: Keeps specpack lightweight and focused
 - **Optional Features**: Only install what you need
 - **Community Driven**: Anyone can create and share extensions
 - **Version Controlled**: Extensions are versioned independently
@@ -40,8 +40,8 @@ Extensions are modular packages that add new commands and functionality to Spec 
 
 ### Prerequisites
 
-- Spec Kit version 0.1.0 or higher
-- A spec-kit project (directory with `.specify/` folder)
+- SpecPack version 0.1.0 or higher
+- A specpack project (directory with `.specify/` folder)
 
 ### Check Your Version
 
@@ -69,7 +69,7 @@ vim .specify/extensions/jira/jira-config.yml
 
 # 5. Use it
 # (Commands are now available in Claude Code)
-/speckit.jira.specstoissues
+/specpack.jira.specstoissues
 ```
 
 ---
@@ -151,7 +151,7 @@ This will:
 
 1. Download the extension from GitHub
 2. Validate the manifest
-3. Check compatibility with your spec-kit version
+3. Check compatibility with your specpack version
 4. Install to `.specify/extensions/jira/`
 5. Register commands with your AI agent
 6. Create config template
@@ -160,7 +160,7 @@ This will:
 
 ```bash
 # From GitHub release
-specify extension add <extension-name> --from https://github.com/org/spec-kit-ext/archive/refs/tags/v1.0.0.zip
+specify extension add <extension-name> --from https://github.com/org/specpack-ext/archive/refs/tags/v1.0.0.zip
 ```
 
 ### Install from Local Directory (Development)
@@ -176,12 +176,12 @@ specify extension add --dev /path/to/extension
 ✓ Extension installed successfully!
 
 Jira Integration (v1.0.0)
-  Create Jira Epics, Stories, and Issues from spec-kit artifacts
+  Create Jira Epics, Stories, and Issues from specpack artifacts
 
 Provided commands:
-  • speckit.jira.specstoissues - Create Jira hierarchy from spec and tasks
-  • speckit.jira.discover-fields - Discover Jira custom fields for configuration
-  • speckit.jira.sync-status - Sync task completion status to Jira
+  • specpack.jira.specstoissues - Create Jira hierarchy from spec and tasks
+  • specpack.jira.discover-fields - Discover Jira custom fields for configuration
+  • specpack.jira.sync-status - Sync task completion status to Jira
 
 ⚠  Configuration may be required
    Check: .specify/extensions/jira/
@@ -212,10 +212,10 @@ Extensions add commands that appear in your AI agent (Claude Code):
 
 ```text
 # In Claude Code
-> /speckit.jira.specstoissues
+> /specpack.jira.specstoissues
 
 # Or use a namespaced alias (if provided)
-> /speckit.jira.sync
+> /specpack.jira.sync
 ```
 
 ### Extension Configuration
@@ -241,21 +241,21 @@ vim .specify/extensions/jira/jira-config.yml
 
 Some extensions provide hooks that execute after core commands:
 
-**Example**: Jira extension hooks into `/speckit.tasks`
+**Example**: Jira extension hooks into `/specpack.tasks`
 
 ```text
 # Run core command
-> /speckit.tasks
+> /specpack.tasks
 
 # Output includes:
 ## Extension Hooks
 
 **Optional Hook**: jira
-Command: `/speckit.jira.specstoissues`
+Command: `/specpack.jira.specstoissues`
 Description: Automatically create Jira hierarchy after task generation
 
 Prompt: Create Jira issues from tasks?
-To execute: `/speckit.jira.specstoissues`
+To execute: `/specpack.jira.specstoissues`
 ```
 
 You can then choose to run the hook or skip it.
@@ -276,7 +276,7 @@ Output:
 Installed Extensions:
 
   ✓ Jira Integration (v1.0.0)
-     Create Jira Epics, Stories, and Issues from spec-kit artifacts
+     Create Jira Epics, Stories, and Issues from specpack artifacts
      Commands: 3 | Hooks: 1 | Status: Enabled
 ```
 
@@ -410,7 +410,7 @@ settings:
 hooks:
   after_tasks:
     - extension: jira
-      command: speckit.jira.specstoissues
+      command: specpack.jira.specstoissues
       enabled: true
       optional: true
       prompt: "Create Jira issues from tasks?"
@@ -418,28 +418,28 @@ hooks:
 
 ### Core Environment Variables
 
-In addition to extension-specific environment variables (`SPECKIT_{EXT_ID}_*`), spec-kit supports core environment variables:
+In addition to extension-specific environment variables (`SPECKIT_{EXT_ID}_*`), specpack supports core environment variables:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SPECKIT_CATALOG_URL`       | Override the full catalog stack with a single URL (backward compat) | Built-in default stack |
+| `SPECPACK_CATALOG_URL`       | Override the full catalog stack with a single URL (backward compat) | Built-in default stack |
 | `GH_TOKEN` / `GITHUB_TOKEN` | GitHub API token for downloads     | None                  |
 
 #### Example: Using a custom catalog for testing
 
 ```bash
 # Point to a local or alternative catalog (replaces the full stack)
-export SPECKIT_CATALOG_URL="http://localhost:8000/catalog.json"
+export SPECPACK_CATALOG_URL="http://localhost:8000/catalog.json"
 
 # Or use a staging catalog
-export SPECKIT_CATALOG_URL="https://example.com/staging/catalog.json"
+export SPECPACK_CATALOG_URL="https://example.com/staging/catalog.json"
 ```
 
 ---
 
 ## Extension Catalogs
 
-Spec Kit uses a **catalog stack** — an ordered list of catalogs searched simultaneously. By default, two catalogs are active:
+SpecPack uses a **catalog stack** — an ordered list of catalogs searched simultaneously. By default, two catalogs are active:
 
 | Priority | Catalog | Install Allowed | Purpose |
 |----------|---------|-----------------|---------|
@@ -480,13 +480,13 @@ specify extension catalog add \
   --name "internal" \
   --priority 2 \
   --install-allowed \
-  https://internal.company.com/spec-kit/catalog.json
+  https://internal.company.com/specpack/catalog.json
 
 # Add a discovery-only catalog
 specify extension catalog add \
   --name "partner" \
   --priority 5 \
-  https://partner.example.com/spec-kit/catalog.json
+  https://partner.example.com/specpack/catalog.json
 ```
 
 This creates or updates `.specify/extension-catalogs.yml`.
@@ -504,19 +504,19 @@ You can also edit `.specify/extension-catalogs.yml` directly:
 ```yaml
 catalogs:
   - name: "default"
-    url: "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.json"
+    url: "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.json"
     priority: 1
     install_allowed: true
     description: "Built-in catalog of installable extensions"
 
   - name: "internal"
-    url: "https://internal.company.com/spec-kit/catalog.json"
+    url: "https://internal.company.com/specpack/catalog.json"
     priority: 2
     install_allowed: true
     description: "Internal company extensions"
 
   - name: "community"
-    url: "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json"
+    url: "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.community.json"
     priority: 3
     install_allowed: false
     description: "Community-contributed extensions (discovery only)"
@@ -545,19 +545,19 @@ Create a `catalog.json` file with your extensions:
 {
   "schema_version": "1.0",
   "updated_at": "2026-02-03T00:00:00Z",
-  "catalog_url": "https://your-org.com/spec-kit/catalog.json",
+  "catalog_url": "https://your-org.com/specpack/catalog.json",
   "extensions": {
     "jira": {
       "name": "Jira Integration",
       "id": "jira",
-      "description": "Create Jira issues from spec-kit artifacts",
+      "description": "Create Jira issues from specpack artifacts",
       "author": "Your Organization",
       "version": "2.1.0",
-      "download_url": "https://github.com/your-org/spec-kit-jira/archive/refs/tags/v2.1.0.zip",
-      "repository": "https://github.com/your-org/spec-kit-jira",
+      "download_url": "https://github.com/your-org/specpack-jira/archive/refs/tags/v2.1.0.zip",
+      "repository": "https://github.com/your-org/specpack-jira",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0",
+        "specpack_version": ">=0.1.0",
         "tools": [
           {"name": "atlassian-mcp-server", "required": true}
         ]
@@ -576,10 +576,10 @@ Create a `catalog.json` file with your extensions:
       "author": "Your Organization",
       "version": "1.0.0",
       "download_url": "https://internal.your-org.com/extensions/internal-tool-1.0.0.zip",
-      "repository": "https://github.internal.your-org.com/spec-kit-internal",
+      "repository": "https://github.internal.your-org.com/specpack-internal",
       "license": "Proprietary",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 2
@@ -597,8 +597,8 @@ Options for hosting your catalog:
 
 | Method | URL Example | Use Case |
 | ------ | ----------- | -------- |
-| GitHub Pages | `https://your-org.github.io/spec-kit-catalog/catalog.json` | Public or org-visible |
-| Internal web server | `https://internal.company.com/spec-kit/catalog.json` | Corporate network |
+| GitHub Pages | `https://your-org.github.io/specpack-catalog/catalog.json` | Public or org-visible |
+| Internal web server | `https://internal.company.com/specpack/catalog.json` | Corporate network |
 | S3/Cloud storage | `https://s3.amazonaws.com/your-bucket/catalog.json` | Cloud-hosted teams |
 | Local file server | `http://localhost:8000/catalog.json` | Development/testing |
 
@@ -613,7 +613,7 @@ Add to `.specify/extension-catalogs.yml` in your project:
 ```yaml
 catalogs:
   - name: "my-org"
-    url: "https://your-org.com/spec-kit/catalog.json"
+    url: "https://your-org.com/specpack/catalog.json"
     priority: 1
     install_allowed: true
 ```
@@ -624,14 +624,14 @@ Or use the CLI:
 specify extension catalog add \
   --name "my-org" \
   --install-allowed \
-  https://your-org.com/spec-kit/catalog.json
+  https://your-org.com/specpack/catalog.json
 ```
 
 ##### Option B: Environment variable (recommended for CI/CD, single-catalog)
 
 ```bash
 # In ~/.bashrc, ~/.zshrc, or CI pipeline
-export SPECKIT_CATALOG_URL="https://your-org.com/spec-kit/catalog.json"
+export SPECPACK_CATALOG_URL="https://your-org.com/specpack/catalog.json"
 ```
 
 #### 4. Verify Configuration
@@ -661,7 +661,7 @@ Required fields for each extension entry:
 | `description` | string | No | Brief description |
 | `author` | string | No | Author/organization |
 | `license` | string | No | SPDX license identifier |
-| `requires.speckit_version` | string | No | Version constraint |
+| `requires.specpack_version` | string | No | Version constraint |
 | `requires.tools` | array | No | Required external tools |
 | `provides.commands` | number | No | Number of commands |
 | `provides.hooks` | number | No | Number of hooks |
@@ -678,7 +678,7 @@ Host proprietary extensions that integrate with internal systems:
 {
   "internal-auth": {
     "name": "Internal SSO Integration",
-    "download_url": "https://artifactory.company.com/spec-kit/internal-auth-1.0.0.zip",
+    "download_url": "https://artifactory.company.com/specpack/internal-auth-1.0.0.zip",
     "verified": true
   }
 }
@@ -710,7 +710,7 @@ For networks without internet access:
 ```json
 {
   "jira": {
-    "download_url": "https://files.internal/spec-kit/jira-2.1.0.zip"
+    "download_url": "https://files.internal/specpack/jira-2.1.0.zip"
   }
 }
 ```
@@ -723,8 +723,8 @@ Test new extensions before publishing:
 # Start local server
 python -m http.server 8000 --directory ./my-catalog/
 
-# Point spec-kit to local catalog
-export SPECKIT_CATALOG_URL="http://localhost:8000/catalog.json"
+# Point specpack to local catalog
+export SPECPACK_CATALOG_URL="http://localhost:8000/catalog.json"
 
 # Test installation
 specify extension add my-new-extension
@@ -739,7 +739,7 @@ You can still install extensions not in your catalog using `--from`:
 specify extension add jira
 
 # Direct URL (bypasses catalog)
-specify extension add <extension-name> --from https://github.com/someone/spec-kit-ext/archive/v1.0.0.zip
+specify extension add <extension-name> --from https://github.com/someone/specpack-ext/archive/v1.0.0.zip
 
 # Local development
 specify extension add --dev /path/to/extension
@@ -789,18 +789,18 @@ specify extension add --dev /path/to/extension
 3. Check command file exists:
 
    ```bash
-   ls .claude/commands/speckit.jira.*.md
+   ls .claude/commands/specpack.jira.*.md
    ```
 
 4. Reinstall extension
 
 ### Incompatible Version
 
-**Error**: `Extension requires spec-kit >=0.2.0, but you have 0.1.0`
+**Error**: `Extension requires specpack >=0.2.0, but you have 0.1.0`
 
 **Solutions**:
 
-1. Upgrade spec-kit:
+1. Upgrade specpack:
 
    ```bash
    uv tool upgrade specify-cli
@@ -946,9 +946,9 @@ Document extension usage in your project:
 ## Working with Jira
 
 After creating tasks, sync to Jira:
-1. Run `/speckit.tasks` to generate tasks
-2. Run `/speckit.jira.specstoissues` to create Jira issues
-3. Run `/speckit.jira.sync-status` to update status
+1. Run `/specpack.tasks` to generate tasks
+2. Run `/specpack.jira.specstoissues` to create Jira issues
+3. Run `/specpack.jira.sync-status` to update status
 ```
 
 ---
@@ -959,7 +959,7 @@ After creating tasks, sync to Jira:
 
 **A**: Yes! Extensions are designed to work together. Install as many as you need.
 
-### Q: Do extensions slow down spec-kit?
+### Q: Do extensions slow down specpack?
 
 **A**: No. Extensions are loaded on-demand and only when their commands are used.
 
@@ -971,13 +971,13 @@ After creating tasks, sync to Jira:
 
 **A**: Look for the ✓ Verified badge. Verified extensions are reviewed by maintainers. Always review extension code before installing.
 
-### Q: Can extensions modify spec-kit core?
+### Q: Can extensions modify specpack core?
 
 **A**: No. Extensions can only add commands and hooks. They cannot modify core functionality.
 
 ### Q: What happens if two extensions have the same command name?
 
-**A**: Extensions use namespaced commands (`speckit.{extension}.{command}`), so conflicts are very rare. The extension system will warn you if conflicts occur.
+**A**: Extensions use namespaced commands (`specpack.{extension}.{command}`), so conflicts are very rare. The extension system will warn you if conflicts occur.
 
 ### Q: Can I contribute to existing extensions?
 
@@ -1000,11 +1000,11 @@ After creating tasks, sync to Jira:
 ## Support
 
 - **Extension Issues**: Report to extension repository (see `specify extension info`)
-- **Spec Kit Issues**: <https://github.com/statsperform/spec-kit/issues>
-- **Extension Catalog**: <https://github.com/statsperform/spec-kit/tree/main/extensions>
+- **SpecPack Issues**: <https://github.com/statsperform/specpack/issues>
+- **Extension Catalog**: <https://github.com/statsperform/specpack/tree/main/extensions>
 - **Documentation**: See EXTENSION-DEVELOPMENT-GUIDE.md and EXTENSION-PUBLISHING-GUIDE.md
 
 ---
 
 *Last Updated: 2026-01-28*
-*Spec Kit Version: 0.1.0*
+*SpecPack Version: 0.1.0*

@@ -1,4 +1,4 @@
-"""Shared test helpers for the Spec Kit test suite."""
+"""Shared test helpers for the SpecPack test suite."""
 
 import os
 import re

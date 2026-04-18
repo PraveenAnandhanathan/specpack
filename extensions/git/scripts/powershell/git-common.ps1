@@ -15,7 +15,7 @@ function Test-HasGit {
     }
 }
 
-function Get-SpecKitEffectiveBranchName {
+function Get-SpecPackEffectiveBranchName {
     param([string]$Branch)
     if ($Branch -match '^([^/]+)/([^/]+)$') {
         return $Matches[2]
@@ -36,7 +36,7 @@ function Test-FeatureBranch {
     }
 
     $raw = $Branch
-    $Branch = Get-SpecKitEffectiveBranchName $raw
+    $Branch = Get-SpecPackEffectiveBranchName $raw
 
     # Accept sequential prefix (3+ digits) but exclude malformed timestamps
     # Malformed: 7-or-8 digit date + 6-digit time with no trailing slug (e.g. "2026031-143022" or "20260319-143022")

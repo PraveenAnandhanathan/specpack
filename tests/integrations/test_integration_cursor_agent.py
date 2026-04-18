@@ -57,7 +57,7 @@ class TestCursorMdcFrontmatter:
         content = ctx_path.read_text(encoding="utf-8")
         assert "alwaysApply: true" in content
         assert "customKey: hello" in content
-        assert "<!-- SPECKIT START -->" in content
+        assert "<!-- SPECPACK START -->" in content
 
     def test_existing_mdc_wrong_alwaysapply_fixed(self, tmp_path):
         """An .mdc with alwaysApply: false gets corrected."""
@@ -104,5 +104,5 @@ class TestCursorAgentAutoPromote:
         result = runner.invoke(app, ["init", str(target), "--ai", "cursor-agent", "--no-git", "--ignore-agent-tools", "--script", "sh"])
 
         assert result.exit_code == 0, f"init --ai cursor-agent failed: {result.output}"
-        assert (target / ".cursor" / "skills" / "speckit-plan" / "SKILL.md").exists()
+        assert (target / ".cursor" / "skills" / "specpack-plan" / "SKILL.md").exists()
 

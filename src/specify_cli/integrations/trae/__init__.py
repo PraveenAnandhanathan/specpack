@@ -1,6 +1,6 @@
 """Trae IDE integration. — skills-based agent.
 
-Trae IDE uses ``.trae/skills/speckit-<name>/SKILL.md`` layout.
+Trae IDE uses ``.trae/skills/specpack-<name>/SKILL.md`` layout.
 In the Specify CLI Trae integration, explicit command support was deprecated
 since v0.5.1; ``--skills`` defaults to ``True``.
 """

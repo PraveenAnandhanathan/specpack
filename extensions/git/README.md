@@ -1,6 +1,6 @@
 # Git Branching Workflow Extension
 
-Git repository initialization, feature branch creation, numbering (sequential/timestamp), validation, remote detection, and auto-commit for Spec Kit.
+Git repository initialization, feature branch creation, numbering (sequential/timestamp), validation, remote detection, and auto-commit for SpecPack.
 
 ## Overview
 
@@ -16,34 +16,34 @@ This extension provides Git operations as an optional, self-contained module. It
 
 | Command | Description |
 |---------|-------------|
-| `speckit.git.initialize` | Initialize a Git repository with a configurable commit message |
-| `speckit.git.feature` | Create a feature branch with sequential or timestamp numbering |
-| `speckit.git.validate` | Validate current branch follows feature branch naming conventions |
-| `speckit.git.remote` | Detect Git remote URL for GitHub integration |
-| `speckit.git.commit` | Auto-commit changes (configurable per-command enable/disable and messages) |
+| `specpack.git.initialize` | Initialize a Git repository with a configurable commit message |
+| `specpack.git.feature` | Create a feature branch with sequential or timestamp numbering |
+| `specpack.git.validate` | Validate current branch follows feature branch naming conventions |
+| `specpack.git.remote` | Detect Git remote URL for GitHub integration |
+| `specpack.git.commit` | Auto-commit changes (configurable per-command enable/disable and messages) |
 
 ## Hooks
 
 | Event | Command | Optional | Description |
 |-------|---------|----------|-------------|
-| `before_constitution` | `speckit.git.initialize` | No | Init git repo before constitution |
-| `before_specify` | `speckit.git.feature` | No | Create feature branch before specification |
-| `before_clarify` | `speckit.git.commit` | Yes | Commit outstanding changes before clarification |
-| `before_plan` | `speckit.git.commit` | Yes | Commit outstanding changes before planning |
-| `before_tasks` | `speckit.git.commit` | Yes | Commit outstanding changes before task generation |
-| `before_implement` | `speckit.git.commit` | Yes | Commit outstanding changes before implementation |
-| `before_checklist` | `speckit.git.commit` | Yes | Commit outstanding changes before checklist |
-| `before_analyze` | `speckit.git.commit` | Yes | Commit outstanding changes before analysis |
-| `before_taskstoissues` | `speckit.git.commit` | Yes | Commit outstanding changes before issue sync |
-| `after_constitution` | `speckit.git.commit` | Yes | Auto-commit after constitution update |
-| `after_specify` | `speckit.git.commit` | Yes | Auto-commit after specification |
-| `after_clarify` | `speckit.git.commit` | Yes | Auto-commit after clarification |
-| `after_plan` | `speckit.git.commit` | Yes | Auto-commit after planning |
-| `after_tasks` | `speckit.git.commit` | Yes | Auto-commit after task generation |
-| `after_implement` | `speckit.git.commit` | Yes | Auto-commit after implementation |
-| `after_checklist` | `speckit.git.commit` | Yes | Auto-commit after checklist |
-| `after_analyze` | `speckit.git.commit` | Yes | Auto-commit after analysis |
-| `after_taskstoissues` | `speckit.git.commit` | Yes | Auto-commit after issue sync |
+| `before_constitution` | `specpack.git.initialize` | No | Init git repo before constitution |
+| `before_specify` | `specpack.git.feature` | No | Create feature branch before specification |
+| `before_clarify` | `specpack.git.commit` | Yes | Commit outstanding changes before clarification |
+| `before_plan` | `specpack.git.commit` | Yes | Commit outstanding changes before planning |
+| `before_tasks` | `specpack.git.commit` | Yes | Commit outstanding changes before task generation |
+| `before_implement` | `specpack.git.commit` | Yes | Commit outstanding changes before implementation |
+| `before_checklist` | `specpack.git.commit` | Yes | Commit outstanding changes before checklist |
+| `before_analyze` | `specpack.git.commit` | Yes | Commit outstanding changes before analysis |
+| `before_taskstoissues` | `specpack.git.commit` | Yes | Commit outstanding changes before issue sync |
+| `after_constitution` | `specpack.git.commit` | Yes | Auto-commit after constitution update |
+| `after_specify` | `specpack.git.commit` | Yes | Auto-commit after specification |
+| `after_clarify` | `specpack.git.commit` | Yes | Auto-commit after clarification |
+| `after_plan` | `specpack.git.commit` | Yes | Auto-commit after planning |
+| `after_tasks` | `specpack.git.commit` | Yes | Auto-commit after task generation |
+| `after_implement` | `specpack.git.commit` | Yes | Auto-commit after implementation |
+| `after_checklist` | `specpack.git.commit` | Yes | Auto-commit after checklist |
+| `after_analyze` | `specpack.git.commit` | Yes | Auto-commit after analysis |
+| `after_taskstoissues` | `specpack.git.commit` | Yes | Auto-commit after issue sync |
 
 ## Configuration
 
@@ -54,7 +54,7 @@ Configuration is stored in `.specify/extensions/git/git-config.yml`:
 branch_numbering: sequential
 
 # Custom commit message for git init
-init_commit_message: "[Spec Kit] Initial commit"
+init_commit_message: "[SpecPack] Initial commit"
 
 # Auto-commit per command (all disabled by default)
 # Example: enable auto-commit after specify
@@ -62,7 +62,7 @@ auto_commit:
   default: false
   after_specify:
     enabled: true
-    message: "[Spec Kit] Add specification"
+    message: "[SpecPack] Add specification"
 ```
 
 ## Installation

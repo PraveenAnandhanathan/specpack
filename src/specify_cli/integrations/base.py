@@ -8,7 +8,7 @@ Provides:
 - ``TomlIntegration`` — concrete base for TOML-format integrations
   (Gemini, Tabnine — subclass, set three class attrs, done).
 - ``SkillsIntegration`` — concrete base for integrations that install
-  commands as agent skills (``speckit-<name>/SKILL.md`` layout).
+  commands as agent skills (``specpack-<name>/SKILL.md`` layout).
 """
 
 from __future__ import annotations
@@ -86,8 +86,8 @@ class IntegrationBase(ABC):
 
     # -- Markers for managed context section ------------------------------
 
-    CONTEXT_MARKER_START = "<!-- SPECKIT START -->"
-    CONTEXT_MARKER_END = "<!-- SPECKIT END -->"
+    CONTEXT_MARKER_START = "<!-- SPECPACK START -->"
+    CONTEXT_MARKER_END = "<!-- SPECPACK END -->"
 
     # -- Public API -------------------------------------------------------
 
@@ -114,21 +114,21 @@ class IntegrationBase(ABC):
         return None
 
     def build_command_invocation(self, command_name: str, args: str = "") -> str:
-        """Build the native slash-command invocation for a Spec Kit command.
+        """Build the native slash-command invocation for a SpecPack command.
 
         The CLI tools discover and execute commands from installed files
         on disk.  This method builds the invocation string the CLI
-        expects — e.g. ``"/speckit.specify my-feature"`` for markdown
-        agents or ``"/speckit-specify my-feature"`` for skills agents.
+        expects — e.g. ``"/specpack.specify my-feature"`` for markdown
+        agents or ``"/specpack-specify my-feature"`` for skills agents.
 
         *command_name* may be a full dotted name like
-        ``"speckit.specify"`` or a bare stem like ``"specify"``.
+        ``"specpack.specify"`` or a bare stem like ``"specify"``.
         """
         stem = command_name
         if "." in stem:
             stem = stem.rsplit(".", 1)[-1]
 
-        invocation = f"/speckit.{stem}"
+        invocation = f"/specpack.{stem}"
         if args:
             invocation = f"{invocation} {args}"
         return invocation
@@ -143,7 +143,7 @@ class IntegrationBase(ABC):
         timeout: int = 600,
         stream: bool = True,
     ) -> dict[str, Any]:
-        """Dispatch a Spec Kit command through this integration's CLI.
+        """Dispatch a SpecPack command through this integration's CLI.
 
         By default this builds a slash-command invocation with
         ``build_command_invocation()`` and passes that prompt to
@@ -261,10 +261,10 @@ class IntegrationBase(ABC):
         """Return the destination filename for a command template.
 
         *template_name* is the stem of the source file (e.g. ``"plan"``).
-        Default: ``speckit.{template_name}.md``.  Subclasses override
+        Default: ``specpack.{template_name}.md``.  Subclasses override
         to change the extension or naming convention.
         """
-        return f"speckit.{template_name}.md"
+        return f"specpack.{template_name}.md"
 
     def commands_dest(self, project_root: Path) -> Path:
         """Return the absolute path to the commands output directory.
@@ -465,7 +465,7 @@ class IntegrationBase(ABC):
 
         If the context file does not exist it is created with just the
         managed section.  If it exists, the content between
-        ``<!-- SPECKIT START -->`` and ``<!-- SPECKIT END -->`` markers
+        ``<!-- SPECPACK START -->`` and ``<!-- SPECPACK END -->`` markers
         is replaced (or appended when no markers are found).
 
         Returns the path to the context file, or ``None`` when
@@ -896,7 +896,7 @@ class TomlIntegration(IntegrationBase):
 
     def command_filename(self, template_name: str) -> str:
         """TOML commands use ``.toml`` extension."""
-        return f"speckit.{template_name}.toml"
+        return f"specpack.{template_name}.toml"
 
     @staticmethod
     def _extract_description(content: str) -> str:
@@ -1088,7 +1088,7 @@ class YamlIntegration(IntegrationBase):
 
     def command_filename(self, template_name: str) -> str:
         """YAML commands use ``.yaml`` extension."""
-        return f"speckit.{template_name}.yaml"
+        return f"specpack.{template_name}.yaml"
 
     @staticmethod
     def _extract_frontmatter(content: str) -> dict[str, Any]:
@@ -1146,12 +1146,12 @@ class YamlIntegration(IntegrationBase):
     def _human_title(identifier: str) -> str:
         """Convert an identifier to a human-readable title.
 
-        Strips a leading ``speckit.`` prefix and replaces ``.``, ``-``,
+        Strips a leading ``specpack.`` prefix and replaces ``.``, ``-``,
         and ``_`` with spaces before title-casing.
         """
         text = identifier
-        if text.startswith("speckit."):
-            text = text[len("speckit.") :]
+        if text.startswith("specpack."):
+            text = text[len("specpack.") :]
         return text.replace(".", " ").replace("-", " ").replace("_", " ").title()
 
     @staticmethod
@@ -1168,7 +1168,7 @@ class YamlIntegration(IntegrationBase):
             "version": "1.0.0",
             "title": title,
             "description": description,
-            "author": {"contact": "spec-kit"},
+            "author": {"contact": "specpack"},
             "extensions": [{"type": "builtin", "name": "developer"}],
             "activities": ["Spec-Driven Development"],
         }
@@ -1262,7 +1262,7 @@ class YamlIntegration(IntegrationBase):
 class SkillsIntegration(IntegrationBase):
     """Concrete base for integrations that install commands as agent skills.
 
-    Skills use the ``speckit-<name>/SKILL.md`` directory layout following
+    Skills use the ``specpack-<name>/SKILL.md`` directory layout following
     the `agentskills.io <https://agentskills.io/specification>`_ spec.
 
     Subclasses set ``key``, ``config``, ``registrar_config`` (and
@@ -1271,7 +1271,7 @@ class SkillsIntegration(IntegrationBase):
     ``--skills``, ``--migrate-legacy``).
 
     ``setup()`` processes each shared command template into a
-    ``speckit-<name>/SKILL.md`` file with skills-oriented frontmatter.
+    ``specpack-<name>/SKILL.md`` file with skills-oriented frontmatter.
     """
 
     def build_exec_args(
@@ -1309,12 +1309,12 @@ class SkillsIntegration(IntegrationBase):
         return project_root / folder / subdir
 
     def build_command_invocation(self, command_name: str, args: str = "") -> str:
-        """Skills use ``/speckit-<stem>`` (hyphenated directory name)."""
+        """Skills use ``/specpack-<stem>`` (hyphenated directory name)."""
         stem = command_name
         if "." in stem:
             stem = stem.rsplit(".", 1)[-1]
 
-        invocation = f"/speckit-{stem}"
+        invocation = f"/specpack-{stem}"
         if args:
             invocation = f"{invocation} {args}"
         return invocation
@@ -1338,7 +1338,7 @@ class SkillsIntegration(IntegrationBase):
     ) -> list[Path]:
         """Install command templates as agent skills.
 
-        Creates ``speckit-<name>/SKILL.md`` for each shared command
+        Creates ``specpack-<name>/SKILL.md`` for each shared command
         template.  Each SKILL.md has normalised frontmatter containing
         ``name``, ``description``, ``compatibility``, and ``metadata``.
         """
@@ -1377,7 +1377,7 @@ class SkillsIntegration(IntegrationBase):
 
             # Derive the skill name from the template stem
             command_name = src_file.stem  # e.g. "plan"
-            skill_name = f"speckit-{command_name.replace('.', '-')}"
+            skill_name = f"specpack-{command_name.replace('.', '-')}"
 
             # Parse frontmatter for description
             frontmatter: dict[str, Any] = {}
@@ -1409,7 +1409,7 @@ class SkillsIntegration(IntegrationBase):
             # to stay byte-for-byte identical with release ZIP output.
             description = frontmatter.get("description", "")
             if not description:
-                description = f"Spec Kit: {command_name} workflow"
+                description = f"SpecPack: {command_name} workflow"
 
             # Build SKILL.md with manually formatted frontmatter to match
             # the release packaging script output exactly (double-quoted
@@ -1422,15 +1422,15 @@ class SkillsIntegration(IntegrationBase):
                 f"---\n"
                 f"name: {_quote(skill_name)}\n"
                 f"description: {_quote(description)}\n"
-                f"compatibility: {_quote('Requires spec-kit project structure with .specify/ directory')}\n"
+                f"compatibility: {_quote('Requires specpack project structure with .specify/ directory')}\n"
                 f"metadata:\n"
-                f"  author: {_quote('github-spec-kit')}\n"
+                f"  author: {_quote('github-specpack')}\n"
                 f"  source: {_quote('templates/commands/' + src_file.name)}\n"
                 f"---\n"
                 f"{processed_body}"
             )
 
-            # Write speckit-<name>/SKILL.md
+            # Write specpack-<name>/SKILL.md
             skill_dir = skills_dir / skill_name
             skill_file = skill_dir / "SKILL.md"
             dst = self.write_file_and_record(

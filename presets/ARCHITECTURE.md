@@ -6,7 +6,7 @@ For usage instructions, see [README.md](README.md).
 
 ## Template Resolution
 
-When Spec Kit needs a template (e.g. `spec-template`), the `PresetResolver` walks a priority stack and returns the first match:
+When SpecPack needs a template (e.g. `spec-template`), the `PresetResolver` walks a priority stack and returns the first match:
 
 ```mermaid
 flowchart TD
@@ -50,10 +50,10 @@ flowchart TD
     A["specify preset add my-preset"] --> B{Preset has type: command?}
     B -- No --> Z["done (templates only)"]
     B -- Yes --> C{Extension command?}
-    C -- "speckit.myext.cmd\n(3+ dot segments)" --> D{Extension installed?}
+    C -- "specpack.myext.cmd\n(3+ dot segments)" --> D{Extension installed?}
     D -- No --> E["skip (extension not active)"]
     D -- Yes --> F["register command"]
-    C -- "speckit.specify\n(core command)" --> F
+    C -- "specpack.specify\n(core command)" --> F
     F --> G["detect agent directories"]
     G --> H[".claude/commands/"]
     G --> I[".gemini/commands/"]
@@ -71,9 +71,9 @@ flowchart TD
 
 ### Extension safety check
 
-Command names follow the pattern `speckit.<ext-id>.<cmd-name>`. When a command has 3+ dot segments, the system extracts the extension ID and checks if `.specify/extensions/<ext-id>/` exists. If the extension isn't installed, the command is skipped — preventing orphan files referencing non-existent extensions.
+Command names follow the pattern `specpack.<ext-id>.<cmd-name>`. When a command has 3+ dot segments, the system extracts the extension ID and checks if `.specify/extensions/<ext-id>/` exists. If the extension isn't installed, the command is skipped — preventing orphan files referencing non-existent extensions.
 
-Core commands (e.g. `speckit.specify`, with only 2 segments) are always registered.
+Core commands (e.g. `specpack.specify`, with only 2 segments) are always registered.
 
 ### Agent format rendering
 
@@ -94,7 +94,7 @@ When `specify preset remove` is called, the registered commands are read from th
 ```mermaid
 flowchart TD
     A["specify preset search"] --> B["PresetCatalog.get_active_catalogs()"]
-    B --> C{SPECKIT_PRESET_CATALOG_URL set?}
+    B --> C{SPECPACK_PRESET_CATALOG_URL set?}
     C -- Yes --> D["single custom catalog"]
     C -- No --> E{.specify/preset-catalogs.yml exists?}
     E -- Yes --> F["project-level catalog stack"]
@@ -126,15 +126,15 @@ presets/
 │   ├── preset.yml                          # Example manifest
 │   ├── README.md                           # Guide for customizing the scaffold
 │   ├── commands/
-│   │   ├── speckit.specify.md              # Core command override example
-│   │   └── speckit.myext.myextcmd.md       # Extension command override example
+│   │   ├── specpack.specify.md              # Core command override example
+│   │   └── specpack.myext.myextcmd.md       # Extension command override example
 │   └── templates/
 │       ├── spec-template.md                # Core template override example
 │       └── myext-template.md               # Extension template override example
 └── self-test/                              # Self-test preset (overrides all core templates)
     ├── preset.yml
     ├── commands/
-    │   └── speckit.specify.md
+    │   └── specpack.specify.md
     └── templates/
         ├── spec-template.md
         ├── plan-template.md

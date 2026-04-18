@@ -26,7 +26,7 @@ concurrency:
 jobs:
   # Build job
   build:
-    if: github.repository == 'github/spec-kit'
+    if: github.repository == 'github/specpack'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -57,7 +57,7 @@ jobs:
 
   # Deploy job
   deploy:
-    if: github.repository == 'github/spec-kit'
+    if: github.repository == 'github/specpack'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

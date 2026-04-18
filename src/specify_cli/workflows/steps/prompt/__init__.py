@@ -13,8 +13,8 @@ from specify_cli.workflows.expressions import evaluate_expression
 class PromptStep(StepBase):
     """Send a free-form prompt to an integration CLI.
 
-    Unlike ``CommandStep`` which invokes an installed Spec Kit command
-    by name (e.g. ``/speckit.specify`` or ``/speckit-specify``),
+    Unlike ``CommandStep`` which invokes an installed SpecPack command
+    by name (e.g. ``/specpack.specify`` or ``/specpack-specify``),
     ``PromptStep`` sends an arbitrary inline ``prompt:`` string
     directly to the CLI.  This is useful for ad-hoc instructions
     that don't map to a registered command.

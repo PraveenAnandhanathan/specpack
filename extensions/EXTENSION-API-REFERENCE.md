@@ -1,6 +1,6 @@
 # Extension API Reference
 
-Technical reference for Spec Kit extension system APIs and manifest schema.
+Technical reference for SpecPack extension system APIs and manifest schema.
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ extension:
   homepage: string     # Optional, valid URL
 
 requires:
-  speckit_version: string  # Required, version specifier (>=X.Y.Z)
+  specpack_version: string  # Required, version specifier (>=X.Y.Z)
   tools:                   # Optional, array of tool requirements
     - name: string         # Tool name
       version: string      # Optional, version specifier
@@ -41,7 +41,7 @@ requires:
 
 provides:
   commands:              # Required, at least one command
-    - name: string       # Required, pattern: ^speckit\.[a-z0-9-]+\.[a-z0-9-]+$
+    - name: string       # Required, pattern: ^specpack\.[a-z0-9-]+\.[a-z0-9-]+$
       file: string       # Required, relative path to command file
       description: string # Required
       aliases: [string]  # Optional, same pattern as name; namespace must match extension.id and must not shadow core or installed extension commands
@@ -85,11 +85,11 @@ defaults:                # Optional, default configuration values
 - **Examples**: `1.0.0`, `0.9.5`, `2.1.3`
 - **Invalid**: `v1.0`, `1.0`, `1.0.0-beta`
 
-#### `requires.speckit_version`
+#### `requires.specpack_version`
 
 - **Type**: string
 - **Format**: Version specifier
-- **Description**: Required spec-kit version range
+- **Description**: Required specpack version range
 - **Examples**:
   - `>=0.1.0` - Any version 0.1.0 or higher
   - `>=0.1.0,<2.0.0` - Version 0.1.x or 1.x
@@ -99,18 +99,18 @@ defaults:                # Optional, default configuration values
 #### `provides.commands[].name`
 
 - **Type**: string
-- **Pattern**: `^speckit\.[a-z0-9-]+\.[a-z0-9-]+$`
+- **Pattern**: `^specpack\.[a-z0-9-]+\.[a-z0-9-]+$`
 - **Description**: Namespaced command name
-- **Format**:  `speckit.{extension-id}.{command-name}`
-- **Examples**: `speckit.jira.specstoissues`, `speckit.linear.sync`
-- **Invalid**: `jira.specstoissues`, `speckit.command`, `speckit.jira.CreateIssues`
+- **Format**:  `specpack.{extension-id}.{command-name}`
+- **Examples**: `specpack.jira.specstoissues`, `specpack.linear.sync`
+- **Invalid**: `jira.specstoissues`, `specpack.command`, `specpack.jira.CreateIssues`
 
 #### `hooks`
 
 - **Type**: object
 - **Keys**: Event names (e.g., `after_specify`, `after_plan`, `after_tasks`, `after_implement`, `before_analyze`)
 - **Description**: Hooks that execute at lifecycle events
-- **Events**: Defined by core spec-kit commands
+- **Events**: Defined by core specpack commands
 
 ---
 
@@ -133,7 +133,7 @@ manifest.id                        # str: Extension ID
 manifest.name                      # str: Extension name
 manifest.version                   # str: Version
 manifest.description               # str: Description
-manifest.requires_speckit_version  # str: Required spec-kit version
+manifest.requires_specpack_version  # str: Required specpack version
 manifest.commands                  # List[Dict]: Command definitions
 manifest.hooks                     # Dict: Hook definitions
 ```
@@ -148,7 +148,7 @@ manifest.get_hash()  # str: SHA256 hash of manifest file
 
 ```python
 ValidationError       # Invalid manifest structure
-CompatibilityError    # Incompatible with current spec-kit version
+CompatibilityError    # Incompatible with current specpack version
 ```
 
 ### ExtensionRegistry
@@ -191,7 +191,7 @@ is_installed = registry.is_installed(extension_id: str)  # bool
       "source": "catalog",
       "manifest_hash": "sha256...",
       "enabled": true,
-      "registered_commands": ["speckit.jira.specstoissues", ...],
+      "registered_commands": ["specpack.jira.specstoissues", ...],
       "installed_at": "2026-01-28T..."
     }
   }
@@ -214,14 +214,14 @@ manager = ExtensionManager(project_root)
 # Install from directory
 manifest = manager.install_from_directory(
     source_dir: Path,
-    speckit_version: str,
+    specpack_version: str,
     register_commands: bool = True
 )  # Returns: ExtensionManifest
 
 # Install from ZIP
 manifest = manager.install_from_zip(
     zip_path: Path,
-    speckit_version: str
+    specpack_version: str
 )  # Returns: ExtensionManifest
 
 # Remove extension
@@ -239,7 +239,7 @@ manifest = manager.get_extension(extension_id: str)  # Optional[ExtensionManifes
 # Check compatibility
 manager.check_compatibility(
     manifest: ExtensionManifest,
-    speckit_version: str
+    specpack_version: str
 )  # Raises: CompatibilityError if incompatible
 ```
 
@@ -331,12 +331,12 @@ Each extension dict returned by `search()` and `get_extension_info()` includes:
 ```yaml
 catalogs:
   - name: "default"
-    url: "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.json"
+    url: "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.json"
     priority: 1
     install_allowed: true
     description: "Built-in catalog of installable extensions"
   - name: "community"
-    url: "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json"
+    url: "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.community.json"
     priority: 2
     install_allowed: false
     description: "Community-contributed extensions (discovery only)"
@@ -540,7 +540,7 @@ Examples:
 ```yaml
 hooks:
   after_tasks:
-    command: "speckit.jira.specstoissues"
+    command: "specpack.jira.specstoissues"
     optional: true
     prompt: "Create Jira issues from tasks?"
     description: "Automatically create Jira hierarchy"
@@ -578,7 +578,7 @@ Standard events (defined by core):
 hooks:
   after_tasks:
     - extension: jira
-      command: speckit.jira.specstoissues
+      command: specpack.jira.specstoissues
       enabled: true
       optional: true
       prompt: "Create Jira issues from tasks?"
@@ -752,7 +752,7 @@ except ValidationError as e:
 
 ### CompatibilityError
 
-Raised when extension is incompatible with current spec-kit version.
+Raised when extension is incompatible with current specpack version.
 
 ```python
 from specify_cli.extensions import CompatibilityError
@@ -816,15 +816,15 @@ satisfied = version_satisfies("1.2.3", ">=1.0.0,<2.0.0")  # bool
 │   │   ├── docs/               # Documentation
 │   │   └── README.md
 │   └── extensions.yml          # Project extension config
-└── scripts/                    # (existing spec-kit)
+└── scripts/                    # (existing specpack)
 
 .claude/
 └── commands/
-    └── speckit.{ext}.{cmd}.md  # Registered commands
+    └── specpack.{ext}.{cmd}.md  # Registered commands
 ```
 
 ---
 
 *Last Updated: 2026-01-28*
 *API Version: 1.0*
-*Spec Kit Version: 0.1.0*
+*SpecPack Version: 0.1.0*

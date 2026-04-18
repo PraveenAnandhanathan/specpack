@@ -1,5 +1,5 @@
 name: Preset Submission
-description: Submit your preset to the Spec Kit preset catalog
+description: Submit your preset to the SpecPack preset catalog
 title: "[Preset]: Add "
 labels: ["preset-submission", "enhancement", "needs-triage"]
 body:
@@ -9,7 +9,7 @@ body:
         Thanks for contributing a preset! This template helps you submit your preset to the community catalog.
         
         **Before submitting:**
-        - Review the [Preset Publishing Guide](https://github.com/github/spec-kit/blob/main/presets/PUBLISHING.md)
+        - Review the [Preset Publishing Guide](https://github.com/github/specpack/blob/main/presets/PUBLISHING.md)
         - Ensure your preset has a valid `preset.yml` manifest
         - Create a GitHub release with a version tag (e.g., v1.0.0)
         - Test installation from the release archive: `specify preset add --from <download-url>`
@@ -64,7 +64,7 @@ body:
     attributes:
       label: Repository URL
       description: GitHub repository URL for your preset
-      placeholder: "https://github.com/your-org/spec-kit-your-preset"
+      placeholder: "https://github.com/your-org/specpack-your-preset"
     validations:
       required: true
 
@@ -72,8 +72,8 @@ body:
     id: download-url
     attributes:
       label: Download URL
-      description: URL to the GitHub release archive for your preset (e.g., https://github.com/your-org/spec-kit-preset-your-preset/archive/refs/tags/v1.0.0.zip)
-      placeholder: "https://github.com/your-org/spec-kit-preset-your-preset/archive/refs/tags/v1.0.0.zip"
+      description: URL to the GitHub release archive for your preset (e.g., https://github.com/your-org/specpack-preset-your-preset/archive/refs/tags/v1.0.0.zip)
+      placeholder: "https://github.com/your-org/specpack-preset-your-preset/archive/refs/tags/v1.0.0.zip"
     validations:
       required: true
 
@@ -87,10 +87,10 @@ body:
       required: true
 
   - type: input
-    id: speckit-version
+    id: specpack-version
     attributes:
-      label: Required Spec Kit Version
-      description: Minimum Spec Kit version required
+      label: Required SpecPack Version
+      description: Minimum SpecPack version required
       placeholder: "e.g., >=0.3.0"
     validations:
       required: true
@@ -113,7 +113,7 @@ body:
       label: Commands Provided (optional)
       description: List any command overrides your preset provides
       placeholder: |
-        - speckit.specify.md — customized for compliance workflows
+        - specpack.specify.md — customized for compliance workflows
 
   - type: textarea
     id: tags

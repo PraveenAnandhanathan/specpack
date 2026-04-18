@@ -1,6 +1,6 @@
 # Upgrade Guide
 
-> You have Spec Kit installed and want to upgrade to the latest version to get new features, bug fixes, or updated slash commands. This guide covers both upgrading the CLI tool and updating your project files.
+> You have SpecPack installed and want to upgrade to the latest version to get new features, bug fixes, or updated slash commands. This guide covers both upgrading the CLI tool and updating your project files.
 
 ---
 
@@ -8,7 +8,7 @@
 
 | What to Upgrade | Command | When to Use |
 |----------------|---------|-------------|
-| **CLI Tool Only** | `uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@vX.Y.Z` | Get latest CLI features without touching project files |
+| **CLI Tool Only** | `uv tool install specify-cli --force --from git+https://github.com/github/specpack.git@vX.Y.Z` | Get latest CLI features without touching project files |
 | **Project Files** | `specify init --here --force --ai <your-agent>` | Update slash commands, templates, and scripts in your project |
 | **Both** | Run CLI upgrade, then project update | Recommended for major version updates |
 
@@ -20,10 +20,10 @@ The CLI tool (`specify`) is separate from your project files. Upgrade it to get 
 
 ### If you installed with `uv tool install`
 
-Upgrade to a specific release (check [Releases](https://github.com/github/spec-kit/releases) for the latest tag):
+Upgrade to a specific release (check [Releases](https://github.com/github/specpack/releases) for the latest tag):
 
 ```bash
-uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@vX.Y.Z
+uv tool install specify-cli --force --from git+https://github.com/github/specpack.git@vX.Y.Z
 ```
 
 ### If you use one-shot `uvx` commands
@@ -31,7 +31,7 @@ uv tool install specify-cli --force --from git+https://github.com/github/spec-ki
 Specify the desired release tag:
 
 ```bash
-uvx --from git+https://github.com/github/spec-kit.git@vX.Y.Z specify init --here --ai copilot
+uvx --from git+https://github.com/github/specpack.git@vX.Y.Z specify init --here --ai copilot
 ```
 
 ### Verify the upgrade
@@ -46,7 +46,7 @@ This shows installed tools and confirms the CLI is working.
 
 ## Part 2: Updating Project Files
 
-When Spec Kit releases new features (like new slash commands or updated templates), you need to refresh your project's Spec Kit files.
+When SpecPack releases new features (like new slash commands or updated templates), you need to refresh your project's SpecPack files.
 
 ### What gets updated?
 
@@ -153,8 +153,8 @@ cd .kilocode/rules/
 ls -la
 
 # Delete old versions (example filenames - yours may differ)
-rm speckit.specify-old.md
-rm speckit.plan-v1.md
+rm specpack.specify-old.md
+rm specpack.plan-v1.md
 ```
 
 Restart your IDE to refresh the command list.
@@ -167,7 +167,7 @@ Restart your IDE to refresh the command list.
 
 ```bash
 # Upgrade CLI (if using persistent install)
-uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git
+uv tool install specify-cli --force --from git+https://github.com/github/specpack.git
 
 # Update project files to get new commands
 specify init --here --force --ai copilot
@@ -184,7 +184,7 @@ cp .specify/memory/constitution.md /tmp/constitution-backup.md
 cp -r .specify/templates /tmp/templates-backup
 
 # 2. Upgrade CLI
-uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git
+uv tool install specify-cli --force --from git+https://github.com/github/specpack.git
 
 # 3. Update project
 specify init --here --force --ai copilot
@@ -206,7 +206,7 @@ cd .kilocode/rules/
 ls -la
 
 # Delete old command files
-rm speckit.old-command-name.md
+rm specpack.old-command-name.md
 
 # Restart your IDE
 ```
@@ -232,7 +232,7 @@ The `--no-git` flag skips git initialization but doesn't affect file updates.
 
 ## Using `--no-git` Flag
 
-The `--no-git` flag tells Spec Kit to **skip git repository initialization**. This is useful when:
+The `--no-git` flag tells SpecPack to **skip git repository initialization**. This is useful when:
 
 - You manage version control differently (Mercurial, SVN, etc.)
 - Your project is part of a larger monorepo with existing git setup
@@ -272,9 +272,9 @@ export SPECIFY_FEATURE="001-my-feature"
 $env:SPECIFY_FEATURE = "001-my-feature"
 ```
 
-This tells Spec Kit which feature directory to use when creating specs, plans, and tasks.
+This tells SpecPack which feature directory to use when creating specs, plans, and tasks.
 
-**Why this matters:** Without git, Spec Kit can't detect your current branch name to determine the active feature. The environment variable provides that context manually.
+**Why this matters:** Without git, SpecPack can't detect your current branch name to determine the active feature. The environment variable provides that context manually.
 
 ---
 
@@ -330,11 +330,11 @@ This warning appears when you run `specify init --here` (or `specify init .`) in
 
 1. **The directory has existing content** - In the example, 25 files/folders
 2. **Files will be merged** - New template files will be added alongside your existing files
-3. **Some files may be overwritten** - If you already have Spec Kit files (`.claude/`, `.specify/`, etc.), they'll be replaced with the new versions
+3. **Some files may be overwritten** - If you already have SpecPack files (`.claude/`, `.specify/`, etc.), they'll be replaced with the new versions
 
 **What gets overwritten:**
 
-Only Spec Kit infrastructure files:
+Only SpecPack infrastructure files:
 
 - Agent command files (`.claude/commands/`, `.github/prompts/`, etc.)
 - Scripts in `.specify/scripts/`
@@ -346,7 +346,7 @@ Only Spec Kit infrastructure files:
 - Your `specs/` directory (specifications, plans, tasks)
 - Your source code files
 - Your `.git/` directory and git history
-- Any other files not part of Spec Kit templates
+- Any other files not part of SpecPack templates
 
 **How to respond:**
 
@@ -360,8 +360,8 @@ Only Spec Kit infrastructure files:
 
 **When you see this warning:**
 
-- ✅ **Expected** when upgrading an existing Spec Kit project
-- ✅ **Expected** when adding Spec Kit to an existing codebase
+- ✅ **Expected** when upgrading an existing SpecPack project
+- ✅ **Expected** when adding SpecPack to an existing codebase
 - ⚠️ **Unexpected** if you thought you were creating a new project in an empty directory
 
 **Prevention tip:** Before upgrading, commit or back up your `.specify/memory/constitution.md` if you customized it.
@@ -386,7 +386,7 @@ If not found, reinstall:
 
 ```bash
 uv tool uninstall specify-cli
-uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+uv tool install specify-cli --from git+https://github.com/github/specpack.git
 ```
 
 ### "Do I need to run specify every time I open my project?"
@@ -397,11 +397,11 @@ uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
 
 The `specify` CLI tool is used for:
 
-- **Initial setup:** `specify init` to bootstrap Spec Kit in your project
+- **Initial setup:** `specify init` to bootstrap SpecPack in your project
 - **Upgrades:** `specify init --here --force` to update templates and commands
 - **Diagnostics:** `specify check` to verify tool installation
 
-Once you've run `specify init`, the slash commands (like `/speckit.specify`, `/speckit.plan`, etc.) are **permanently installed** in your project's agent folder (`.claude/`, `.github/prompts/`, `.pi/prompts/`, etc.). Your AI coding agent reads these command files directly—no need to run `specify` again.
+Once you've run `specify init`, the slash commands (like `/specpack.specify`, `/specpack.plan`, etc.) are **permanently installed** in your project's agent folder (`.claude/`, `.github/prompts/`, `.pi/prompts/`, etc.). Your AI coding agent reads these command files directly—no need to run `specify` again.
 
 **If your agent isn't recognizing slash commands:**
 
@@ -434,7 +434,7 @@ Once you've run `specify init`, the slash commands (like `/speckit.specify`, `/s
 
 ## Version Compatibility
 
-Spec Kit follows semantic versioning for major releases. The CLI and project files are designed to be compatible within the same major version.
+SpecPack follows semantic versioning for major releases. The CLI and project files are designed to be compatible within the same major version.
 
 **Best practice:** Keep both CLI and project files in sync by upgrading both together during major version changes.
 
@@ -444,7 +444,7 @@ Spec Kit follows semantic versioning for major releases. The CLI and project fil
 
 After upgrading:
 
-- **Test new slash commands:** Run `/speckit.constitution` or another command to verify everything works
-- **Review release notes:** Check [GitHub Releases](https://github.com/github/spec-kit/releases) for new features and breaking changes
+- **Test new slash commands:** Run `/specpack.constitution` or another command to verify everything works
+- **Review release notes:** Check [GitHub Releases](https://github.com/github/specpack/releases) for new features and breaking changes
 - **Update workflows:** If new commands were added, update your team's development workflows
-- **Check documentation:** Visit [github.io/spec-kit](https://github.github.io/spec-kit/) for updated guides
+- **Check documentation:** Visit [github.io/specpack](https://github.github.io/specpack/) for updated guides

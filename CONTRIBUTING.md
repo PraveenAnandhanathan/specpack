@@ -1,6 +1,6 @@
-# Contributing to Spec Kit
+# Contributing to SpecPack
 
-Hi there! We're thrilled that you'd like to contribute to Spec Kit. Contributions to this project are [released](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) to the public under the [project's open source license](LICENSE).
+Hi there! We're thrilled that you'd like to contribute to SpecPack. Contributions to this project are [released](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) to the public under the [project's open source license](LICENSE).
 
 Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
@@ -57,9 +57,9 @@ Here are a few things you can do that will increase the likelihood of your pull 
 
 ## Development workflow
 
-When working on spec-kit:
+When working on specpack:
 
-1. Test changes with the `specify` CLI commands (`/speckit.specify`, `/speckit.plan`, `/speckit.tasks`) in your coding agent of choice
+1. Test changes with the `specify` CLI commands (`/specpack.specify`, `/specpack.plan`, `/specpack.tasks`) in your coding agent of choice
 2. Verify templates are working correctly in `templates/` directory
 3. Test script functionality in the `scripts/` directory
 4. Ensure memory files (`memory/constitution.md`) are updated if major process changes are made
@@ -87,15 +87,15 @@ Run this when you change agent metadata, context update scripts, or integration 
 
 ```bash
 # Install the project and test dependencies from your local branch
-cd <spec-kit-repo>
+cd <specpack-repo>
 uv sync --extra test
 source .venv/bin/activate  # On Windows (CMD): .venv\Scripts\activate  |  (PowerShell): .venv\Scripts\Activate.ps1
 uv pip install -e .
 # Ensure the `specify` binary in this environment points at your working tree so the agent runs the branch you're testing.
 
 # Initialize a test project using your local changes
-uv run specify init <temp-dir>/speckit-test --ai <agent> --offline
-cd <temp-dir>/speckit-test
+uv run specify init <temp-dir>/specpack-test --ai <agent> --offline
+cd <temp-dir>/specpack-test
 
 # Open in your agent
 ```
@@ -107,7 +107,7 @@ Any change that affects a slash command's behavior requires manually testing tha
 1. **Identify affected commands** — use the [prompt below](#determining-which-tests-to-run) to have your agent analyze your changed files and determine which commands need testing.
 2. **Set up a test project** — scaffold from your local branch (see [Testing setup](#testing-setup)).
 3. **Run each affected command** — invoke it in your agent, verify it completes successfully, and confirm it produces the expected output (files created, scripts executed, artifacts populated).
-4. **Run prerequisites first** — commands that depend on earlier commands (e.g., `/speckit.tasks` requires `/speckit.plan` which requires `/speckit.specify`) must be run in order.
+4. **Run prerequisites first** — commands that depend on earlier commands (e.g., `/specpack.tasks` requires `/specpack.plan` which requires `/specpack.specify`) must be run in order.
 5. **Report results** — paste the [reporting template](#reporting-results) into your PR with pass/fail for each command tested.
 
 #### Reporting results
@@ -121,7 +121,7 @@ Paste this into your PR:
 
 | Command tested | Notes |
 |----------------|-------|
-| `/speckit.command` | |
+| `/specpack.command` | |
 ~~~
 
 #### Determining which tests to run
@@ -137,7 +137,7 @@ invokes. Use these mapping rules:
 - templates/commands/X.md → the command it defines
 - scripts/bash/Y.sh or scripts/powershell/Y.ps1 → every command that invokes that script (grep templates/commands/ for the script name). Also check transitive dependencies: if the changed script is sourced by other scripts (e.g., common.sh is sourced by create-new-feature.sh, check-prerequisites.sh, setup-plan.sh, update-agent-context.sh), then every command invoking those downstream scripts is also affected
 - templates/Z-template.md → every command that consumes that template during execution
-- src/specify_cli/*.py → CLI commands (`specify init`, `specify check`, `specify extension *`, `specify preset *`); test the affected CLI command and, for init/scaffolding changes, at minimum test /speckit.specify
+- src/specify_cli/*.py → CLI commands (`specify init`, `specify check`, `specify extension *`, `specify preset *`); test the affected CLI command and, for init/scaffolding changes, at minimum test /specpack.specify
 - extensions/X/commands/* → the extension command it defines
 - extensions/X/scripts/* → every extension command that invokes that script
 - extensions/X/extension.yml or config-template.yml → every command in that extension. Also check if the manifest defines hooks (look for `hooks:` entries like `before_specify`, `after_implement`, etc.) — if so, the core commands those hooks attach to are also affected
@@ -158,20 +158,20 @@ Output in this format:
 
 Number each test sequentially (T1, T2, ...). List prerequisite tests first.
 
-- T1: /speckit.command — (reason)
-- T2: /speckit.command — (reason)
+- T1: /specpack.command — (reason)
+- T2: /specpack.command — (reason)
 ~~~
 
-## AI contributions in Spec Kit
+## AI contributions in SpecPack
 
 > [!IMPORTANT]
 >
-> If you are using **any kind of AI assistance** to contribute to Spec Kit,
+> If you are using **any kind of AI assistance** to contribute to SpecPack,
 > it must be disclosed in the pull request or issue.
 
-We welcome and encourage the use of AI tools to help improve Spec Kit! Many valuable contributions have been enhanced with AI assistance for code generation, issue detection, and feature definition.
+We welcome and encourage the use of AI tools to help improve SpecPack! Many valuable contributions have been enhanced with AI assistance for code generation, issue detection, and feature definition.
 
-That being said, if you are using any kind of AI assistance (e.g., agents, ChatGPT) while contributing to Spec Kit,
+That being said, if you are using any kind of AI assistance (e.g., agents, ChatGPT) while contributing to SpecPack,
 **this must be disclosed in the pull request or issue**, along with the extent to which AI assistance was used (e.g., documentation comments vs. code generation).
 
 If your PR responses or comments are being generated by an AI, disclose that as well.
@@ -199,7 +199,7 @@ When submitting AI-assisted contributions, please ensure they include:
 
 - **Clear disclosure of AI use** - You are transparent about AI use and degree to which you're using it for the contribution
 - **Human understanding and testing** - You've personally tested the changes and understand what they do
-- **Clear rationale** - You can explain why the change is needed and how it fits within Spec Kit's goals
+- **Clear rationale** - You can explain why the change is needed and how it fits within SpecPack's goals
 - **Concrete evidence** - Include test cases, scenarios, or examples that demonstrate the improvement
 - **Your own analysis** - Share your thoughts on the end-to-end developer experience
 
@@ -208,7 +208,7 @@ When submitting AI-assisted contributions, please ensure they include:
 We reserve the right to close contributions that appear to be:
 
 - Untested changes submitted without verification
-- Generic suggestions that don't address specific Spec Kit needs
+- Generic suggestions that don't address specific SpecPack needs
 - Bulk submissions that show no human review or understanding
 
 ### Guidelines for success

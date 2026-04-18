@@ -1,7 +1,7 @@
 """
-Preset Manager for Spec Kit
+Preset Manager for SpecPack
 
-Handles installation, removal, and management of Spec Kit presets.
+Handles installation, removal, and management of SpecPack presets.
 Presets are self-contained, versioned collections of templates
 (artifact, command, and script templates) that can be installed to
 customize the Spec-Driven Development workflow.
@@ -119,8 +119,8 @@ class PresetManifest:
 
         # Validate requires section
         requires = self.data["requires"]
-        if "speckit_version" not in requires:
-            raise PresetValidationError("Missing requires.speckit_version")
+        if "specpack_version" not in requires:
+            raise PresetValidationError("Missing requires.specpack_version")
 
         # Validate provides section
         provides = self.data["provides"]
@@ -153,7 +153,7 @@ class PresetManifest:
 
             # Validate template name format
             if tmpl["type"] == "command":
-                # Commands use dot notation (e.g. speckit.specify)
+                # Commands use dot notation (e.g. specpack.specify)
                 if not re.match(r'^[a-z0-9.-]+$', tmpl["name"]):
                     raise PresetValidationError(
                         f"Invalid command name '{tmpl['name']}': "
@@ -192,9 +192,9 @@ class PresetManifest:
         return self.data["preset"].get("author", "")
 
     @property
-    def requires_speckit_version(self) -> str:
-        """Get required spec-kit version range."""
-        return self.data["requires"]["speckit_version"]
+    def requires_specpack_version(self) -> str:
+        """Get required specpack version range."""
+        return self.data["requires"]["specpack_version"]
 
     @property
     def templates(self) -> List[Dict[str, Any]]:
@@ -459,13 +459,13 @@ class PresetManager:
     def check_compatibility(
         self,
         manifest: PresetManifest,
-        speckit_version: str
+        specpack_version: str
     ) -> bool:
-        """Check if preset is compatible with current spec-kit version.
+        """Check if preset is compatible with current specpack version.
 
         Args:
             manifest: Preset manifest
-            speckit_version: Current spec-kit version
+            specpack_version: Current specpack version
 
         Returns:
             True if compatible
@@ -473,16 +473,16 @@ class PresetManager:
         Raises:
             PresetCompatibilityError: If pack is incompatible
         """
-        required = manifest.requires_speckit_version
-        current = pkg_version.Version(speckit_version)
+        required = manifest.requires_specpack_version
+        current = pkg_version.Version(specpack_version)
 
         try:
             specifier = SpecifierSet(required)
             if current not in specifier:
                 raise PresetCompatibilityError(
-                    f"Preset requires spec-kit {required}, "
-                    f"but {speckit_version} is installed.\n"
-                    f"Upgrade spec-kit with: uv tool install specify-cli --force"
+                    f"Preset requires specpack {required}, "
+                    f"but {specpack_version} is installed.\n"
+                    f"Upgrade specpack with: uv tool install specify-cli --force"
                 )
         except InvalidSpecifier:
             raise PresetCompatibilityError(
@@ -516,13 +516,13 @@ class PresetManager:
             return {}
 
         # Filter out extension command overrides if the extension isn't installed.
-        # Command names follow the pattern: speckit.<ext-id>.<cmd-name>
-        # Core commands (e.g. speckit.specify) have only one dot — always register.
+        # Command names follow the pattern: specpack.<ext-id>.<cmd-name>
+        # Core commands (e.g. specpack.specify) have only one dot — always register.
         extensions_dir = self.project_root / ".specify" / "extensions"
         filtered = []
         for cmd in command_templates:
             parts = cmd["name"].split(".")
-            if len(parts) >= 3 and parts[0] == "speckit":
+            if len(parts) >= 3 and parts[0] == "specpack":
                 ext_id = parts[1]
                 if not (extensions_dir / ext_id).is_dir():
                     continue
@@ -593,19 +593,19 @@ class PresetManager:
     def _skill_names_for_command(cmd_name: str) -> tuple[str, str]:
         """Return the modern and legacy skill directory names for a command."""
         raw_short_name = cmd_name
-        if raw_short_name.startswith("speckit."):
-            raw_short_name = raw_short_name[len("speckit."):]
+        if raw_short_name.startswith("specpack."):
+            raw_short_name = raw_short_name[len("specpack."):]
 
-        modern_skill_name = f"speckit-{raw_short_name.replace('.', '-')}"
-        legacy_skill_name = f"speckit.{raw_short_name}"
+        modern_skill_name = f"specpack-{raw_short_name.replace('.', '-')}"
+        legacy_skill_name = f"specpack.{raw_short_name}"
         return modern_skill_name, legacy_skill_name
 
     @staticmethod
     def _skill_title_from_command(cmd_name: str) -> str:
         """Return a human-friendly title for a skill command name."""
         title_name = cmd_name
-        if title_name.startswith("speckit."):
-            title_name = title_name[len("speckit."):]
+        if title_name.startswith("specpack."):
+            title_name = title_name[len("specpack."):]
         return title_name.replace(".", " ").replace("-", " ").title()
 
     def _build_extension_skill_restore_index(self) -> Dict[str, Dict[str, Any]]:
@@ -692,7 +692,7 @@ class PresetManager:
         filtered = []
         for cmd in command_templates:
             parts = cmd["name"].split(".")
-            if len(parts) >= 3 and parts[0] == "speckit":
+            if len(parts) >= 3 and parts[0] == "specpack":
                 ext_id = parts[1]
                 if not (extensions_dir / ext_id).is_dir():
                     continue
@@ -734,10 +734,10 @@ class PresetManager:
             if not source_file.exists():
                 continue
 
-            # Derive the short command name (e.g. "specify" from "speckit.specify")
+            # Derive the short command name (e.g. "specify" from "specpack.specify")
             raw_short_name = cmd_name
-            if raw_short_name.startswith("speckit."):
-                raw_short_name = raw_short_name[len("speckit."):]
+            if raw_short_name.startswith("specpack."):
+                raw_short_name = raw_short_name[len("specpack."):]
             short_name = raw_short_name.replace(".", "-")
             skill_name, legacy_skill_name = self._skill_names_for_command(cmd_name)
             skill_title = self._skill_title_from_command(cmd_name)
@@ -835,12 +835,12 @@ class PresetManager:
         extension_restore_index = self._build_extension_skill_restore_index()
 
         for skill_name in skill_names:
-            # Derive command name from skill name (speckit-specify -> specify)
+            # Derive command name from skill name (specpack-specify -> specify)
             short_name = skill_name
-            if short_name.startswith("speckit-"):
-                short_name = short_name[len("speckit-"):]
-            elif short_name.startswith("speckit."):
-                short_name = short_name[len("speckit."):]
+            if short_name.startswith("specpack-"):
+                short_name = short_name[len("specpack-"):]
+            elif short_name.startswith("specpack."):
+                short_name = short_name[len("specpack."):]
 
             skill_subdir = skills_dir / skill_name
             skill_file = skill_subdir / "SKILL.md"
@@ -930,14 +930,14 @@ class PresetManager:
     def install_from_directory(
         self,
         source_dir: Path,
-        speckit_version: str,
+        specpack_version: str,
         priority: int = 10,
     ) -> PresetManifest:
         """Install preset from a local directory.
 
         Args:
             source_dir: Path to preset directory
-            speckit_version: Current spec-kit version
+            specpack_version: Current specpack version
             priority: Resolution priority (lower = higher precedence, default 10)
 
         Returns:
@@ -954,7 +954,7 @@ class PresetManager:
         manifest_path = source_dir / "preset.yml"
         manifest = PresetManifest(manifest_path)
 
-        self.check_compatibility(manifest, speckit_version)
+        self.check_compatibility(manifest, specpack_version)
 
         if self.registry.is_installed(manifest.id):
             raise PresetError(
@@ -989,14 +989,14 @@ class PresetManager:
     def install_from_zip(
         self,
         zip_path: Path,
-        speckit_version: str,
+        specpack_version: str,
         priority: int = 10,
     ) -> PresetManifest:
         """Install preset from ZIP file.
 
         Args:
             zip_path: Path to preset ZIP file
-            speckit_version: Current spec-kit version
+            specpack_version: Current specpack version
             priority: Resolution priority (lower = higher precedence, default 10)
 
         Returns:
@@ -1040,7 +1040,7 @@ class PresetManager:
                     "No preset.yml found in ZIP file"
                 )
 
-            return self.install_from_directory(pack_dir, speckit_version, priority)
+            return self.install_from_directory(pack_dir, specpack_version, priority)
 
     def remove(self, pack_id: str) -> bool:
         """Remove an installed preset.
@@ -1153,15 +1153,15 @@ class PresetCatalog:
     mirroring the extension catalog system.
     """
 
-    DEFAULT_CATALOG_URL = "https://raw.githubusercontent.com/github/spec-kit/main/presets/catalog.json"
-    COMMUNITY_CATALOG_URL = "https://raw.githubusercontent.com/github/spec-kit/main/presets/catalog.community.json"
+    DEFAULT_CATALOG_URL = "https://raw.githubusercontent.com/PraveenAnandhanathan/specpack/main/presets/catalog.json"
+    COMMUNITY_CATALOG_URL = "https://raw.githubusercontent.com/PraveenAnandhanathan/specpack/main/presets/catalog.community.json"
     CACHE_DURATION = 3600  # 1 hour in seconds
 
     def __init__(self, project_root: Path):
         """Initialize preset catalog manager.
 
         Args:
-            project_root: Root directory of the spec-kit project
+            project_root: Root directory of the specpack project
         """
         self.project_root = project_root
         self.presets_dir = project_root / ".specify" / "presets"
@@ -1263,7 +1263,7 @@ class PresetCatalog:
         """Get the ordered list of active preset catalogs.
 
         Resolution order:
-        1. SPECKIT_PRESET_CATALOG_URL env var — single catalog replacing all defaults
+        1. SPECPACK_PRESET_CATALOG_URL env var — single catalog replacing all defaults
         2. Project-level .specify/preset-catalogs.yml
         3. User-level ~/.specify/preset-catalogs.yml
         4. Built-in default stack (default + community)
@@ -1276,8 +1276,8 @@ class PresetCatalog:
         """
         import sys
 
-        # 1. SPECKIT_PRESET_CATALOG_URL env var replaces all defaults
-        if env_value := os.environ.get("SPECKIT_PRESET_CATALOG_URL"):
+        # 1. SPECPACK_PRESET_CATALOG_URL env var replaces all defaults
+        if env_value := os.environ.get("SPECPACK_PRESET_CATALOG_URL"):
             catalog_url = env_value.strip()
             self._validate_catalog_url(catalog_url)
             if catalog_url != self.DEFAULT_CATALOG_URL:
@@ -1288,7 +1288,7 @@ class PresetCatalog:
                         file=sys.stderr,
                     )
                     self._non_default_catalog_warning_shown = True
-            return [PresetCatalogEntry(url=catalog_url, name="custom", priority=1, install_allowed=True, description="Custom catalog via SPECKIT_PRESET_CATALOG_URL")]
+            return [PresetCatalogEntry(url=catalog_url, name="custom", priority=1, install_allowed=True, description="Custom catalog via SPECPACK_PRESET_CATALOG_URL")]
 
         # 2. Project-level config overrides all defaults
         project_config_path = self.project_root / ".specify" / "preset-catalogs.yml"
@@ -1607,10 +1607,10 @@ class PresetCatalog:
         if pack_info.get("bundled") and not pack_info.get("download_url"):
             from .extensions import REINSTALL_COMMAND
             raise PresetError(
-                f"Preset '{pack_id}' is bundled with spec-kit and has no download URL. "
+                f"Preset '{pack_id}' is bundled with specpack and has no download URL. "
                 f"It should be installed from the local package. "
                 f"Use 'specify preset add {pack_id}' to install from the bundled package, "
-                f"or reinstall spec-kit if the bundled files are missing: {REINSTALL_COMMAND}"
+                f"or reinstall specpack if the bundled files are missing: {REINSTALL_COMMAND}"
             )
 
         if not pack_info.get("_install_allowed", True):
@@ -1674,7 +1674,7 @@ class PresetResolver:
     1. .specify/templates/overrides/          - Project-local overrides
     2. .specify/presets/<preset-id>/          - Installed presets
     3. .specify/extensions/<ext-id>/templates/ - Extension-provided templates
-    4. .specify/templates/                    - Core templates (shipped with Spec Kit)
+    4. .specify/templates/                    - Core templates (shipped with SpecPack)
     """
 
     def __init__(self, project_root: Path):

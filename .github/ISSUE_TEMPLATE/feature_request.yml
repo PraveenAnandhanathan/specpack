@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest a new feature or enhancement for Specify CLI or Spec Kit
+description: Suggest a new feature or enhancement for Specify CLI or SpecPack
 title: "[Feature]: "
 labels: ["enhancement", "needs-triage"]
 body:

@@ -11,7 +11,7 @@ The Specify CLI supports a wide range of AI coding agents. When you run `specify
 | [Auggie CLI](https://docs.augmentcode.com/cli/overview)                              | `auggie`         |                                                                                                                                           |
 | [Claude Code](https://www.anthropic.com/claude-code)                                 | `claude`         | Skills-based integration; installs skills in `.claude/skills`                                                                              |
 | [CodeBuddy CLI](https://www.codebuddy.ai/cli)                                        | `codebuddy`      |                                                                                                                                           |
-| [Codex CLI](https://github.com/openai/codex)                                         | `codex`          | Skills-based integration; installs skills into `.agents/skills` and invokes them as `$speckit-<command>` |
+| [Codex CLI](https://github.com/openai/codex)                                         | `codex`          | Skills-based integration; installs skills into `.agents/skills` and invokes them as `$specpack-<command>` |
 | [Cursor](https://cursor.sh/)                                                         | `cursor-agent`   |                                                                                                                                           |
 | [Forge](https://forgecode.dev/)                                                      | `forge`          |                                                                                                                                           |
 | [Gemini CLI](https://github.com/google-gemini/gemini-cli)                            | `gemini`         |                                                                                                                                           |
@@ -68,7 +68,7 @@ specify integration uninstall [<key>]
 | --------- | --------------------------------------------------- |
 | `--force` | Remove files even if they have been modified         |
 
-Uninstalls the current integration (or the specified one). Spec Kit tracks every file created during install along with a SHA-256 hash of the original content:
+Uninstalls the current integration (or the specified one). SpecPack tracks every file created during install along with a SHA-256 hash of the original content:
 
 - **Unmodified files** are removed automatically.
 - **Modified files** (where you've made manual edits) are preserved so your customizations are not lost.
@@ -100,7 +100,7 @@ specify integration upgrade [<key>]
 | `--script sh\|ps`        | Script type: `sh` (bash/zsh) or `ps` (PowerShell)                        |
 | `--integration-options`  | Options for the integration                                              |
 
-Reinstalls the current integration with updated templates and commands (e.g., after upgrading Spec Kit). Defaults to the currently installed integration; if a key is provided, it must match the installed one — otherwise the command fails and suggests using `switch` instead. Detects locally modified files and blocks the upgrade unless `--force` is used. Stale files from the previous install that are no longer needed are removed automatically.
+Reinstalls the current integration with updated templates and commands (e.g., after upgrading SpecPack). Defaults to the currently installed integration; if a key is provided, it must match the installed one — otherwise the command fails and suggests using `switch` instead. Detects locally modified files and blocks the upgrade unless `--force` is used. Stale files from the previous install that are no longer needed are removed automatically.
 
 ## Integration-Specific Options
 
@@ -137,4 +137,4 @@ CLI-based integrations (like Claude Code, Gemini CLI) require the tool to be ins
 
 ### When should I use `upgrade` vs `switch`?
 
-Use `upgrade` when you've upgraded Spec Kit and want to refresh the same integration's templates. Use `switch` when you want to change to a different AI coding agent.
+Use `upgrade` when you've upgraded SpecPack and want to refresh the same integration's templates. Use `switch` when you want to change to a different AI coding agent.

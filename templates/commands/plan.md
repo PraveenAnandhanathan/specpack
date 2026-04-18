@@ -2,11 +2,11 @@
 description: Execute the implementation planning workflow using the plan template to generate design artifacts.
 handoffs: 
   - label: Create Tasks
-    agent: speckit.tasks
+    agent: specpack.tasks
     prompt: Break the plan into tasks
     send: true
   - label: Create Checklist
-    agent: speckit.checklist
+    agent: specpack.checklist
     prompt: Create a checklist for the following domain...
 scripts:
   sh: scripts/bash/setup-plan.sh --json
@@ -142,7 +142,7 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Skip if project is purely internal (build scripts, one-off tools, etc.)
 
 3. **Agent context update**:
-   - Update the plan reference between the `<!-- SPECKIT START -->` and `<!-- SPECKIT END -->` markers in `__CONTEXT_FILE__` to point to the plan file created in step 1 (the IMPL_PLAN path)
+   - Update the plan reference between the `<!-- SPECPACK START -->` and `<!-- SPECPACK END -->` markers in `__CONTEXT_FILE__` to point to the plan file created in step 1 (the IMPL_PLAN path)
 
 **Output**: data-model.md, /contracts/*, quickstart.md, updated agent context file
 

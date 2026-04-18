@@ -5,7 +5,7 @@ Each per-agent test file sets ``KEY``, ``FOLDER``, ``COMMANDS_SUBDIR``,
 logic from ``SkillsIntegrationTests``.
 
 Mirrors ``MarkdownIntegrationTests`` / ``TomlIntegrationTests`` closely,
-adapted for the ``speckit-<name>/SKILL.md`` skills layout.
+adapted for the ``specpack-<name>/SKILL.md`` skills layout.
 """
 
 import os
@@ -76,7 +76,7 @@ class SkillsIntegrationTests:
         for f in skill_files:
             assert f.exists()
             assert f.name == "SKILL.md"
-            assert f.parent.name.startswith("speckit-")
+            assert f.parent.name.startswith("specpack-")
 
     def test_setup_writes_to_correct_directory(self, tmp_path):
         i = get_integration(self.KEY)
@@ -87,13 +87,13 @@ class SkillsIntegrationTests:
         skill_files = [f for f in created if "scripts" not in f.parts]
         assert len(skill_files) > 0, "No skill files were created"
         for f in skill_files:
-            # Each SKILL.md is in speckit-<name>/ under the skills directory
+            # Each SKILL.md is in specpack-<name>/ under the skills directory
             assert f.resolve().parent.parent == expected_dir.resolve(), (
                 f"{f} is not under {expected_dir}"
             )
 
     def test_skill_directory_structure(self, tmp_path):
-        """Each command produces speckit-<name>/SKILL.md."""
+        """Each command produces specpack-<name>/SKILL.md."""
         i = get_integration(self.KEY)
         m = IntegrationManifest(self.KEY, tmp_path)
         created = i.setup(tmp_path, m)
@@ -107,9 +107,9 @@ class SkillsIntegrationTests:
         # Derive command names from the skill directory names
         actual_commands = set()
         for f in skill_files:
-            skill_dir_name = f.parent.name  # e.g. "speckit-plan"
-            assert skill_dir_name.startswith("speckit-")
-            actual_commands.add(skill_dir_name.removeprefix("speckit-"))
+            skill_dir_name = f.parent.name  # e.g. "specpack-plan"
+            assert skill_dir_name.startswith("specpack-")
+            actual_commands.add(skill_dir_name.removeprefix("specpack-"))
 
         assert actual_commands == expected_commands
 
@@ -129,7 +129,7 @@ class SkillsIntegrationTests:
             assert "description" in fm, f"{f} frontmatter missing 'description'"
             assert "compatibility" in fm, f"{f} frontmatter missing 'compatibility'"
             assert "metadata" in fm, f"{f} frontmatter missing 'metadata'"
-            assert fm["metadata"]["author"] == "github-spec-kit"
+            assert fm["metadata"]["author"] == "github-specpack"
             assert "source" in fm["metadata"]
 
     def test_skill_uses_template_descriptions(self, tmp_path):
@@ -180,7 +180,7 @@ class SkillsIntegrationTests:
             return
         m = IntegrationManifest(self.KEY, tmp_path)
         i.setup(tmp_path, m)
-        plan_file = i.skills_dest(tmp_path) / "speckit-plan" / "SKILL.md"
+        plan_file = i.skills_dest(tmp_path) / "specpack-plan" / "SKILL.md"
         assert plan_file.exists(), f"Plan skill {plan_file} not created"
         content = plan_file.read_text(encoding="utf-8")
         assert i.context_file in content, (
@@ -222,7 +222,7 @@ class SkillsIntegrationTests:
         assert modified_file in skipped
 
     def test_pre_existing_skills_not_removed(self, tmp_path):
-        """Pre-existing non-speckit skills should be left untouched."""
+        """Pre-existing non-specpack skills should be left untouched."""
         i = get_integration(self.KEY)
         skills_dir = i.skills_dest(tmp_path)
         foreign_dir = skills_dir / "other-tool"
@@ -244,8 +244,8 @@ class SkillsIntegrationTests:
             ctx_path = tmp_path / i.context_file
             assert ctx_path.exists(), f"Context file {i.context_file} not created for {self.KEY}"
             content = ctx_path.read_text(encoding="utf-8")
-            assert "<!-- SPECKIT START -->" in content
-            assert "<!-- SPECKIT END -->" in content
+            assert "<!-- SPECPACK START -->" in content
+            assert "<!-- SPECPACK END -->" in content
             assert "read the current plan" in content
 
     def test_teardown_removes_context_section(self, tmp_path):
@@ -259,8 +259,8 @@ class SkillsIntegrationTests:
             ctx_path.write_text("# My Rules\n\n" + content + "\n# Footer\n", encoding="utf-8")
             i.teardown(tmp_path, m)
             remaining = ctx_path.read_text(encoding="utf-8")
-            assert "<!-- SPECKIT START -->" not in remaining
-            assert "<!-- SPECKIT END -->" not in remaining
+            assert "<!-- SPECPACK START -->" not in remaining
+            assert "<!-- SPECPACK END -->" not in remaining
             assert "# My Rules" in remaining
 
     # -- CLI auto-promote -------------------------------------------------
@@ -355,13 +355,13 @@ class SkillsIntegrationTests:
         files = []
         # Skill files
         for cmd in self._SKILL_COMMANDS:
-            files.append(f"{skills_prefix}/speckit-{cmd}/SKILL.md")
+            files.append(f"{skills_prefix}/specpack-{cmd}/SKILL.md")
         # Integration metadata
         files += [
             ".specify/init-options.json",
             ".specify/integration.json",
             f".specify/integrations/{self.KEY}.manifest.json",
-            ".specify/integrations/speckit.manifest.json",
+            ".specify/integrations/specpack.manifest.json",
             ".specify/memory/constitution.md",
         ]
         # Script variant
@@ -389,7 +389,7 @@ class SkillsIntegrationTests:
         ]
         # Bundled workflow
         files += [
-            ".specify/workflows/speckit/workflow.yml",
+            ".specify/workflows/specpack/workflow.yml",
             ".specify/workflows/workflow-registry.json",
         ]
         # Agent context file (if set)

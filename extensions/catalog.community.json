@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "updated_at": "2026-04-17T02:00:00Z",
-  "catalog_url": "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json",
+  "catalog_url": "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.community.json",
   "extensions": {
     "aide": {
       "name": "AI-Driven Engineering (AIDE)",
@@ -9,14 +9,14 @@
       "description": "A structured 7-step workflow for building new projects from scratch with AI assistants — from vision through implementation.",
       "author": "mnriem",
       "version": "1.0.0",
-      "download_url": "https://github.com/mnriem/spec-kit-extensions/releases/download/aide-v1.0.0/aide.zip",
-      "repository": "https://github.com/mnriem/spec-kit-extensions",
-      "homepage": "https://github.com/mnriem/spec-kit-extensions",
-      "documentation": "https://github.com/mnriem/spec-kit-extensions/blob/main/aide/README.md",
-      "changelog": "https://github.com/mnriem/spec-kit-extensions/blob/main/aide/CHANGELOG.md",
+      "download_url": "https://github.com/mnriem/specpack-extensions/releases/download/aide-v1.0.0/aide.zip",
+      "repository": "https://github.com/mnriem/specpack-extensions",
+      "homepage": "https://github.com/mnriem/specpack-extensions",
+      "documentation": "https://github.com/mnriem/specpack-extensions/blob/main/aide/README.md",
+      "changelog": "https://github.com/mnriem/specpack-extensions/blob/main/aide/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.2.0"
+        "specpack_version": ">=0.2.0"
       },
       "provides": {
         "commands": 7,
@@ -39,17 +39,17 @@
     "agent-assign": {
       "name": "Agent Assign",
       "id": "agent-assign",
-      "description": "Assign specialized Claude Code agents to spec-kit tasks for targeted execution",
+      "description": "Assign specialized Claude Code agents to specpack tasks for targeted execution",
       "author": "xuyang",
       "version": "1.0.0",
-      "download_url": "https://github.com/xymelon/spec-kit-agent-assign/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/xymelon/spec-kit-agent-assign",
-      "homepage": "https://github.com/xymelon/spec-kit-agent-assign",
-      "documentation": "https://github.com/xymelon/spec-kit-agent-assign/blob/main/README.md",
-      "changelog": "https://github.com/xymelon/spec-kit-agent-assign/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/xymelon/specpack-agent-assign/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/xymelon/specpack-agent-assign",
+      "homepage": "https://github.com/xymelon/specpack-agent-assign",
+      "documentation": "https://github.com/xymelon/specpack-agent-assign/blob/main/README.md",
+      "changelog": "https://github.com/xymelon/specpack-agent-assign/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 3,
@@ -74,14 +74,14 @@
       "description": "Predicts architectural impact, complexity, and risks of proposed changes before implementation.",
       "author": "Umme Habiba",
       "version": "1.0.0",
-      "download_url": "https://github.com/UmmeHabiba1312/spec-kit-architect-preview/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/UmmeHabiba1312/spec-kit-architect-preview",
-      "homepage": "https://github.com/UmmeHabiba1312/spec-kit-architect-preview",
-      "documentation": "https://github.com/UmmeHabiba1312/spec-kit-architect-preview/blob/main/README.md",
-      "changelog": "https://github.com/UmmeHabiba1312/spec-kit-architect-preview/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/UmmeHabiba1312/specpack-architect-preview/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/UmmeHabiba1312/specpack-architect-preview",
+      "homepage": "https://github.com/UmmeHabiba1312/specpack-architect-preview",
+      "documentation": "https://github.com/UmmeHabiba1312/specpack-architect-preview/blob/main/README.md",
+      "changelog": "https://github.com/UmmeHabiba1312/specpack-architect-preview/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -106,14 +106,14 @@
       "description": "Archive merged features into main project memory, resolving gaps and conflicts.",
       "author": "Stanislav Deviatov",
       "version": "1.0.0",
-      "download_url": "https://github.com/stn1slv/spec-kit-archive/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/stn1slv/spec-kit-archive",
-      "homepage": "https://github.com/stn1slv/spec-kit-archive",
-      "documentation": "https://github.com/stn1slv/spec-kit-archive/blob/main/README.md",
-      "changelog": "https://github.com/stn1slv/spec-kit-archive/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/stn1slv/specpack-archive/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/stn1slv/specpack-archive",
+      "homepage": "https://github.com/stn1slv/specpack-archive",
+      "documentation": "https://github.com/stn1slv/specpack-archive/blob/main/README.md",
+      "changelog": "https://github.com/stn1slv/specpack-archive/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -137,14 +137,14 @@
       "description": "Sync user stories and tasks to Azure DevOps work items using OAuth authentication.",
       "author": "pragya247",
       "version": "1.0.0",
-      "download_url": "https://github.com/pragya247/spec-kit-azure-devops/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/pragya247/spec-kit-azure-devops",
-      "homepage": "https://github.com/pragya247/spec-kit-azure-devops",
-      "documentation": "https://github.com/pragya247/spec-kit-azure-devops/blob/main/README.md",
-      "changelog": "https://github.com/pragya247/spec-kit-azure-devops/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/pragya247/specpack-azure-devops/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/pragya247/specpack-azure-devops",
+      "homepage": "https://github.com/pragya247/specpack-azure-devops",
+      "documentation": "https://github.com/pragya247/specpack-azure-devops/blob/main/README.md",
+      "changelog": "https://github.com/pragya247/specpack-azure-devops/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0",
+        "specpack_version": ">=0.1.0",
         "tools": [
           {
             "name": "az",
@@ -173,17 +173,17 @@
     "blueprint": {
       "name": "Blueprint",
       "id": "blueprint",
-      "description": "Stay code-literate in AI-driven development: review a complete code blueprint for every task from spec artifacts before /speckit.implement runs",
+      "description": "Stay code-literate in AI-driven development: review a complete code blueprint for every task from spec artifacts before /specpack.implement runs",
       "author": "chordpli",
       "version": "1.0.0",
-      "download_url": "https://github.com/chordpli/spec-kit-blueprint/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/chordpli/spec-kit-blueprint",
-      "homepage": "https://github.com/chordpli/spec-kit-blueprint",
-      "documentation": "https://github.com/chordpli/spec-kit-blueprint/blob/main/README.md",
-      "changelog": "https://github.com/chordpli/spec-kit-blueprint/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/chordpli/specpack-blueprint/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/chordpli/specpack-blueprint",
+      "homepage": "https://github.com/chordpli/specpack-blueprint",
+      "documentation": "https://github.com/chordpli/specpack-blueprint/blob/main/README.md",
+      "changelog": "https://github.com/chordpli/specpack-blueprint/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.2.0"
+        "specpack_version": ">=0.2.0"
       },
       "provides": {
         "commands": 2,
@@ -208,14 +208,14 @@
       "description": "Configurable branch and folder naming conventions for /specify with presets and custom patterns.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-branch-convention/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-branch-convention",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-branch-convention",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-branch-convention/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-branch-convention/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-branch-convention/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-branch-convention",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-branch-convention",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-branch-convention/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-branch-convention/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 3,
@@ -237,17 +237,17 @@
     "brownfield": {
       "name": "Brownfield Bootstrap",
       "id": "brownfield",
-      "description": "Bootstrap spec-kit for existing codebases — auto-discover architecture and adopt SDD incrementally.",
+      "description": "Bootstrap specpack for existing codebases — auto-discover architecture and adopt SDD incrementally.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-brownfield/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-brownfield",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-brownfield",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-brownfield/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-brownfield/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-brownfield/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-brownfield",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-brownfield",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-brownfield/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-brownfield/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 4,
@@ -272,14 +272,14 @@
       "description": "Structured bugfix workflow — capture bugs, trace to spec artifacts, and patch specs surgically.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-bugfix/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-bugfix",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-bugfix",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-bugfix/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-bugfix/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-bugfix/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-bugfix",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-bugfix",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-bugfix/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-bugfix/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 3,
@@ -304,14 +304,14 @@
       "description": "Adds canon-driven (baseline-driven) workflows: spec-first, code-first, spec-drift. Requires Canon Core preset installation.",
       "author": "Maxim Stupakov",
       "version": "0.1.0",
-      "download_url": "https://github.com/maximiliamus/spec-kit-canon/releases/download/v0.1.0/spec-kit-canon-v0.1.0.zip",
-      "repository": "https://github.com/maximiliamus/spec-kit-canon",
-      "homepage": "https://github.com/maximiliamus/spec-kit-canon",
-      "documentation": "https://github.com/maximiliamus/spec-kit-canon/blob/master/README.md",
-      "changelog": "https://github.com/maximiliamus/spec-kit-canon/blob/master/CHANGELOG.md",
+      "download_url": "https://github.com/maximiliamus/specpack-canon/releases/download/v0.1.0/specpack-canon-v0.1.0.zip",
+      "repository": "https://github.com/maximiliamus/specpack-canon",
+      "homepage": "https://github.com/maximiliamus/specpack-canon",
+      "documentation": "https://github.com/maximiliamus/specpack-canon/blob/master/README.md",
+      "changelog": "https://github.com/maximiliamus/specpack-canon/blob/master/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.3"
+        "specpack_version": ">=0.4.3"
       },
       "provides": {
         "commands": 16,
@@ -336,17 +336,17 @@
     "catalog-ci": {
       "name": "Catalog CI",
       "id": "catalog-ci",
-      "description": "Automated validation for spec-kit community catalog entries — structure, URLs, diffs, and linting.",
+      "description": "Automated validation for specpack community catalog entries — structure, URLs, diffs, and linting.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-catalog-ci/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-catalog-ci",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-catalog-ci",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-catalog-ci/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-catalog-ci/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-catalog-ci/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-catalog-ci",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-catalog-ci",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-catalog-ci/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-catalog-ci/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 4,
@@ -371,14 +371,14 @@
       "description": "Spec compliance gates for CI/CD — verify specs exist, check drift, and block merges on gaps.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-ci-guard/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-ci-guard",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-ci-guard",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-ci-guard/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-ci-guard/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-ci-guard/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-ci-guard",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-ci-guard",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-ci-guard/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-ci-guard/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 5,
@@ -404,14 +404,14 @@
       "description": "An extension to commit the changes made during the middle of the implementation, so you don't end up with just one very large commit at the end.",
       "author": "aaronrsun",
       "version": "1.0.0",
-      "download_url": "https://github.com/aaronrsun/spec-kit-checkpoint/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/aaronrsun/spec-kit-checkpoint",
-      "homepage": "https://github.com/aaronrsun/spec-kit-checkpoint",
-      "documentation": "https://github.com/aaronrsun/spec-kit-checkpoint/blob/main/README.md",
-      "changelog": "https://github.com/aaronrsun/spec-kit-checkpoint/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/aaronrsun/specpack-checkpoint/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/aaronrsun/specpack-checkpoint",
+      "homepage": "https://github.com/aaronrsun/specpack-checkpoint",
+      "documentation": "https://github.com/aaronrsun/specpack-checkpoint/blob/main/README.md",
+      "changelog": "https://github.com/aaronrsun/specpack-checkpoint/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -433,14 +433,14 @@
       "description": "Post-implementation quality gate that reviews changes, fixes small issues (scout rule), creates tasks for medium issues, and generates analysis for large issues.",
       "author": "dsrednicki",
       "version": "1.0.0",
-      "download_url": "https://github.com/dsrednicki/spec-kit-cleanup/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/dsrednicki/spec-kit-cleanup",
-      "homepage": "https://github.com/dsrednicki/spec-kit-cleanup",
-      "documentation": "https://github.com/dsrednicki/spec-kit-cleanup/blob/main/README.md",
-      "changelog": "https://github.com/dsrednicki/spec-kit-cleanup/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/dsrednicki/specpack-cleanup/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/dsrednicki/specpack-cleanup",
+      "homepage": "https://github.com/dsrednicki/specpack-cleanup",
+      "documentation": "https://github.com/dsrednicki/specpack-cleanup/blob/main/README.md",
+      "changelog": "https://github.com/dsrednicki/specpack-cleanup/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -462,17 +462,17 @@
     "conduct": {
       "name": "Conduct Extension",
       "id": "conduct",
-      "description": "Executes a single spec-kit phase via sub-agent delegation to reduce context pollution.",
+      "description": "Executes a single specpack phase via sub-agent delegation to reduce context pollution.",
       "author": "twbrandon7",
       "version": "1.0.1",
-      "download_url": "https://github.com/twbrandon7/spec-kit-conduct-ext/archive/refs/tags/v1.0.1.zip",
-      "repository": "https://github.com/twbrandon7/spec-kit-conduct-ext",
-      "homepage": "https://github.com/twbrandon7/spec-kit-conduct-ext",
-      "documentation": "https://github.com/twbrandon7/spec-kit-conduct-ext/blob/main/README.md",
-      "changelog": "https://github.com/twbrandon7/spec-kit-conduct-ext/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/twbrandon7/specpack-conduct-ext/archive/refs/tags/v1.0.1.zip",
+      "repository": "https://github.com/twbrandon7/specpack-conduct-ext",
+      "homepage": "https://github.com/twbrandon7/specpack-conduct-ext",
+      "documentation": "https://github.com/twbrandon7/specpack-conduct-ext/blob/main/README.md",
+      "changelog": "https://github.com/twbrandon7/specpack-conduct-ext/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.1"
+        "specpack_version": ">=0.3.1"
       },
       "provides": {
         "commands": 1,
@@ -495,14 +495,14 @@
       "description": "Dual-lens critical review of spec and plan from product strategy and engineering risk perspectives.",
       "author": "arunt14",
       "version": "1.0.0",
-      "download_url": "https://github.com/arunt14/spec-kit-critique/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/arunt14/spec-kit-critique",
-      "homepage": "https://github.com/arunt14/spec-kit-critique",
-      "documentation": "https://github.com/arunt14/spec-kit-critique/blob/main/README.md",
-      "changelog": "https://github.com/arunt14/spec-kit-critique/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/arunt14/specpack-critique/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/arunt14/specpack-critique",
+      "homepage": "https://github.com/arunt14/specpack-critique",
+      "documentation": "https://github.com/arunt14/specpack-critique/blob/main/README.md",
+      "changelog": "https://github.com/arunt14/specpack-critique/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -525,14 +525,14 @@
       "description": "Create, read, and update Confluence docs for your project",
       "author": "aaronrsun",
       "version": "1.1.1",
-      "download_url": "https://github.com/aaronrsun/spec-kit-confluence/archive/refs/tags/v1.1.1.zip",
-      "repository": "https://github.com/aaronrsun/spec-kit-confluence",
-      "homepage": "https://github.com/aaronrsun/spec-kit-confluence",
-      "documentation": "https://github.com/aaronrsun/spec-kit-confluence/blob/main/README.md",
-      "changelog": "https://github.com/aaronrsun/spec-kit-confluence/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/aaronrsun/specpack-confluence/archive/refs/tags/v1.1.1.zip",
+      "repository": "https://github.com/aaronrsun/specpack-confluence",
+      "homepage": "https://github.com/aaronrsun/specpack-confluence",
+      "documentation": "https://github.com/aaronrsun/specpack-confluence/blob/main/README.md",
+      "changelog": "https://github.com/aaronrsun/specpack-confluence/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -553,14 +553,14 @@
       "description": "Auto-generate Mermaid diagrams of SDD workflow state, feature progress, and task dependencies.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-diagram-/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-diagram-",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-diagram-",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-diagram-/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-diagram-/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-diagram-/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-diagram-",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-diagram-",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-diagram-/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-diagram-/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 3,
@@ -582,17 +582,17 @@
     "docguard": {
       "name": "DocGuard — CDD Enforcement",
       "id": "docguard",
-      "description": "Canonical-Driven Development enforcement. Validates, scores, and traces project documentation with automated checks, AI-driven workflows, and spec-kit hooks. Zero NPM runtime dependencies.",
+      "description": "Canonical-Driven Development enforcement. Validates, scores, and traces project documentation with automated checks, AI-driven workflows, and specpack hooks. Zero NPM runtime dependencies.",
       "author": "raccioly",
       "version": "0.9.11",
-      "download_url": "https://github.com/raccioly/docguard/releases/download/v0.9.11/spec-kit-docguard-v0.9.11.zip",
+      "download_url": "https://github.com/raccioly/docguard/releases/download/v0.9.11/specpack-docguard-v0.9.11.zip",
       "repository": "https://github.com/raccioly/docguard",
       "homepage": "https://www.npmjs.com/package/docguard-cli",
-      "documentation": "https://github.com/raccioly/docguard/blob/main/extensions/spec-kit-docguard/README.md",
+      "documentation": "https://github.com/raccioly/docguard/blob/main/extensions/specpack-docguard/README.md",
       "changelog": "https://github.com/raccioly/docguard/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0",
+        "specpack_version": ">=0.1.0",
         "tools": [
           {
             "name": "node",
@@ -613,7 +613,7 @@
         "traceability",
         "ai-agents",
         "enforcement",
-        "spec-kit"
+        "specpack"
       ],
       "verified": false,
       "downloads": 0,
@@ -624,17 +624,17 @@
     "doctor": {
       "name": "Project Health Check",
       "id": "doctor",
-      "description": "Diagnose a Spec Kit project and report health issues across structure, agents, features, scripts, extensions, and git.",
+      "description": "Diagnose a SpecPack project and report health issues across structure, agents, features, scripts, extensions, and git.",
       "author": "KhawarHabibKhan",
       "version": "1.0.0",
-      "download_url": "https://github.com/KhawarHabibKhan/spec-kit-doctor/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/KhawarHabibKhan/spec-kit-doctor",
-      "homepage": "https://github.com/KhawarHabibKhan/spec-kit-doctor",
-      "documentation": "https://github.com/KhawarHabibKhan/spec-kit-doctor/blob/main/README.md",
-      "changelog": "https://github.com/KhawarHabibKhan/spec-kit-doctor/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/KhawarHabibKhan/specpack-doctor/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/KhawarHabibKhan/specpack-doctor",
+      "homepage": "https://github.com/KhawarHabibKhan/specpack-doctor",
+      "documentation": "https://github.com/KhawarHabibKhan/specpack-doctor/blob/main/README.md",
+      "changelog": "https://github.com/KhawarHabibKhan/specpack-doctor/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -658,14 +658,14 @@
       "description": "Create and validate extensions and extension catalogs.",
       "author": "mnriem",
       "version": "1.0.0",
-      "download_url": "https://github.com/mnriem/spec-kit-extensions/releases/download/extensify-v1.0.0/extensify.zip",
-      "repository": "https://github.com/mnriem/spec-kit-extensions",
-      "homepage": "https://github.com/mnriem/spec-kit-extensions",
-      "documentation": "https://github.com/mnriem/spec-kit-extensions/blob/main/extensify/README.md",
-      "changelog": "https://github.com/mnriem/spec-kit-extensions/blob/main/extensify/CHANGELOG.md",
+      "download_url": "https://github.com/mnriem/specpack-extensions/releases/download/extensify-v1.0.0/extensify.zip",
+      "repository": "https://github.com/mnriem/specpack-extensions",
+      "homepage": "https://github.com/mnriem/specpack-extensions",
+      "documentation": "https://github.com/mnriem/specpack-extensions/blob/main/extensify/README.md",
+      "changelog": "https://github.com/mnriem/specpack-extensions/blob/main/extensify/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.2.0"
+        "specpack_version": ">=0.2.0"
       },
       "provides": {
         "commands": 4,
@@ -689,14 +689,14 @@
       "description": "Automated analyze-fix-reanalyze loop that resolves spec findings until clean.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-fix-findings/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-fix-findings",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-fix-findings",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-fix-findings/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-fix-findings/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-fix-findings/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-fix-findings",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-fix-findings",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-fix-findings/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-fix-findings/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -721,14 +721,14 @@
       "description": "Spec-aware bug fixing: maps bugs to spec artifacts, proposes a plan, applies minimal changes.",
       "author": "ismaelJimenez",
       "version": "1.0.0",
-      "download_url": "https://github.com/speckit-community/spec-kit-fixit/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/speckit-community/spec-kit-fixit",
-      "homepage": "https://github.com/speckit-community/spec-kit-fixit",
-      "documentation": "https://github.com/speckit-community/spec-kit-fixit/blob/main/README.md",
-      "changelog": "https://github.com/speckit-community/spec-kit-fixit/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/specpack-community/specpack-fixit/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/specpack-community/specpack-fixit",
+      "homepage": "https://github.com/specpack-community/specpack-fixit",
+      "documentation": "https://github.com/specpack-community/specpack-fixit/blob/main/README.md",
+      "changelog": "https://github.com/specpack-community/specpack-fixit/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -749,17 +749,17 @@
     "fleet": {
       "name": "Fleet Orchestrator",
       "id": "fleet",
-      "description": "Orchestrate a full feature lifecycle with human-in-the-loop gates across all SpecKit phases.",
+      "description": "Orchestrate a full feature lifecycle with human-in-the-loop gates across all SpecPack phases.",
       "author": "sharathsatish",
       "version": "1.1.0",
-      "download_url": "https://github.com/sharathsatish/spec-kit-fleet/archive/refs/tags/v1.1.0.zip",
-      "repository": "https://github.com/sharathsatish/spec-kit-fleet",
-      "homepage": "https://github.com/sharathsatish/spec-kit-fleet",
-      "documentation": "https://github.com/sharathsatish/spec-kit-fleet/blob/main/README.md",
-      "changelog": "https://github.com/sharathsatish/spec-kit-fleet/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/sharathsatish/specpack-fleet/archive/refs/tags/v1.1.0.zip",
+      "repository": "https://github.com/sharathsatish/specpack-fleet",
+      "homepage": "https://github.com/sharathsatish/specpack-fleet",
+      "documentation": "https://github.com/sharathsatish/specpack-fleet/blob/main/README.md",
+      "changelog": "https://github.com/sharathsatish/specpack-fleet/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 2,
@@ -783,14 +783,14 @@
       "description": "Generate spec artifacts from GitHub Issues - import issues, sync updates, and maintain bidirectional traceability",
       "author": "Fatima367",
       "version": "1.0.0",
-      "download_url": "https://github.com/Fatima367/spec-kit-github-issues/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Fatima367/spec-kit-github-issues",
-      "homepage": "https://github.com/Fatima367/spec-kit-github-issues",
-      "documentation": "https://github.com/Fatima367/spec-kit-github-issues/blob/main/README.md",
-      "changelog": "https://github.com/Fatima367/spec-kit-github-issues/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Fatima367/specpack-github-issues/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Fatima367/specpack-github-issues",
+      "homepage": "https://github.com/Fatima367/specpack-github-issues",
+      "documentation": "https://github.com/Fatima367/specpack-github-issues/blob/main/README.md",
+      "changelog": "https://github.com/Fatima367/specpack-github-issues/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0",
+        "specpack_version": ">=0.1.0",
         "tools": [
           {
             "name": "gh",
@@ -823,14 +823,14 @@
       "description": "Creates and syncs local specs based on an existing issue in GitHub",
       "author": "aaronrsun",
       "version": "1.0.0",
-      "download_url": "https://github.com/aaronrsun/spec-kit-issue/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/aaronrsun/spec-kit-issue",
-      "homepage": "https://github.com/aaronrsun/spec-kit-issue",
-      "documentation": "https://github.com/aaronrsun/spec-kit-issue/blob/main/README.md",
-      "changelog": "https://github.com/aaronrsun/spec-kit-issue/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/aaronrsun/specpack-issue/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/aaronrsun/specpack-issue",
+      "homepage": "https://github.com/aaronrsun/specpack-issue",
+      "documentation": "https://github.com/aaronrsun/specpack-issue/blob/main/README.md",
+      "changelog": "https://github.com/aaronrsun/specpack-issue/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 3,
@@ -855,14 +855,14 @@
       "description": "Iterate on spec documents with a two-phase define-and-apply workflow — refine specs mid-implementation and go straight back to building",
       "author": "Vianca Martinez",
       "version": "2.0.0",
-      "download_url": "https://github.com/imviancagrace/spec-kit-iterate/archive/refs/tags/v2.0.0.zip",
-      "repository": "https://github.com/imviancagrace/spec-kit-iterate",
-      "homepage": "https://github.com/imviancagrace/spec-kit-iterate",
-      "documentation": "https://github.com/imviancagrace/spec-kit-iterate/blob/main/README.md",
-      "changelog": "https://github.com/imviancagrace/spec-kit-iterate/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/imviancagrace/specpack-iterate/archive/refs/tags/v2.0.0.zip",
+      "repository": "https://github.com/imviancagrace/specpack-iterate",
+      "homepage": "https://github.com/imviancagrace/specpack-iterate",
+      "documentation": "https://github.com/imviancagrace/specpack-iterate/blob/main/README.md",
+      "changelog": "https://github.com/imviancagrace/specpack-iterate/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 2,
@@ -882,17 +882,17 @@
     "jira": {
       "name": "Jira Integration",
       "id": "jira",
-      "description": "Create Jira Epics, Stories, and Issues from spec-kit specifications and task breakdowns with configurable hierarchy and custom field support.",
+      "description": "Create Jira Epics, Stories, and Issues from specpack specifications and task breakdowns with configurable hierarchy and custom field support.",
       "author": "mbachorik",
       "version": "2.1.0",
-      "download_url": "https://github.com/mbachorik/spec-kit-jira/archive/refs/tags/v2.1.0.zip",
-      "repository": "https://github.com/mbachorik/spec-kit-jira",
-      "homepage": "https://github.com/mbachorik/spec-kit-jira",
-      "documentation": "https://github.com/mbachorik/spec-kit-jira/blob/main/README.md",
-      "changelog": "https://github.com/mbachorik/spec-kit-jira/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/mbachorik/specpack-jira/archive/refs/tags/v2.1.0.zip",
+      "repository": "https://github.com/mbachorik/specpack-jira",
+      "homepage": "https://github.com/mbachorik/specpack-jira",
+      "documentation": "https://github.com/mbachorik/specpack-jira/blob/main/README.md",
+      "changelog": "https://github.com/mbachorik/specpack-jira/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 3,
@@ -916,14 +916,14 @@
       "description": "Generate educational guides from implementations and enhance clarifications with mentoring context.",
       "author": "Vianca Martinez",
       "version": "1.0.0",
-      "download_url": "https://github.com/imviancagrace/spec-kit-learn/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/imviancagrace/spec-kit-learn",
-      "homepage": "https://github.com/imviancagrace/spec-kit-learn",
-      "documentation": "https://github.com/imviancagrace/spec-kit-learn/blob/main/README.md",
-      "changelog": "https://github.com/imviancagrace/spec-kit-learn/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/imviancagrace/specpack-learn/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/imviancagrace/specpack-learn",
+      "homepage": "https://github.com/imviancagrace/specpack-learn",
+      "documentation": "https://github.com/imviancagrace/specpack-learn/blob/main/README.md",
+      "changelog": "https://github.com/imviancagrace/specpack-learn/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 2,
@@ -947,14 +947,14 @@
       "description": "Coordinator → feature → QA agent workflow with parallel worktree-based implementation. Language-agnostic. Auto-detects installed board plugins (Trello, Linear, GitHub Projects, Jira, Azure DevOps). Optional CI gate.",
       "author": "GenieRobot",
       "version": "0.1.3",
-      "download_url": "https://github.com/GenieRobot/spec-kit-maqa-ext/releases/download/maqa-v0.1.3/maqa.zip",
-      "repository": "https://github.com/GenieRobot/spec-kit-maqa-ext",
-      "homepage": "https://github.com/GenieRobot/spec-kit-maqa-ext",
-      "documentation": "https://github.com/GenieRobot/spec-kit-maqa-ext/blob/main/README.md",
-      "changelog": "https://github.com/GenieRobot/spec-kit-maqa-ext/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/GenieRobot/specpack-maqa-ext/releases/download/maqa-v0.1.3/maqa.zip",
+      "repository": "https://github.com/GenieRobot/specpack-maqa-ext",
+      "homepage": "https://github.com/GenieRobot/specpack-maqa-ext",
+      "documentation": "https://github.com/GenieRobot/specpack-maqa-ext/blob/main/README.md",
+      "changelog": "https://github.com/GenieRobot/specpack-maqa-ext/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 4,
@@ -980,14 +980,14 @@
       "description": "Azure DevOps Boards integration for the MAQA extension. Populates work items from specs, moves User Stories across columns as features progress, real-time Task child ticking.",
       "author": "GenieRobot",
       "version": "0.1.0",
-      "download_url": "https://github.com/GenieRobot/spec-kit-maqa-azure-devops/releases/download/maqa-azure-devops-v0.1.0/maqa-azure-devops.zip",
-      "repository": "https://github.com/GenieRobot/spec-kit-maqa-azure-devops",
-      "homepage": "https://github.com/GenieRobot/spec-kit-maqa-azure-devops",
-      "documentation": "https://github.com/GenieRobot/spec-kit-maqa-azure-devops/blob/main/README.md",
-      "changelog": "https://github.com/GenieRobot/spec-kit-maqa-azure-devops/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/GenieRobot/specpack-maqa-azure-devops/releases/download/maqa-azure-devops-v0.1.0/maqa-azure-devops.zip",
+      "repository": "https://github.com/GenieRobot/specpack-maqa-azure-devops",
+      "homepage": "https://github.com/GenieRobot/specpack-maqa-azure-devops",
+      "documentation": "https://github.com/GenieRobot/specpack-maqa-azure-devops/blob/main/README.md",
+      "changelog": "https://github.com/GenieRobot/specpack-maqa-azure-devops/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 2,
@@ -1012,14 +1012,14 @@
       "description": "CI/CD pipeline gate for the MAQA extension. Auto-detects GitHub Actions, CircleCI, GitLab CI, and Bitbucket Pipelines. Blocks QA handoff until pipeline is green.",
       "author": "GenieRobot",
       "version": "0.1.0",
-      "download_url": "https://github.com/GenieRobot/spec-kit-maqa-ci/releases/download/maqa-ci-v0.1.0/maqa-ci.zip",
-      "repository": "https://github.com/GenieRobot/spec-kit-maqa-ci",
-      "homepage": "https://github.com/GenieRobot/spec-kit-maqa-ci",
-      "documentation": "https://github.com/GenieRobot/spec-kit-maqa-ci/blob/main/README.md",
-      "changelog": "https://github.com/GenieRobot/spec-kit-maqa-ci/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/GenieRobot/specpack-maqa-ci/releases/download/maqa-ci-v0.1.0/maqa-ci.zip",
+      "repository": "https://github.com/GenieRobot/specpack-maqa-ci",
+      "homepage": "https://github.com/GenieRobot/specpack-maqa-ci",
+      "documentation": "https://github.com/GenieRobot/specpack-maqa-ci/blob/main/README.md",
+      "changelog": "https://github.com/GenieRobot/specpack-maqa-ci/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 2,
@@ -1045,14 +1045,14 @@
       "description": "GitHub Projects v2 integration for the MAQA extension. Populates draft issues from specs, moves items across Status columns as features progress, real-time task list ticking.",
       "author": "GenieRobot",
       "version": "0.1.0",
-      "download_url": "https://github.com/GenieRobot/spec-kit-maqa-github-projects/releases/download/maqa-github-projects-v0.1.0/maqa-github-projects.zip",
-      "repository": "https://github.com/GenieRobot/spec-kit-maqa-github-projects",
-      "homepage": "https://github.com/GenieRobot/spec-kit-maqa-github-projects",
-      "documentation": "https://github.com/GenieRobot/spec-kit-maqa-github-projects/blob/main/README.md",
-      "changelog": "https://github.com/GenieRobot/spec-kit-maqa-github-projects/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/GenieRobot/specpack-maqa-github-projects/releases/download/maqa-github-projects-v0.1.0/maqa-github-projects.zip",
+      "repository": "https://github.com/GenieRobot/specpack-maqa-github-projects",
+      "homepage": "https://github.com/GenieRobot/specpack-maqa-github-projects",
+      "documentation": "https://github.com/GenieRobot/specpack-maqa-github-projects/blob/main/README.md",
+      "changelog": "https://github.com/GenieRobot/specpack-maqa-github-projects/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 2,
@@ -1077,14 +1077,14 @@
       "description": "Jira integration for the MAQA extension. Populates Stories from specs, moves issues across board columns as features progress, real-time Subtask ticking.",
       "author": "GenieRobot",
       "version": "0.1.0",
-      "download_url": "https://github.com/GenieRobot/spec-kit-maqa-jira/releases/download/maqa-jira-v0.1.0/maqa-jira.zip",
-      "repository": "https://github.com/GenieRobot/spec-kit-maqa-jira",
-      "homepage": "https://github.com/GenieRobot/spec-kit-maqa-jira",
-      "documentation": "https://github.com/GenieRobot/spec-kit-maqa-jira/blob/main/README.md",
-      "changelog": "https://github.com/GenieRobot/spec-kit-maqa-jira/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/GenieRobot/specpack-maqa-jira/releases/download/maqa-jira-v0.1.0/maqa-jira.zip",
+      "repository": "https://github.com/GenieRobot/specpack-maqa-jira",
+      "homepage": "https://github.com/GenieRobot/specpack-maqa-jira",
+      "documentation": "https://github.com/GenieRobot/specpack-maqa-jira/blob/main/README.md",
+      "changelog": "https://github.com/GenieRobot/specpack-maqa-jira/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 2,
@@ -1109,14 +1109,14 @@
       "description": "Linear integration for the MAQA extension. Populates issues from specs, moves items across workflow states as features progress, real-time sub-issue ticking.",
       "author": "GenieRobot",
       "version": "0.1.0",
-      "download_url": "https://github.com/GenieRobot/spec-kit-maqa-linear/releases/download/maqa-linear-v0.1.0/maqa-linear.zip",
-      "repository": "https://github.com/GenieRobot/spec-kit-maqa-linear",
-      "homepage": "https://github.com/GenieRobot/spec-kit-maqa-linear",
-      "documentation": "https://github.com/GenieRobot/spec-kit-maqa-linear/blob/main/README.md",
-      "changelog": "https://github.com/GenieRobot/spec-kit-maqa-linear/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/GenieRobot/specpack-maqa-linear/releases/download/maqa-linear-v0.1.0/maqa-linear.zip",
+      "repository": "https://github.com/GenieRobot/specpack-maqa-linear",
+      "homepage": "https://github.com/GenieRobot/specpack-maqa-linear",
+      "documentation": "https://github.com/GenieRobot/specpack-maqa-linear/blob/main/README.md",
+      "changelog": "https://github.com/GenieRobot/specpack-maqa-linear/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 2,
@@ -1141,14 +1141,14 @@
       "description": "Trello board integration for the MAQA extension. Populates board from specs, moves cards between lists as features progress, real-time checklist ticking.",
       "author": "GenieRobot",
       "version": "0.1.1",
-      "download_url": "https://github.com/GenieRobot/spec-kit-maqa-trello/releases/download/maqa-trello-v0.1.1/maqa-trello.zip",
-      "repository": "https://github.com/GenieRobot/spec-kit-maqa-trello",
-      "homepage": "https://github.com/GenieRobot/spec-kit-maqa-trello",
-      "documentation": "https://github.com/GenieRobot/spec-kit-maqa-trello/blob/main/README.md",
-      "changelog": "https://github.com/GenieRobot/spec-kit-maqa-trello/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/GenieRobot/specpack-maqa-trello/releases/download/maqa-trello-v0.1.1/maqa-trello.zip",
+      "repository": "https://github.com/GenieRobot/specpack-maqa-trello",
+      "homepage": "https://github.com/GenieRobot/specpack-maqa-trello",
+      "documentation": "https://github.com/GenieRobot/specpack-maqa-trello/blob/main/README.md",
+      "changelog": "https://github.com/GenieRobot/specpack-maqa-trello/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.3.0"
+        "specpack_version": ">=0.3.0"
       },
       "provides": {
         "commands": 2,
@@ -1173,14 +1173,14 @@
       "description": "Agent memory governance tool: Automatically audits and fixes boundary conflicts between AGENTS.md and the constitution.",
       "author": "RbBtSn0w",
       "version": "1.3.0",
-      "download_url": "https://github.com/RbBtSn0w/spec-kit-extensions/releases/download/memorylint-v1.3.0/memorylint.zip",
-      "repository": "https://github.com/RbBtSn0w/spec-kit-extensions",
-      "homepage": "https://github.com/RbBtSn0w/spec-kit-extensions/tree/main/memorylint",
-      "documentation": "https://github.com/RbBtSn0w/spec-kit-extensions/blob/main/memorylint/README.md",
-      "changelog": "https://github.com/RbBtSn0w/spec-kit-extensions/blob/main/memorylint/CHANGELOG.md",
+      "download_url": "https://github.com/RbBtSn0w/specpack-extensions/releases/download/memorylint-v1.3.0/memorylint.zip",
+      "repository": "https://github.com/RbBtSn0w/specpack-extensions",
+      "homepage": "https://github.com/RbBtSn0w/specpack-extensions/tree/main/memorylint",
+      "documentation": "https://github.com/RbBtSn0w/specpack-extensions/blob/main/memorylint/README.md",
+      "changelog": "https://github.com/RbBtSn0w/specpack-extensions/blob/main/memorylint/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.5.1"
+        "specpack_version": ">=0.5.1"
       },
       "provides": {
         "commands": 1,
@@ -1202,17 +1202,17 @@
     "onboard": {
       "name": "Onboard",
       "id": "onboard",
-      "description": "Contextual onboarding and progressive growth for developers new to spec-kit projects. Explains specs, maps dependencies, validates understanding, and guides the next step.",
+      "description": "Contextual onboarding and progressive growth for developers new to specpack projects. Explains specs, maps dependencies, validates understanding, and guides the next step.",
       "author": "Rafael Sales",
       "version": "2.1.0",
-      "download_url": "https://github.com/dmux/spec-kit-onboard/archive/refs/tags/v2.1.0.zip",
-      "repository": "https://github.com/dmux/spec-kit-onboard",
-      "homepage": "https://github.com/dmux/spec-kit-onboard",
-      "documentation": "https://github.com/dmux/spec-kit-onboard/blob/main/README.md",
-      "changelog": "https://github.com/dmux/spec-kit-onboard/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/dmux/specpack-onboard/archive/refs/tags/v2.1.0.zip",
+      "repository": "https://github.com/dmux/specpack-onboard",
+      "homepage": "https://github.com/dmux/specpack-onboard",
+      "documentation": "https://github.com/dmux/specpack-onboard/blob/main/README.md",
+      "changelog": "https://github.com/dmux/specpack-onboard/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 7,
@@ -1238,14 +1238,14 @@
       "description": "Audits and optimizes AI governance for context efficiency",
       "author": "sakitA",
       "version": "1.0.0",
-      "download_url": "https://github.com/sakitA/spec-kit-optimize/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/sakitA/spec-kit-optimize",
-      "homepage": "https://github.com/sakitA/spec-kit-optimize",
-      "documentation": "https://github.com/sakitA/spec-kit-optimize/blob/main/README.md",
-      "changelog": "https://github.com/sakitA/spec-kit-optimize/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/sakitA/specpack-optimize/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/sakitA/specpack-optimize",
+      "homepage": "https://github.com/sakitA/specpack-optimize",
+      "documentation": "https://github.com/sakitA/specpack-optimize/blob/main/README.md",
+      "changelog": "https://github.com/sakitA/specpack-optimize/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 3,
@@ -1270,14 +1270,14 @@
       "description": "Require spec.md and plan.md to be merged via MR/PR before allowing task generation",
       "author": "luno",
       "version": "1.0.0",
-      "download_url": "https://github.com/luno/spec-kit-plan-review-gate/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/luno/spec-kit-plan-review-gate",
-      "homepage": "https://github.com/luno/spec-kit-plan-review-gate",
-      "documentation": "https://github.com/luno/spec-kit-plan-review-gate/blob/main/README.md",
-      "changelog": "https://github.com/luno/spec-kit-plan-review-gate/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/luno/specpack-plan-review-gate/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/luno/specpack-plan-review-gate",
+      "homepage": "https://github.com/luno/specpack-plan-review-gate",
+      "documentation": "https://github.com/luno/specpack-plan-review-gate/blob/main/README.md",
+      "changelog": "https://github.com/luno/specpack-plan-review-gate/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1301,14 +1301,14 @@
       "description": "Auto-generate pull request descriptions, checklists, and summaries from spec artifacts.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-pr-bridge-/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-pr-bridge-",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-pr-bridge-",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-pr-bridge-/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-pr-bridge-/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-pr-bridge-/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-pr-bridge-",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-pr-bridge-",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-pr-bridge-/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-pr-bridge-/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 3,
@@ -1333,14 +1333,14 @@
       "description": "Create and validate presets and preset catalogs.",
       "author": "mnriem",
       "version": "1.0.0",
-      "download_url": "https://github.com/mnriem/spec-kit-extensions/releases/download/presetify-v1.0.0/presetify.zip",
-      "repository": "https://github.com/mnriem/spec-kit-extensions",
-      "homepage": "https://github.com/mnriem/spec-kit-extensions",
-      "documentation": "https://github.com/mnriem/spec-kit-extensions/blob/main/presetify/README.md",
-      "changelog": "https://github.com/mnriem/spec-kit-extensions/blob/main/presetify/CHANGELOG.md",
+      "download_url": "https://github.com/mnriem/specpack-extensions/releases/download/presetify-v1.0.0/presetify.zip",
+      "repository": "https://github.com/mnriem/specpack-extensions",
+      "homepage": "https://github.com/mnriem/specpack-extensions",
+      "documentation": "https://github.com/mnriem/specpack-extensions/blob/main/presetify/README.md",
+      "changelog": "https://github.com/mnriem/specpack-extensions/blob/main/presetify/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.2.0"
+        "specpack_version": ">=0.2.0"
       },
       "provides": {
         "commands": 4,
@@ -1361,17 +1361,17 @@
     "product-forge": {
       "name": "Product Forge",
       "id": "product-forge",
-      "description": "Full product lifecycle: research → product spec → SpecKit → implement → verify → test",
+      "description": "Full product lifecycle: research → product spec → SpecPack → implement → verify → test",
       "author": "VaiYav",
       "version": "1.1.1",
-      "download_url": "https://github.com/VaiYav/speckit-product-forge/archive/refs/tags/v1.1.1.zip",
-      "repository": "https://github.com/VaiYav/speckit-product-forge",
-      "homepage": "https://github.com/VaiYav/speckit-product-forge",
-      "documentation": "https://github.com/VaiYav/speckit-product-forge/blob/main/README.md",
-      "changelog": "https://github.com/VaiYav/speckit-product-forge/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/VaiYav/specpack-product-forge/archive/refs/tags/v1.1.1.zip",
+      "repository": "https://github.com/VaiYav/specpack-product-forge",
+      "homepage": "https://github.com/VaiYav/specpack-product-forge",
+      "documentation": "https://github.com/VaiYav/specpack-product-forge/blob/main/README.md",
+      "changelog": "https://github.com/VaiYav/specpack-product-forge/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 10,
@@ -1396,14 +1396,14 @@
       "description": "Systematic QA testing with browser-driven or CLI-based validation of acceptance criteria from spec.",
       "author": "arunt14",
       "version": "1.0.0",
-      "download_url": "https://github.com/arunt14/spec-kit-qa/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/arunt14/spec-kit-qa",
-      "homepage": "https://github.com/arunt14/spec-kit-qa",
-      "documentation": "https://github.com/arunt14/spec-kit-qa/blob/main/README.md",
-      "changelog": "https://github.com/arunt14/spec-kit-qa/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/arunt14/specpack-qa/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/arunt14/specpack-qa",
+      "homepage": "https://github.com/arunt14/specpack-qa",
+      "documentation": "https://github.com/arunt14/specpack-qa/blob/main/README.md",
+      "changelog": "https://github.com/arunt14/specpack-qa/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1426,14 +1426,14 @@
       "description": "Autonomous implementation loop using AI agent CLI.",
       "author": "Rubiss",
       "version": "1.0.1",
-      "download_url": "https://github.com/Rubiss/spec-kit-ralph/archive/refs/tags/v1.0.1.zip",
-      "repository": "https://github.com/Rubiss/spec-kit-ralph",
-      "homepage": "https://github.com/Rubiss/spec-kit-ralph",
-      "documentation": "https://github.com/Rubiss/spec-kit-ralph/blob/main/README.md",
-      "changelog": "https://github.com/Rubiss/spec-kit-ralph/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Rubiss/specpack-ralph/archive/refs/tags/v1.0.1.zip",
+      "repository": "https://github.com/Rubiss/specpack-ralph",
+      "homepage": "https://github.com/Rubiss/specpack-ralph",
+      "documentation": "https://github.com/Rubiss/specpack-ralph/blob/main/README.md",
+      "changelog": "https://github.com/Rubiss/specpack-ralph/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0",
+        "specpack_version": ">=0.1.0",
         "tools": [
           {
             "name": "copilot",
@@ -1467,14 +1467,14 @@
       "description": "Reconcile implementation drift by surgically updating the feature's own spec, plan, and tasks.",
       "author": "Stanislav Deviatov",
       "version": "1.0.0",
-      "download_url": "https://github.com/stn1slv/spec-kit-reconcile/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/stn1slv/spec-kit-reconcile",
-      "homepage": "https://github.com/stn1slv/spec-kit-reconcile",
-      "documentation": "https://github.com/stn1slv/spec-kit-reconcile/blob/main/README.md",
-      "changelog": "https://github.com/stn1slv/spec-kit-reconcile/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/stn1slv/specpack-reconcile/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/stn1slv/specpack-reconcile",
+      "homepage": "https://github.com/stn1slv/specpack-reconcile",
+      "documentation": "https://github.com/stn1slv/specpack-reconcile/blob/main/README.md",
+      "changelog": "https://github.com/stn1slv/specpack-reconcile/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1498,14 +1498,14 @@
       "description": "Update specs in-place, propagate changes to plan and tasks, and diff impact across artifacts.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-refine/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-refine",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-refine",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-refine/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-refine/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-refine/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-refine",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-refine",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-refine/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-refine/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 4,
@@ -1530,14 +1530,14 @@
       "description": "Generate index of your repo for overview, architecture and module",
       "author": "Yiyu Liu",
       "version": "1.0.0",
-      "download_url": "https://github.com/liuyiyu/spec-kit-repoindex/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/liuyiyu/spec-kit-repoindex",
-      "homepage": "https://github.com/liuyiyu/spec-kit-repoindex",
-      "documentation": "https://github.com/liuyiyu/spec-kit-repoindex/tree/main/docs",
-      "changelog": "https://github.com/liuyiyu/spec-kit-repoindex/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/liuyiyu/specpack-repoindex/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/liuyiyu/specpack-repoindex",
+      "homepage": "https://github.com/liuyiyu/specpack-repoindex",
+      "documentation": "https://github.com/liuyiyu/specpack-repoindex/tree/main/docs",
+      "changelog": "https://github.com/liuyiyu/specpack-repoindex/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0",
+        "specpack_version": ">=0.1.0",
         "tools": [
           {
             "name": "no need",
@@ -1567,14 +1567,14 @@
       "description": "Sprint retrospective analysis with metrics, spec accuracy assessment, and improvement suggestions.",
       "author": "arunt14",
       "version": "1.0.0",
-      "download_url": "https://github.com/arunt14/spec-kit-retro/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/arunt14/spec-kit-retro",
-      "homepage": "https://github.com/arunt14/spec-kit-retro",
-      "documentation": "https://github.com/arunt14/spec-kit-retro/blob/main/README.md",
-      "changelog": "https://github.com/arunt14/spec-kit-retro/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/arunt14/specpack-retro/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/arunt14/specpack-retro",
+      "homepage": "https://github.com/arunt14/specpack-retro",
+      "documentation": "https://github.com/arunt14/specpack-retro/blob/main/README.md",
+      "changelog": "https://github.com/arunt14/specpack-retro/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1597,14 +1597,14 @@
       "description": "Post-implementation retrospective with spec adherence scoring, drift analysis, and human-gated spec updates.",
       "author": "emi-dm",
       "version": "1.0.0",
-      "download_url": "https://github.com/emi-dm/spec-kit-retrospective/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/emi-dm/spec-kit-retrospective",
-      "homepage": "https://github.com/emi-dm/spec-kit-retrospective",
-      "documentation": "https://github.com/emi-dm/spec-kit-retrospective/blob/main/README.md",
-      "changelog": "https://github.com/emi-dm/spec-kit-retrospective/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/emi-dm/specpack-retrospective/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/emi-dm/specpack-retrospective",
+      "homepage": "https://github.com/emi-dm/specpack-retrospective",
+      "documentation": "https://github.com/emi-dm/specpack-retrospective/blob/main/README.md",
+      "changelog": "https://github.com/emi-dm/specpack-retrospective/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1629,14 +1629,14 @@
       "description": "Post-implementation comprehensive code review with specialized agents for code quality, comments, tests, error handling, type design, and simplification.",
       "author": "ismaelJimenez",
       "version": "1.0.1",
-      "download_url": "https://github.com/ismaelJimenez/spec-kit-review/archive/refs/tags/v1.0.1.zip",
-      "repository": "https://github.com/ismaelJimenez/spec-kit-review",
-      "homepage": "https://github.com/ismaelJimenez/spec-kit-review",
-      "documentation": "https://github.com/ismaelJimenez/spec-kit-review/blob/main/README.md",
-      "changelog": "https://github.com/ismaelJimenez/spec-kit-review/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/ismaelJimenez/specpack-review/archive/refs/tags/v1.0.1.zip",
+      "repository": "https://github.com/ismaelJimenez/specpack-review",
+      "homepage": "https://github.com/ismaelJimenez/specpack-review",
+      "documentation": "https://github.com/ismaelJimenez/specpack-review/blob/main/README.md",
+      "changelog": "https://github.com/ismaelJimenez/specpack-review/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 7,
@@ -1663,14 +1663,14 @@
       "description": "Effort estimation and scope tracking — estimate work, detect creep, and budget time per phase.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-scope-/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-scope-",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-scope-",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-scope-/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-scope-/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-scope-/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-scope-",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-scope-",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-scope-/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-scope-/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 4,
@@ -1696,14 +1696,14 @@
       "description": "Comprehensive security audit of codebases using AI-powered DevSecOps analysis",
       "author": "DyanGalih",
       "version": "1.1.1",
-      "download_url": "https://github.com/DyanGalih/spec-kit-security-review/archive/refs/tags/v1.1.1.zip",
-      "repository": "https://github.com/DyanGalih/spec-kit-security-review",
-      "homepage": "https://github.com/DyanGalih/spec-kit-security-review",
-      "documentation": "https://github.com/DyanGalih/spec-kit-security-review/blob/main/README.md",
-      "changelog": "https://github.com/DyanGalih/spec-kit-security-review/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/DyanGalih/specpack-security-review/archive/refs/tags/v1.1.1.zip",
+      "repository": "https://github.com/DyanGalih/specpack-security-review",
+      "homepage": "https://github.com/DyanGalih/specpack-security-review",
+      "documentation": "https://github.com/DyanGalih/specpack-security-review/blob/main/README.md",
+      "changelog": "https://github.com/DyanGalih/specpack-security-review/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 3,
@@ -1728,14 +1728,14 @@
       "description": "Enterprise-Grade Spec-Driven Development (SDD) Framework for Salesforce.",
       "author": "Sumanth Yanamala",
       "version": "1.0.0",
-      "download_url": "https://github.com/ysumanth06/spec-kit-sf/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/ysumanth06/spec-kit-sf",
-      "homepage": "https://ysumanth06.github.io/spec-kit-sf/",
-      "documentation": "https://ysumanth06.github.io/spec-kit-sf/introduction.html",
-      "changelog": "https://github.com/ysumanth06/spec-kit-sf/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/ysumanth06/specpack-sf/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/ysumanth06/specpack-sf",
+      "homepage": "https://ysumanth06.github.io/specpack-sf/",
+      "documentation": "https://ysumanth06.github.io/specpack-sf/introduction.html",
+      "changelog": "https://github.com/ysumanth06/specpack-sf/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0",
+        "specpack_version": ">=0.4.0",
         "tools": [
           {
             "name": "sf",
@@ -1772,14 +1772,14 @@
       "description": "Automates release pipeline: pre-flight checks, branch sync, changelog generation, CI verification, and PR creation.",
       "author": "arunt14",
       "version": "1.0.0",
-      "download_url": "https://github.com/arunt14/spec-kit-ship/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/arunt14/spec-kit-ship",
-      "homepage": "https://github.com/arunt14/spec-kit-ship",
-      "documentation": "https://github.com/arunt14/spec-kit-ship/blob/main/README.md",
-      "changelog": "https://github.com/arunt14/spec-kit-ship/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/arunt14/specpack-ship/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/arunt14/specpack-ship",
+      "homepage": "https://github.com/arunt14/specpack-ship",
+      "documentation": "https://github.com/arunt14/specpack-ship/blob/main/README.md",
+      "changelog": "https://github.com/arunt14/specpack-ship/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1796,20 +1796,20 @@
       "created_at": "2026-04-01T00:00:00Z",
       "updated_at": "2026-04-01T00:00:00Z"
     },
-    "speckit-utils": {
+    "specpack-utils": {
       "name": "SDD Utilities",
-      "id": "speckit-utils",
+      "id": "specpack-utils",
       "description": "Resume interrupted workflows, validate project health, and verify spec-to-task traceability.",
       "author": "mvanhorn",
       "version": "1.0.0",
-      "download_url": "https://github.com/mvanhorn/speckit-utils/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/mvanhorn/speckit-utils",
-      "homepage": "https://github.com/mvanhorn/speckit-utils",
-      "documentation": "https://github.com/mvanhorn/speckit-utils/blob/main/README.md",
-      "changelog": "https://github.com/mvanhorn/speckit-utils/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/mvanhorn/specpack-utils/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/mvanhorn/specpack-utils",
+      "homepage": "https://github.com/mvanhorn/specpack-utils",
+      "documentation": "https://github.com/mvanhorn/specpack-utils/blob/main/README.md",
+      "changelog": "https://github.com/mvanhorn/specpack-utils/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 3,
@@ -1834,14 +1834,14 @@
       "description": "Auto-generate test scaffolds from spec criteria, map coverage, and find untested requirements.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-spectest/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-spectest",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-spectest",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-spectest/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-spectest/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-spectest/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-spectest",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-spectest",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-spectest/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-spectest/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 4,
@@ -1867,14 +1867,14 @@
       "description": "Staff-engineer-level code review that validates implementation against spec, checks security, performance, and test coverage.",
       "author": "arunt14",
       "version": "1.0.0",
-      "download_url": "https://github.com/arunt14/spec-kit-staff-review/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/arunt14/spec-kit-staff-review",
-      "homepage": "https://github.com/arunt14/spec-kit-staff-review",
-      "documentation": "https://github.com/arunt14/spec-kit-staff-review/blob/main/README.md",
-      "changelog": "https://github.com/arunt14/spec-kit-staff-review/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/arunt14/specpack-staff-review/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/arunt14/specpack-staff-review",
+      "homepage": "https://github.com/arunt14/specpack-staff-review",
+      "documentation": "https://github.com/arunt14/specpack-staff-review/blob/main/README.md",
+      "changelog": "https://github.com/arunt14/specpack-staff-review/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1897,14 +1897,14 @@
       "description": "Show current SDD workflow progress — active feature, artifact status, task completion, workflow phase, and extensions summary.",
       "author": "KhawarHabibKhan",
       "version": "1.0.0",
-      "download_url": "https://github.com/KhawarHabibKhan/spec-kit-status/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/KhawarHabibKhan/spec-kit-status",
-      "homepage": "https://github.com/KhawarHabibKhan/spec-kit-status",
-      "documentation": "https://github.com/KhawarHabibKhan/spec-kit-status/blob/main/README.md",
-      "changelog": "https://github.com/KhawarHabibKhan/spec-kit-status/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/KhawarHabibKhan/specpack-status/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/KhawarHabibKhan/specpack-status",
+      "homepage": "https://github.com/KhawarHabibKhan/specpack-status",
+      "documentation": "https://github.com/KhawarHabibKhan/specpack-status/blob/main/README.md",
+      "changelog": "https://github.com/KhawarHabibKhan/specpack-status/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1929,14 +1929,14 @@
       "description": "Project status, feature progress, and next-action recommendations for spec-driven workflows.",
       "author": "Open-Agent-Tools",
       "version": "1.2.5",
-      "download_url": "https://github.com/Open-Agent-Tools/spec-kit-status/archive/refs/tags/v1.2.5.zip",
-      "repository": "https://github.com/Open-Agent-Tools/spec-kit-status",
-      "homepage": "https://github.com/Open-Agent-Tools/spec-kit-status",
-      "documentation": "https://github.com/Open-Agent-Tools/spec-kit-status/blob/main/README.md",
-      "changelog": "https://github.com/Open-Agent-Tools/spec-kit-status/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Open-Agent-Tools/specpack-status/archive/refs/tags/v1.2.5.zip",
+      "repository": "https://github.com/Open-Agent-Tools/specpack-status",
+      "homepage": "https://github.com/Open-Agent-Tools/specpack-status",
+      "documentation": "https://github.com/Open-Agent-Tools/specpack-status/blob/main/README.md",
+      "changelog": "https://github.com/Open-Agent-Tools/specpack-status/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -1956,17 +1956,17 @@
     "superb": {
       "name": "Superpowers Bridge",
       "id": "superb",
-      "description": "Orchestrates obra/superpowers skills within the spec-kit SDD workflow. Thin bridge commands delegate to superpowers' authoritative SKILL.md files at runtime (with graceful fallback), while bridge-original commands provide spec-kit-native value. Eight commands cover the full lifecycle: intent clarification, TDD enforcement, task review, verification, critique, systematic debugging, branch completion, and review response. Hook-bound commands fire automatically; standalone commands are invoked when needed.",
+      "description": "Orchestrates obra/superpowers skills within the specpack SDD workflow. Thin bridge commands delegate to superpowers' authoritative SKILL.md files at runtime (with graceful fallback), while bridge-original commands provide specpack-native value. Eight commands cover the full lifecycle: intent clarification, TDD enforcement, task review, verification, critique, systematic debugging, branch completion, and review response. Hook-bound commands fire automatically; standalone commands are invoked when needed.",
       "author": "rbbtsn0w",
       "version": "1.3.0",
-      "download_url": "https://github.com/RbBtSn0w/spec-kit-extensions/releases/download/superpowers-bridge-v1.3.0/superpowers-bridge.zip",
-      "repository": "https://github.com/RbBtSn0w/spec-kit-extensions",
-      "homepage": "https://github.com/RbBtSn0w/spec-kit-extensions",
-      "documentation": "https://github.com/RbBtSn0w/spec-kit-extensions/blob/main/superpowers-bridge/README.md",
-      "changelog": "https://github.com/RbBtSn0w/spec-kit-extensions/blob/main/superpowers-bridge/CHANGELOG.md",
+      "download_url": "https://github.com/RbBtSn0w/specpack-extensions/releases/download/superpowers-bridge-v1.3.0/superpowers-bridge.zip",
+      "repository": "https://github.com/RbBtSn0w/specpack-extensions",
+      "homepage": "https://github.com/RbBtSn0w/specpack-extensions",
+      "documentation": "https://github.com/RbBtSn0w/specpack-extensions/blob/main/superpowers-bridge/README.md",
+      "changelog": "https://github.com/RbBtSn0w/specpack-extensions/blob/main/superpowers-bridge/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.3",
+        "specpack_version": ">=0.4.3",
         "tools": [
           {
             "name": "superpowers",
@@ -2002,14 +2002,14 @@
       "description": "Detect and resolve drift between specs and implementation. AI-assisted resolution with human approval.",
       "author": "bgervin",
       "version": "0.1.0",
-      "download_url": "https://github.com/bgervin/spec-kit-sync/archive/refs/tags/v0.1.0.zip",
-      "repository": "https://github.com/bgervin/spec-kit-sync",
-      "homepage": "https://github.com/bgervin/spec-kit-sync",
-      "documentation": "https://github.com/bgervin/spec-kit-sync/blob/main/README.md",
-      "changelog": "https://github.com/bgervin/spec-kit-sync/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/bgervin/specpack-sync/archive/refs/tags/v0.1.0.zip",
+      "repository": "https://github.com/bgervin/specpack-sync",
+      "homepage": "https://github.com/bgervin/specpack-sync",
+      "documentation": "https://github.com/bgervin/specpack-sync/blob/main/README.md",
+      "changelog": "https://github.com/bgervin/specpack-sync/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 5,
@@ -2034,14 +2034,14 @@
       "description": "Lightweight single-file workflow for small tasks — skip the heavy multi-step SDD process.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-tinyspec/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-tinyspec",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-tinyspec",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-tinyspec/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-tinyspec/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-tinyspec/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-tinyspec",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-tinyspec",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-tinyspec/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-tinyspec/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 3,
@@ -2066,14 +2066,14 @@
       "description": "Enforces V-Model paired generation of development specs and test specs with full traceability.",
       "author": "leocamello",
       "version": "0.5.0",
-      "download_url": "https://github.com/leocamello/spec-kit-v-model/archive/refs/tags/v0.5.0.zip",
-      "repository": "https://github.com/leocamello/spec-kit-v-model",
-      "homepage": "https://github.com/leocamello/spec-kit-v-model",
-      "documentation": "https://github.com/leocamello/spec-kit-v-model/blob/main/README.md",
-      "changelog": "https://github.com/leocamello/spec-kit-v-model/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/leocamello/specpack-v-model/archive/refs/tags/v0.5.0.zip",
+      "repository": "https://github.com/leocamello/specpack-v-model",
+      "homepage": "https://github.com/leocamello/specpack-v-model",
+      "documentation": "https://github.com/leocamello/specpack-v-model/blob/main/README.md",
+      "changelog": "https://github.com/leocamello/specpack-v-model/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 14,
@@ -2098,14 +2098,14 @@
       "description": "Post-implementation quality gate that validates implemented code against specification artifacts.",
       "author": "ismaelJimenez",
       "version": "1.0.3",
-      "download_url": "https://github.com/ismaelJimenez/spec-kit-verify/archive/refs/tags/v1.0.3.zip",
-      "repository": "https://github.com/ismaelJimenez/spec-kit-verify",
-      "homepage": "https://github.com/ismaelJimenez/spec-kit-verify",
-      "documentation": "https://github.com/ismaelJimenez/spec-kit-verify/blob/main/README.md",
-      "changelog": "https://github.com/ismaelJimenez/spec-kit-verify/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/ismaelJimenez/specpack-verify/archive/refs/tags/v1.0.3.zip",
+      "repository": "https://github.com/ismaelJimenez/specpack-verify",
+      "homepage": "https://github.com/ismaelJimenez/specpack-verify",
+      "documentation": "https://github.com/ismaelJimenez/specpack-verify/blob/main/README.md",
+      "changelog": "https://github.com/ismaelJimenez/specpack-verify/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -2130,14 +2130,14 @@
       "description": "Detect phantom completions: tasks marked [X] in tasks.md with no real implementation.",
       "author": "Dave Sharpe",
       "version": "1.0.0",
-      "download_url": "https://github.com/datastone-inc/spec-kit-verify-tasks/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/datastone-inc/spec-kit-verify-tasks",
-      "homepage": "https://github.com/datastone-inc/spec-kit-verify-tasks",
-      "documentation": "https://github.com/datastone-inc/spec-kit-verify-tasks/blob/main/README.md",
-      "changelog": "https://github.com/datastone-inc/spec-kit-verify-tasks/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/datastone-inc/specpack-verify-tasks/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/datastone-inc/specpack-verify-tasks",
+      "homepage": "https://github.com/datastone-inc/specpack-verify-tasks",
+      "documentation": "https://github.com/datastone-inc/specpack-verify-tasks/blob/main/README.md",
+      "changelog": "https://github.com/datastone-inc/specpack-verify-tasks/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "provides": {
         "commands": 1,
@@ -2161,12 +2161,12 @@
       "description": "Preview the downstream impact (complexity, effort, tasks, risks) of requirement changes before committing to them.",
       "author": "DevAbdullah90",
       "version": "1.0.0",
-      "repository": "https://github.com/DevAbdullah90/spec-kit-whatif",
-      "homepage": "https://github.com/DevAbdullah90/spec-kit-whatif",
-      "documentation": "https://github.com/DevAbdullah90/spec-kit-whatif/blob/main/README.md",
+      "repository": "https://github.com/DevAbdullah90/specpack-whatif",
+      "homepage": "https://github.com/DevAbdullah90/specpack-whatif",
+      "documentation": "https://github.com/DevAbdullah90/specpack-whatif/blob/main/README.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.6.0"
+        "specpack_version": ">=0.6.0"
       },
       "provides": {
         "commands": 1,
@@ -2189,14 +2189,14 @@
       "description": "Spawn isolated git worktrees for parallel feature development without checkout switching.",
       "author": "Quratulain-bilal",
       "version": "1.0.0",
-      "download_url": "https://github.com/Quratulain-bilal/spec-kit-worktree/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/Quratulain-bilal/spec-kit-worktree",
-      "homepage": "https://github.com/Quratulain-bilal/spec-kit-worktree",
-      "documentation": "https://github.com/Quratulain-bilal/spec-kit-worktree/blob/main/README.md",
-      "changelog": "https://github.com/Quratulain-bilal/spec-kit-worktree/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/Quratulain-bilal/specpack-worktree/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/Quratulain-bilal/specpack-worktree",
+      "homepage": "https://github.com/Quratulain-bilal/specpack-worktree",
+      "documentation": "https://github.com/Quratulain-bilal/specpack-worktree/blob/main/README.md",
+      "changelog": "https://github.com/Quratulain-bilal/specpack-worktree/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 3,
@@ -2221,14 +2221,14 @@
       "description": "Default-on worktree isolation for parallel agents — sibling or nested layout",
       "author": "dango85",
       "version": "1.0.0",
-      "download_url": "https://github.com/dango85/spec-kit-worktree-parallel/archive/refs/tags/v1.0.0.zip",
-      "repository": "https://github.com/dango85/spec-kit-worktree-parallel",
-      "homepage": "https://github.com/dango85/spec-kit-worktree-parallel",
-      "documentation": "https://github.com/dango85/spec-kit-worktree-parallel/blob/main/README.md",
-      "changelog": "https://github.com/dango85/spec-kit-worktree-parallel/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/dango85/specpack-worktree-parallel/archive/refs/tags/v1.0.0.zip",
+      "repository": "https://github.com/dango85/specpack-worktree-parallel",
+      "homepage": "https://github.com/dango85/specpack-worktree-parallel",
+      "documentation": "https://github.com/dango85/specpack-worktree-parallel/blob/main/README.md",
+      "changelog": "https://github.com/dango85/specpack-worktree-parallel/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.4.0"
+        "specpack_version": ">=0.4.0"
       },
       "provides": {
         "commands": 3,

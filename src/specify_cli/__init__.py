@@ -129,15 +129,15 @@ CLAUDE_LOCAL_PATH = Path.home() / ".claude" / "local" / "claude"
 CLAUDE_NPM_LOCAL_PATH = Path.home() / ".claude" / "local" / "node_modules" / ".bin" / "claude"
 
 BANNER = """
-███████╗██████╗ ███████╗ ██████╗██╗███████╗██╗   ██╗
-██╔════╝██╔══██╗██╔════╝██╔════╝██║██╔════╝╚██╗ ██╔╝
-███████╗██████╔╝█████╗  ██║     ██║█████╗   ╚████╔╝
-╚════██║██╔═══╝ ██╔══╝  ██║     ██║██╔══╝    ╚██╔╝
-███████║██║     ███████╗╚██████╗██║██║        ██║
-╚══════╝╚═╝     ╚══════╝ ╚═════╝╚═╝╚═╝        ╚═╝
+███████╗██████╗ ███████╗ ██████╗██████╗  █████╗  ██████╗██╗  ██╗
+██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝
+███████╗██████╔╝█████╗  ██║     ██████╔╝███████║██║     █████╔╝
+╚════██║██╔═══╝ ██╔══╝  ██║     ██╔═══╝ ██╔══██║██║     ██╔═██╗
+███████║██║     ███████╗╚██████╗██║     ██║  ██║╚██████╗██║  ██╗
+╚══════╝╚═╝     ╚══════╝ ╚═════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 """
 
-TAGLINE = "GitHub Spec Kit - Spec-Driven Development Toolkit"
+TAGLINE = "SpecPack — Spec-Driven Development for Greenfield & Brownfield"
 class StepTracker:
     """Track and render hierarchical steps without emojis, similar to Claude Code tree output.
     Supports live auto-refresh via an attached refresh callback.
@@ -353,7 +353,7 @@ def show_banner():
 
 def _version_callback(value: bool):
     if value:
-        console.print(f"specify {get_speckit_version()}")
+        console.print(f"specify {get_specpack_version()}")
         raise typer.Exit()
 
 @app.callback()
@@ -396,8 +396,8 @@ def check_tool(tool: str, tracker: StepTracker = None) -> bool:
         True if tool is found, False otherwise
     """
     # Special handling for Claude CLI local installs
-    # See: https://github.com/github/spec-kit/issues/123
-    # See: https://github.com/github/spec-kit/issues/550
+    # See: https://github.com/github/specpack/issues/123
+    # See: https://github.com/github/specpack/issues/550
     # Claude Code can be installed in two local paths:
     #   1. ~/.claude/local/claude          (after `claude migrate-installer`)
     #   2. ~/.claude/local/node_modules/.bin/claude  (npm-local install, e.g. via nvm)
@@ -719,13 +719,13 @@ def _install_shared_infra(
 
     Copies ``.specify/scripts/`` and ``.specify/templates/`` from the
     bundled core_pack or source checkout.  Tracks all installed files
-    in ``speckit.manifest.json``.
+    in ``specpack.manifest.json``.
     Returns ``True`` on success.
     """
     from .integrations.manifest import IntegrationManifest
 
     core = _locate_core_pack()
-    manifest = IntegrationManifest("speckit", project_path, version=get_speckit_version())
+    manifest = IntegrationManifest("specpack", project_path, version=get_specpack_version())
 
     # Scripts
     if core and (core / "scripts").is_dir():
@@ -1240,7 +1240,7 @@ def init(
             from .integrations.manifest import IntegrationManifest
             tracker.start("integration")
             manifest = IntegrationManifest(
-                resolved_integration.key, project_path, version=get_speckit_version()
+                resolved_integration.key, project_path, version=get_specpack_version()
             )
 
             # Forward all legacy CLI flags to the integration as parsed_options.
@@ -1265,7 +1265,7 @@ def init(
             integration_json.parent.mkdir(parents=True, exist_ok=True)
             integration_json.write_text(json.dumps({
                 "integration": resolved_integration.key,
-                "version": get_speckit_version(),
+                "version": get_specpack_version(),
             }, indent=2) + "\n", encoding="utf-8")
 
             tracker.complete("integration", resolved_integration.config.get("name", resolved_integration.key))
@@ -1308,7 +1308,7 @@ def init(
                             git_messages.append("extension already installed")
                         else:
                             manager.install_from_directory(
-                                bundled_path, get_speckit_version()
+                                bundled_path, get_specpack_version()
                             )
                             git_messages.append("extension installed")
                     else:
@@ -1328,31 +1328,31 @@ def init(
             else:
                 tracker.skip("git", "--no-git flag")
 
-            # Install bundled speckit workflow
+            # Install bundled specpack workflow
             try:
-                bundled_wf = _locate_bundled_workflow("speckit")
+                bundled_wf = _locate_bundled_workflow("specpack")
                 if bundled_wf:
                     from .workflows.catalog import WorkflowRegistry
                     from .workflows.engine import WorkflowDefinition
                     wf_registry = WorkflowRegistry(project_path)
-                    if wf_registry.is_installed("speckit"):
+                    if wf_registry.is_installed("specpack"):
                         tracker.complete("workflow", "already installed")
                     else:
                         import shutil as _shutil
-                        dest_wf = project_path / ".specify" / "workflows" / "speckit"
+                        dest_wf = project_path / ".specify" / "workflows" / "specpack"
                         dest_wf.mkdir(parents=True, exist_ok=True)
                         _shutil.copy2(
                             bundled_wf / "workflow.yml",
                             dest_wf / "workflow.yml",
                         )
                         definition = WorkflowDefinition.from_yaml(dest_wf / "workflow.yml")
-                        wf_registry.add("speckit", {
+                        wf_registry.add("specpack", {
                             "name": definition.name,
                             "version": definition.version,
                             "description": definition.description,
                             "source": "bundled",
                         })
-                        tracker.complete("workflow", "speckit installed")
+                        tracker.complete("workflow", "specpack installed")
                 else:
                     tracker.skip("workflow", "bundled workflow not found")
             except Exception as wf_err:
@@ -1373,7 +1373,7 @@ def init(
                 "here": here,
                 "preset": preset,
                 "script": selected_script,
-                "speckit_version": get_speckit_version(),
+                "specpack_version": get_specpack_version(),
             }
             # Ensure ai_skills is set for SkillsIntegration so downstream
             # tools (extensions, presets) emit SKILL.md overrides correctly.
@@ -1387,16 +1387,16 @@ def init(
                 try:
                     from .presets import PresetManager, PresetCatalog, PresetError
                     preset_manager = PresetManager(project_path)
-                    speckit_ver = get_speckit_version()
+                    specpack_ver = get_specpack_version()
 
                     # Try local directory first, then bundled, then catalog
                     local_path = Path(preset).resolve()
                     if local_path.is_dir() and (local_path / "preset.yml").exists():
-                        preset_manager.install_from_directory(local_path, speckit_ver)
+                        preset_manager.install_from_directory(local_path, specpack_ver)
                     else:
                         bundled_path = _locate_bundled_preset(preset)
                         if bundled_path:
-                            preset_manager.install_from_directory(bundled_path, speckit_ver)
+                            preset_manager.install_from_directory(bundled_path, specpack_ver)
                         else:
                             preset_catalog = PresetCatalog(project_path)
                             pack_info = preset_catalog.get_pack_info(preset)
@@ -1405,18 +1405,18 @@ def init(
                             elif pack_info.get("bundled") and not pack_info.get("download_url"):
                                 from .extensions import REINSTALL_COMMAND
                                 console.print(
-                                    f"[yellow]Warning:[/yellow] Preset '{preset}' is bundled with spec-kit "
+                                    f"[yellow]Warning:[/yellow] Preset '{preset}' is bundled with specpack "
                                     f"but could not be found in the installed package."
                                 )
                                 console.print(
-                                    "This usually means the spec-kit installation is incomplete or corrupted."
+                                    "This usually means the specpack installation is incomplete or corrupted."
                                 )
                                 console.print(f"Try reinstalling: {REINSTALL_COMMAND}")
                             else:
                                 zip_path = None
                                 try:
                                     zip_path = preset_catalog.download_pack(preset)
-                                    preset_manager.install_from_zip(zip_path, speckit_ver)
+                                    preset_manager.install_from_zip(zip_path, specpack_ver)
                                 except PresetError as preset_err:
                                     console.print(f"[yellow]Warning:[/yellow] Failed to install preset '{preset}': {preset_err}")
                                 finally:
@@ -1502,26 +1502,26 @@ def init(
 
     if codex_skill_mode and not ai_skills:
         # Integration path installed skills; show the helpful notice
-        steps_lines.append(f"{step_num}. Start Codex in this project directory; spec-kit skills were installed to [cyan].agents/skills[/cyan]")
+        steps_lines.append(f"{step_num}. Start Codex in this project directory; specpack skills were installed to [cyan].agents/skills[/cyan]")
         step_num += 1
     if claude_skill_mode and not ai_skills:
-        steps_lines.append(f"{step_num}. Start Claude in this project directory; spec-kit skills were installed to [cyan].claude/skills[/cyan]")
+        steps_lines.append(f"{step_num}. Start Claude in this project directory; specpack skills were installed to [cyan].claude/skills[/cyan]")
         step_num += 1
     if cursor_agent_skill_mode and not ai_skills:
-        steps_lines.append(f"{step_num}. Start Cursor Agent in this project directory; spec-kit skills were installed to [cyan].cursor/skills[/cyan]")
+        steps_lines.append(f"{step_num}. Start Cursor Agent in this project directory; specpack skills were installed to [cyan].cursor/skills[/cyan]")
         step_num += 1
     usage_label = "skills" if native_skill_mode else "slash commands"
 
     def _display_cmd(name: str) -> str:
         if codex_skill_mode or agy_skill_mode or trae_skill_mode:
-            return f"$speckit-{name}"
+            return f"$specpack-{name}"
         if claude_skill_mode:
-            return f"/speckit-{name}"
+            return f"/specpack-{name}"
         if kimi_skill_mode:
-            return f"/skill:speckit-{name}"
+            return f"/skill:specpack-{name}"
         if cursor_agent_skill_mode:
-            return f"/speckit-{name}"
-        return f"/speckit.{name}"
+            return f"/specpack-{name}"
+        return f"/specpack.{name}"
 
     steps_lines.append(f"{step_num}. Start using {usage_label} with your AI agent:")
 
@@ -1646,7 +1646,7 @@ def version():
 
 extension_app = typer.Typer(
     name="extension",
-    help="Manage spec-kit extensions",
+    help="Manage specpack extensions",
     add_completion=False,
 )
 app.add_typer(extension_app, name="extension")
@@ -1660,7 +1660,7 @@ extension_app.add_typer(catalog_app, name="catalog")
 
 preset_app = typer.Typer(
     name="preset",
-    help="Manage spec-kit presets",
+    help="Manage specpack presets",
     add_completion=False,
 )
 app.add_typer(preset_app, name="preset")
@@ -1673,8 +1673,8 @@ preset_catalog_app = typer.Typer(
 preset_app.add_typer(preset_catalog_app, name="catalog")
 
 
-def get_speckit_version() -> str:
-    """Get current spec-kit version."""
+def get_specpack_version() -> str:
+    """Get current specpack version."""
     import importlib.metadata
     try:
         return importlib.metadata.version("specify-cli")
@@ -1740,7 +1740,7 @@ def _write_integration_json(
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps({
         "integration": integration_key,
-        "version": get_speckit_version(),
+        "version": get_specpack_version(),
     }, indent=2) + "\n", encoding="utf-8")
 
 
@@ -1785,8 +1785,8 @@ def integration_list(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     current = _read_integration_json(project_root)
@@ -1879,8 +1879,8 @@ def integration_install(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     integration = get_integration(key)
@@ -1912,7 +1912,7 @@ def integration_install(
         ensure_executable_scripts(project_root)
 
     manifest = IntegrationManifest(
-        integration.key, project_root, version=get_speckit_version()
+        integration.key, project_root, version=get_specpack_version()
     )
 
     # Build parsed options from --integration-options
@@ -2028,8 +2028,8 @@ def integration_uninstall(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     current = _read_integration_json(project_root)
@@ -2117,8 +2117,8 @@ def integration_switch(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     target_integration = get_integration(target)
@@ -2198,7 +2198,7 @@ def integration_switch(
     # Phase 2: Install target integration
     console.print(f"Installing integration: [cyan]{target}[/cyan]")
     manifest = IntegrationManifest(
-        target_integration.key, project_root, version=get_speckit_version()
+        target_integration.key, project_root, version=get_specpack_version()
     )
 
     parsed_options: dict[str, Any] | None = None
@@ -2250,8 +2250,8 @@ def integration_upgrade(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     current = _read_integration_json(project_root)
@@ -2306,7 +2306,7 @@ def integration_upgrade(
 
     # Phase 1: Install new files (overwrites existing; old-only files remain)
     console.print(f"Upgrading integration: [cyan]{key}[/cyan]")
-    new_manifest = IntegrationManifest(key, project_root, version=get_speckit_version())
+    new_manifest = IntegrationManifest(key, project_root, version=get_specpack_version())
 
     parsed_options: dict[str, Any] | None = None
     if integration_options:
@@ -2357,8 +2357,8 @@ def preset_list():
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = PresetManager(project_root)
@@ -2403,8 +2403,8 @@ def preset_add(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     # Validate priority
@@ -2413,7 +2413,7 @@ def preset_add(
         raise typer.Exit(1)
 
     manager = PresetManager(project_root)
-    speckit_version = get_speckit_version()
+    specpack_version = get_specpack_version()
 
     try:
         if dev:
@@ -2423,7 +2423,7 @@ def preset_add(
                 raise typer.Exit(1)
 
             console.print(f"Installing preset from [cyan]{dev_path}[/cyan]...")
-            manifest = manager.install_from_directory(dev_path, speckit_version, priority)
+            manifest = manager.install_from_directory(dev_path, specpack_version, priority)
             console.print(f"[green]✓[/green] Preset '{manifest.name}' v{manifest.version} installed (priority {priority})")
 
         elif from_url:
@@ -2449,7 +2449,7 @@ def preset_add(
                     console.print(f"[red]Error:[/red] Failed to download: {e}")
                     raise typer.Exit(1)
 
-                manifest = manager.install_from_zip(zip_path, speckit_version, priority)
+                manifest = manager.install_from_zip(zip_path, specpack_version, priority)
 
             console.print(f"[green]✓[/green] Preset '{manifest.name}' v{manifest.version} installed (priority {priority})")
 
@@ -2458,7 +2458,7 @@ def preset_add(
             bundled_path = _locate_bundled_preset(preset_id)
             if bundled_path:
                 console.print(f"Installing bundled preset [cyan]{preset_id}[/cyan]...")
-                manifest = manager.install_from_directory(bundled_path, speckit_version, priority)
+                manifest = manager.install_from_directory(bundled_path, specpack_version, priority)
                 console.print(f"[green]✓[/green] Preset '{manifest.name}' v{manifest.version} installed (priority {priority})")
             else:
                 catalog = PresetCatalog(project_root)
@@ -2473,13 +2473,13 @@ def preset_add(
                 if pack_info.get("bundled") and not pack_info.get("download_url"):
                     from .extensions import REINSTALL_COMMAND
                     console.print(
-                        f"[red]Error:[/red] Preset '{preset_id}' is bundled with spec-kit "
+                        f"[red]Error:[/red] Preset '{preset_id}' is bundled with specpack "
                         f"but could not be found in the installed package."
                     )
                     console.print(
-                        "\nThis usually means the spec-kit installation is incomplete or corrupted."
+                        "\nThis usually means the specpack installation is incomplete or corrupted."
                     )
-                    console.print("Try reinstalling spec-kit:")
+                    console.print("Try reinstalling specpack:")
                     console.print(f"  {REINSTALL_COMMAND}")
                     raise typer.Exit(1)
 
@@ -2493,7 +2493,7 @@ def preset_add(
 
                 try:
                     zip_path = catalog.download_pack(preset_id)
-                    manifest = manager.install_from_zip(zip_path, speckit_version, priority)
+                    manifest = manager.install_from_zip(zip_path, specpack_version, priority)
                     console.print(f"[green]✓[/green] Preset '{manifest.name}' v{manifest.version} installed (priority {priority})")
                 finally:
                     if 'zip_path' in locals() and zip_path.exists():
@@ -2524,8 +2524,8 @@ def preset_remove(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = PresetManager(project_root)
@@ -2554,8 +2554,8 @@ def preset_search(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     catalog = PresetCatalog(project_root)
@@ -2591,8 +2591,8 @@ def preset_resolve(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     resolver = PresetResolver(project_root)
@@ -2618,8 +2618,8 @@ def preset_info(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     # Check if installed locally first
@@ -2690,11 +2690,11 @@ def preset_set_priority(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     # Validate priority
@@ -2741,11 +2741,11 @@ def preset_enable(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = PresetManager(project_root)
@@ -2782,11 +2782,11 @@ def preset_disable(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = PresetManager(project_root)
@@ -2827,8 +2827,8 @@ def preset_catalog_list():
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     catalog = PresetCatalog(project_root)
@@ -2855,8 +2855,8 @@ def preset_catalog_list():
 
     config_path = project_root / ".specify" / "preset-catalogs.yml"
     user_config_path = Path.home() / ".specify" / "preset-catalogs.yml"
-    if os.environ.get("SPECKIT_PRESET_CATALOG_URL"):
-        console.print("[dim]Catalog configured via SPECKIT_PRESET_CATALOG_URL environment variable.[/dim]")
+    if os.environ.get("SPECPACK_PRESET_CATALOG_URL"):
+        console.print("[dim]Catalog configured via SPECPACK_PRESET_CATALOG_URL environment variable.[/dim]")
     else:
         try:
             proj_loaded = config_path.exists() and catalog._load_catalog_config(config_path) is not None
@@ -2896,8 +2896,8 @@ def preset_catalog_add(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     # Validate URL
@@ -2959,8 +2959,8 @@ def preset_catalog_remove(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     config_path = specify_dir / "preset-catalogs.yml"
@@ -3126,11 +3126,11 @@ def extension_list(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = ExtensionManager(project_root)
@@ -3169,8 +3169,8 @@ def catalog_list():
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     catalog = ExtensionCatalog(project_root)
@@ -3197,8 +3197,8 @@ def catalog_list():
 
     config_path = project_root / ".specify" / "extension-catalogs.yml"
     user_config_path = Path.home() / ".specify" / "extension-catalogs.yml"
-    if os.environ.get("SPECKIT_CATALOG_URL"):
-        console.print("[dim]Catalog configured via SPECKIT_CATALOG_URL environment variable.[/dim]")
+    if os.environ.get("SPECPACK_CATALOG_URL"):
+        console.print("[dim]Catalog configured via SPECPACK_CATALOG_URL environment variable.[/dim]")
     else:
         try:
             proj_loaded = config_path.exists() and catalog._load_catalog_config(config_path) is not None
@@ -3238,8 +3238,8 @@ def catalog_add(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     # Validate URL
@@ -3301,8 +3301,8 @@ def catalog_remove(
 
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     config_path = specify_dir / "extension-catalogs.yml"
@@ -3347,11 +3347,11 @@ def extension_add(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     # Validate priority
@@ -3360,7 +3360,7 @@ def extension_add(
         raise typer.Exit(1)
 
     manager = ExtensionManager(project_root)
-    speckit_version = get_speckit_version()
+    specpack_version = get_specpack_version()
 
     try:
         with console.status(f"[cyan]Installing extension: {extension}[/cyan]"):
@@ -3375,7 +3375,7 @@ def extension_add(
                     console.print(f"[red]Error:[/red] No extension.yml found in {source_path}")
                     raise typer.Exit(1)
 
-                manifest = manager.install_from_directory(source_path, speckit_version, priority=priority)
+                manifest = manager.install_from_directory(source_path, specpack_version, priority=priority)
 
             elif from_url:
                 # Install from URL (ZIP file)
@@ -3408,7 +3408,7 @@ def extension_add(
                     zip_path.write_bytes(zip_data)
 
                     # Install from downloaded ZIP
-                    manifest = manager.install_from_zip(zip_path, speckit_version, priority=priority)
+                    manifest = manager.install_from_zip(zip_path, specpack_version, priority=priority)
                 except urllib.error.URLError as e:
                     console.print(f"[red]Error:[/red] Failed to download from {from_url}: {e}")
                     raise typer.Exit(1)
@@ -3418,10 +3418,10 @@ def extension_add(
                         zip_path.unlink()
 
             else:
-                # Try bundled extensions first (shipped with spec-kit)
+                # Try bundled extensions first (shipped with specpack)
                 bundled_path = _locate_bundled_extension(extension)
                 if bundled_path is not None:
-                    manifest = manager.install_from_directory(bundled_path, speckit_version, priority=priority)
+                    manifest = manager.install_from_directory(bundled_path, specpack_version, priority=priority)
                 else:
                     # Install from catalog (also resolves display names to IDs)
                     catalog = ExtensionCatalog(project_root)
@@ -3442,19 +3442,19 @@ def extension_add(
                     if resolved_id != extension:
                         bundled_path = _locate_bundled_extension(resolved_id)
                         if bundled_path is not None:
-                            manifest = manager.install_from_directory(bundled_path, speckit_version, priority=priority)
+                            manifest = manager.install_from_directory(bundled_path, specpack_version, priority=priority)
 
                     if bundled_path is None:
                         # Bundled extensions without a download URL must come from the local package
                         if ext_info.get("bundled") and not ext_info.get("download_url"):
                             console.print(
-                                f"[red]Error:[/red] Extension '{ext_info['id']}' is bundled with spec-kit "
+                                f"[red]Error:[/red] Extension '{ext_info['id']}' is bundled with specpack "
                                 f"but could not be found in the installed package."
                             )
                             console.print(
-                                "\nThis usually means the spec-kit installation is incomplete or corrupted."
+                                "\nThis usually means the specpack installation is incomplete or corrupted."
                             )
-                            console.print("Try reinstalling spec-kit:")
+                            console.print("Try reinstalling specpack:")
                             console.print(f"  {REINSTALL_COMMAND}")
                             raise typer.Exit(1)
 
@@ -3478,7 +3478,7 @@ def extension_add(
 
                         try:
                             # Install from downloaded ZIP
-                            manifest = manager.install_from_zip(zip_path, speckit_version, priority=priority)
+                            manifest = manager.install_from_zip(zip_path, specpack_version, priority=priority)
                         finally:
                             # Clean up downloaded ZIP
                             if zip_path.exists():
@@ -3529,11 +3529,11 @@ def extension_remove(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = ExtensionManager(project_root)
@@ -3605,11 +3605,11 @@ def extension_search(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     catalog = ExtensionCatalog(project_root)
@@ -3689,11 +3689,11 @@ def extension_info(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     catalog = ExtensionCatalog(project_root)
@@ -3802,8 +3802,8 @@ def _print_extension_info(ext_info: dict, manager):
     if ext_info.get('requires'):
         console.print("[bold]Requirements:[/bold]")
         reqs = ext_info['requires']
-        if reqs.get('speckit_version'):
-            console.print(f"  • Spec Kit: {reqs['speckit_version']}")
+        if reqs.get('specpack_version'):
+            console.print(f"  • SpecPack: {reqs['specpack_version']}")
         if reqs.get('tools'):
             for tool in reqs['tools']:
                 tool_name = tool['name']
@@ -3891,16 +3891,16 @@ def extension_update(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = ExtensionManager(project_root)
     catalog = ExtensionCatalog(project_root)
-    speckit_version = get_speckit_version()
+    specpack_version = get_specpack_version()
 
     try:
         # Get list of extensions to update
@@ -4101,7 +4101,7 @@ def extension_update(
                     manager.remove(extension_id, keep_config=True)
 
                     # 8. Install new version
-                    _ = manager.install_from_zip(zip_path, speckit_version)
+                    _ = manager.install_from_zip(zip_path, specpack_version)
 
                     # Restore user config files from backup after successful install.
                     new_extension_dir = manager.extensions_dir / extension_id
@@ -4287,11 +4287,11 @@ def extension_enable(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = ExtensionManager(project_root)
@@ -4334,11 +4334,11 @@ def extension_disable(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     manager = ExtensionManager(project_root)
@@ -4384,11 +4384,11 @@ def extension_set_priority(
 
     project_root = Path.cwd()
 
-    # Check if we're in a spec-kit project
+    # Check if we're in a specpack project
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
-        console.print("Run this command from a spec-kit project root")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
+        console.print("Run this command from a specpack project root")
         raise typer.Exit(1)
 
     # Validate priority
@@ -4454,7 +4454,7 @@ def workflow_run(
 
     project_root = Path.cwd()
     if not (project_root / ".specify").exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
     engine = WorkflowEngine(project_root)
     engine.on_step_start = lambda sid, label: console.print(f"  \u25b8 [{sid}] {label} \u2026")
@@ -4521,7 +4521,7 @@ def workflow_resume(
 
     project_root = Path.cwd()
     if not (project_root / ".specify").exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
     engine = WorkflowEngine(project_root)
     engine.on_step_start = lambda sid, label: console.print(f"  \u25b8 [{sid}] {label} \u2026")
@@ -4557,7 +4557,7 @@ def workflow_status(
 
     project_root = Path.cwd()
     if not (project_root / ".specify").exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
     engine = WorkflowEngine(project_root)
 
@@ -4620,7 +4620,7 @@ def workflow_list():
     project_root = Path.cwd()
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
 
     registry = WorkflowRegistry(project_root)
@@ -4652,7 +4652,7 @@ def workflow_add(
     project_root = Path.cwd()
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
 
     registry = WorkflowRegistry(project_root)
@@ -4888,7 +4888,7 @@ def workflow_remove(
     project_root = Path.cwd()
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
 
     registry = WorkflowRegistry(project_root)
@@ -4917,7 +4917,7 @@ def workflow_search(
 
     project_root = Path.cwd()
     if not (project_root / ".specify").exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
     catalog = WorkflowCatalog(project_root)
 
@@ -4953,7 +4953,7 @@ def workflow_info(
 
     project_root = Path.cwd()
     if not (project_root / ".specify").exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
 
     # Check installed first
@@ -5051,7 +5051,7 @@ def workflow_catalog_add(
     project_root = Path.cwd()
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
 
     catalog = WorkflowCatalog(project_root)
@@ -5074,7 +5074,7 @@ def workflow_catalog_remove(
     project_root = Path.cwd()
     specify_dir = project_root / ".specify"
     if not specify_dir.exists():
-        console.print("[red]Error:[/red] Not a spec-kit project (no .specify/ directory)")
+        console.print("[red]Error:[/red] Not a specpack project (no .specify/ directory)")
         raise typer.Exit(1)
 
     catalog = WorkflowCatalog(project_root)

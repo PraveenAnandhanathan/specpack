@@ -4,7 +4,7 @@ This guide covers adding integrations to both the **built-in** and **community**
 
 ## Adding a Built-In Integration
 
-Built-in integrations are maintained by the Spec Kit core team and ship with the CLI.
+Built-in integrations are maintained by the SpecPack core team and ship with the CLI.
 
 ### Checklist
 
@@ -29,8 +29,8 @@ Add your integration under the top-level `integrations` key in `integrations/cat
       "name": "My Agent",
       "version": "1.0.0",
       "description": "Integration for My Agent",
-      "author": "spec-kit-core",
-      "repository": "https://github.com/github/spec-kit",
+      "author": "specpack-core",
+      "repository": "https://github.com/github/specpack",
       "tags": ["cli"]
     }
   }
@@ -61,18 +61,18 @@ integration:
   version: "1.0.0"
   description: "Integration for My Agent"
   author: "your-name"
-  repository: "https://github.com/your-name/speckit-my-agent"
+  repository: "https://github.com/your-name/specpack-my-agent"
   license: "MIT"
 requires:
-  speckit_version: ">=0.6.0"
+  specpack_version: ">=0.6.0"
   tools:
     - name: "my-agent"
       version: ">=1.0.0"
       required: true
 provides:
   commands:
-    - name: "speckit.specify"
-      file: "templates/speckit.specify.md"
+    - name: "specpack.specify"
+      file: "templates/specpack.specify.md"
   scripts:
     - update-context.sh
 ```
@@ -84,14 +84,14 @@ provides:
 | `schema_version` | Must be `"1.0"` |
 | `integration.id` | Lowercase alphanumeric + hyphens (`^[a-z0-9-]+$`) |
 | `integration.version` | Valid PEP 440 version (parsed with `packaging.version.Version()`) |
-| `requires.speckit_version` | Required field; specify a version constraint such as `>=0.6.0` (current validation checks presence only) |
+| `requires.specpack_version` | Required field; specify a version constraint such as `>=0.6.0` (current validation checks presence only) |
 | `provides` | Must include at least one command or script |
 | `provides.commands[].name` | String identifier |
 | `provides.commands[].file` | Relative path to template file |
 
 ### Submitting to the Community Catalog
 
-1. **Fork** the [spec-kit repository](https://github.com/github/spec-kit)
+1. **Fork** the [specpack repository](https://github.com/github/specpack)
 2. **Add your entry** under the `integrations` key in `integrations/catalog.community.json`:
 
 ```json
@@ -104,7 +104,7 @@ provides:
       "version": "1.0.0",
       "description": "Integration for My Agent",
       "author": "your-name",
-      "repository": "https://github.com/your-name/speckit-my-agent",
+      "repository": "https://github.com/your-name/specpack-my-agent",
       "tags": ["cli"]
     }
   }

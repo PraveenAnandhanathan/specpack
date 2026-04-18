@@ -1,6 +1,6 @@
 # Release Process
 
-This document describes the automated release process for Spec Kit.
+This document describes the automated release process for SpecPack.
 
 ## Overview
 

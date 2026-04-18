@@ -1,6 +1,6 @@
 # Workflow Publishing Guide
 
-This guide explains how to publish your workflow to the Spec Kit workflow catalog, making it discoverable by `specify workflow search`.
+This guide explains how to publish your workflow to the SpecPack workflow catalog, making it discoverable by `specify workflow search`.
 
 ## Table of Contents
 
@@ -57,7 +57,7 @@ workflow:
   model: "claude-sonnet-4-20250514"         # Default model (optional)
 
 requires:
-  speckit_version: ">=0.6.1"
+  specpack_version: ">=0.6.1"
   integrations:
     any: ["claude", "gemini"]      # At least one required
 
@@ -73,7 +73,7 @@ inputs:
 
 steps:
   - id: specify
-    command: speckit.specify
+    command: specpack.specify
     input:
       args: "{{ inputs.spec }}"
 
@@ -123,7 +123,7 @@ git push origin v1.0.0
 The raw YAML URL will be:
 
 ```text
-https://raw.githubusercontent.com/your-org/spec-kit-workflow-your-workflow/v1.0.0/workflow.yml
+https://raw.githubusercontent.com/your-org/specpack-workflow-your-workflow/v1.0.0/workflow.yml
 ```
 
 ### 5. Test Installation from URL
@@ -139,18 +139,18 @@ specify workflow add your-workflow
 
 ### Understanding the Catalogs
 
-Spec Kit uses a dual-catalog system:
+SpecPack uses a dual-catalog system:
 
 - **`catalog.json`** — Official, verified workflows (install allowed by default)
 - **`catalog.community.json`** — Community-contributed workflows (discovery only by default)
 
 All community workflows should be submitted to `catalog.community.json`.
 
-### 1. Fork the spec-kit Repository
+### 1. Fork the specpack Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/spec-kit.git
-cd spec-kit
+git clone https://github.com/YOUR-USERNAME/specpack.git
+cd specpack
 ```
 
 ### 2. Add Workflow to Community Catalog
@@ -163,7 +163,7 @@ Edit `workflows/catalog.community.json` and add your workflow.
 {
   "schema_version": "1.0",
   "updated_at": "2026-04-10T00:00:00Z",
-  "catalog_url": "https://raw.githubusercontent.com/github/spec-kit/main/workflows/catalog.community.json",
+  "catalog_url": "https://raw.githubusercontent.com/github/specpack/main/workflows/catalog.community.json",
   "workflows": {
     "your-workflow": {
       "id": "your-workflow",
@@ -171,11 +171,11 @@ Edit `workflows/catalog.community.json` and add your workflow.
       "description": "Brief description of what your workflow automates",
       "author": "Your Name",
       "version": "1.0.0",
-      "url": "https://raw.githubusercontent.com/your-org/spec-kit-workflow-your-workflow/v1.0.0/workflow.yml",
-      "repository": "https://github.com/your-org/spec-kit-workflow-your-workflow",
+      "url": "https://raw.githubusercontent.com/your-org/specpack-workflow-your-workflow/v1.0.0/workflow.yml",
+      "repository": "https://github.com/your-org/specpack-workflow-your-workflow",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.15.0"
+        "specpack_version": ">=0.15.0"
       },
       "tags": [
         "category",
@@ -211,7 +211,7 @@ git push origin add-your-workflow
 **Workflow Name**: Your Workflow Name
 **Workflow ID**: your-workflow
 **Version**: 1.0.0
-**Repository**: https://github.com/your-org/spec-kit-workflow-your-workflow
+**Repository**: https://github.com/your-org/specpack-workflow-your-workflow
 
 ### Checklist
 - [ ] Valid workflow.yml (passes `specify workflow info`)

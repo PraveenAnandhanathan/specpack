@@ -1,10 +1,10 @@
 # AGENTS.md
 
-## About Spec Kit and Specify
+## About SpecPack and Specify
 
-**GitHub Spec Kit** is a comprehensive toolkit for implementing Spec-Driven Development (SDD) - a methodology that emphasizes creating clear specifications before implementation. The toolkit includes templates, scripts, and workflows that guide development teams through a structured approach to building software.
+**SpecPack** is a comprehensive toolkit for implementing Spec-Driven Development (SDD) - a methodology that emphasizes creating clear specifications before implementation. The toolkit includes templates, scripts, and workflows that guide development teams through a structured approach to building software.
 
-**Specify CLI** is the command-line interface that bootstraps projects with the Spec Kit framework. It sets up the necessary directory structures, templates, and AI agent integrations to support the Spec-Driven Development workflow.
+**Specify CLI** is the command-line interface that bootstraps projects with the SpecPack framework. It sets up the necessary directory structures, templates, and AI agent integrations to support the Spec-Driven Development workflow.
 
 The toolkit supports multiple AI coding assistants, allowing teams to use their preferred tools while maintaining consistent project structure and development practices.
 
@@ -49,7 +49,7 @@ The registry is the **single source of truth for Python integration metadata**. 
 | Standard markdown commands (`.md`) | `MarkdownIntegration` |
 | TOML-format commands (`.toml`) | `TomlIntegration` |
 | YAML recipe files (`.yaml`) | `YamlIntegration` |
-| Skill directories (`speckit-<name>/SKILL.md`) | `SkillsIntegration` |
+| Skill directories (`specpack-<name>/SKILL.md`) | `SkillsIntegration` |
 | Fully custom output (companion files, settings merge, etc.) | `IntegrationBase` directly |
 
 Most agents only need `MarkdownIntegration` — a minimal subclass with zero method overrides.
@@ -263,7 +263,7 @@ The base classes handle most work automatically. Override only when the agent de
 
 | Override | When to use | Example |
 |---|---|---|
-| `command_filename(template_name)` | Custom file naming or extension | Copilot → `speckit.{name}.agent.md` |
+| `command_filename(template_name)` | Custom file naming or extension | Copilot → `specpack.{name}.agent.md` |
 | `options()` | Integration-specific CLI flags via `--integration-options` | Codex → `--skills` flag |
 | `setup()` | Custom install logic (companion files, settings merge) | Copilot → `.agent.md` + `.prompt.md` + `.vscode/settings.json` |
 | `teardown()` | Custom uninstall logic | Rarely needed; base handles manifest-tracked files |
@@ -328,7 +328,7 @@ Command content with {SCRIPT} and $ARGUMENTS placeholders.
 ```markdown
 ---
 description: "Command description"
-mode: speckit.command-name
+mode: specpack.command-name
 ---
 
 Command content with {SCRIPT} and $ARGUMENTS placeholders.
@@ -353,7 +353,7 @@ version: 1.0.0
 title: "Command Title"
 description: "Command description"
 author:
-  contact: spec-kit
+  contact: specpack
 extensions:
   - type: builtin
     name: developer

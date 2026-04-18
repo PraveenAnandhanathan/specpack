@@ -70,7 +70,7 @@ class MarkdownIntegrationTests:
         cmd_files = [f for f in created if "scripts" not in f.parts]
         for f in cmd_files:
             assert f.exists()
-            assert f.name.startswith("speckit.")
+            assert f.name.startswith("specpack.")
             assert f.name.endswith(".md")
 
     def test_setup_writes_to_correct_directory(self, tmp_path):
@@ -158,8 +158,8 @@ class MarkdownIntegrationTests:
             ctx_path = tmp_path / i.context_file
             assert ctx_path.exists(), f"Context file {i.context_file} not created for {self.KEY}"
             content = ctx_path.read_text(encoding="utf-8")
-            assert "<!-- SPECKIT START -->" in content
-            assert "<!-- SPECKIT END -->" in content
+            assert "<!-- SPECPACK START -->" in content
+            assert "<!-- SPECPACK END -->" in content
             assert "read the current plan" in content
 
     def test_teardown_removes_context_section(self, tmp_path):
@@ -174,8 +174,8 @@ class MarkdownIntegrationTests:
             ctx_path.write_text("# My Rules\n\n" + content + "\n# Footer\n", encoding="utf-8")
             i.teardown(tmp_path, m)
             remaining = ctx_path.read_text(encoding="utf-8")
-            assert "<!-- SPECKIT START -->" not in remaining
-            assert "<!-- SPECKIT END -->" not in remaining
+            assert "<!-- SPECPACK START -->" not in remaining
+            assert "<!-- SPECPACK END -->" not in remaining
             assert "# My Rules" in remaining
 
     # -- CLI auto-promote -------------------------------------------------
@@ -221,7 +221,7 @@ class MarkdownIntegrationTests:
         i = get_integration(self.KEY)
         cmd_dir = i.commands_dest(project)
         assert cmd_dir.is_dir(), f"Commands directory {cmd_dir} not created"
-        commands = sorted(cmd_dir.glob("speckit.*"))
+        commands = sorted(cmd_dir.glob("specpack.*"))
         assert len(commands) > 0, f"No command files in {cmd_dir}"
 
     def test_init_options_includes_context_file(self, tmp_path):
@@ -263,13 +263,13 @@ class MarkdownIntegrationTests:
 
         # Command files
         for stem in self.COMMAND_STEMS:
-            files.append(f"{cmd_dir}/speckit.{stem}.md")
+            files.append(f"{cmd_dir}/specpack.{stem}.md")
 
         # Framework files
         files.append(f".specify/integration.json")
         files.append(f".specify/init-options.json")
         files.append(f".specify/integrations/{self.KEY}.manifest.json")
-        files.append(f".specify/integrations/speckit.manifest.json")
+        files.append(f".specify/integrations/specpack.manifest.json")
 
         if script_variant == "sh":
             for name in ["check-prerequisites.sh", "common.sh", "create-new-feature.sh",
@@ -287,7 +287,7 @@ class MarkdownIntegrationTests:
 
         files.append(".specify/memory/constitution.md")
         # Bundled workflow
-        files.append(".specify/workflows/speckit/workflow.yml")
+        files.append(".specify/workflows/specpack/workflow.yml")
         files.append(".specify/workflows/workflow-registry.json")
 
         # Agent context file (if set)

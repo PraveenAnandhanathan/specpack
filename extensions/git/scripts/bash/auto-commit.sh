@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Git extension: auto-commit.sh
-# Automatically commit changes after a Spec Kit command completes.
+# Automatically commit changes after a SpecPack command completes.
 # Checks per-command config keys in git-config.yml before committing.
 #
 # Usage: auto-commit.sh <event_name>
@@ -130,7 +130,7 @@ _phase=$(echo "$EVENT_NAME" | grep -q '^before_' && echo 'before' || echo 'after
 
 # Use custom message if configured, otherwise default
 if [ -z "$_commit_msg" ]; then
-    _commit_msg="[Spec Kit] Auto-commit ${_phase} ${_command_name}"
+    _commit_msg="[SpecPack] Auto-commit ${_phase} ${_command_name}"
 fi
 
 # Stage and commit

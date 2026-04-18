@@ -1,4 +1,4 @@
-# RFC: Spec Kit Extension System
+# RFC: SpecPack Extension System
 
 **Status**: Implemented
 **Author**: Stats Perform Engineering
@@ -32,7 +32,7 @@
 
 ## Summary
 
-Introduce an extension system to Spec Kit that allows modular integration with external tools (Jira, Linear, Azure DevOps, etc.) without bloating the core framework. Extensions are self-contained packages installed into `.specify/extensions/` with declarative manifests, versioned independently, and discoverable through a central catalog.
+Introduce an extension system to SpecPack that allows modular integration with external tools (Jira, Linear, Azure DevOps, etc.) without bloating the core framework. Extensions are self-contained packages installed into `.specify/extensions/` with declarative manifests, versioned independently, and discoverable through a central catalog.
 
 ---
 
@@ -40,7 +40,7 @@ Introduce an extension system to Spec Kit that allows modular integration with e
 
 ### Current Problems
 
-1. **Monolithic Growth**: Adding Jira integration to core spec-kit creates:
+1. **Monolithic Growth**: Adding Jira integration to core specpack creates:
    - Large configuration files affecting all users
    - Dependencies on Jira MCP server for everyone
    - Merge conflicts as features accumulate
@@ -59,7 +59,7 @@ Introduce an extension system to Spec Kit that allows modular integration with e
 
 ### Goals
 
-1. **Modularity**: Core spec-kit remains lean, extensions are opt-in
+1. **Modularity**: Core specpack remains lean, extensions are opt-in
 2. **Extensibility**: Clear API for building new integrations
 3. **Independence**: Extensions version/release separately from core
 4. **Discoverability**: Central catalog for finding extensions
@@ -73,7 +73,7 @@ Introduce an extension system to Spec Kit that allows modular integration with e
 
 - Standard directory structure (`.specify/extensions/{name}/`)
 - Declarative manifest (`extension.yml`)
-- Predictable command naming (`speckit.{extension}.{command}`)
+- Predictable command naming (`specpack.{extension}.{command}`)
 
 ### 2. Fail-Safe Defaults
 
@@ -128,7 +128,7 @@ project/
 
 ```text
 ┌─────────────────────────────────────────────────────────┐
-│                    Spec Kit Core                        │
+│                    SpecPack Core                        │
 │  ┌──────────────────────────────────────────────────┐   │
 │  │  CLI (specify)                                   │   │
 │  │  - init, check                                   │   │
@@ -141,9 +141,9 @@ project/
 │  └──────────────────────────────────────────────────┘   │
 │  ┌──────────────────────────────────────────────────┐   │
 │  │  Core Commands                                   │   │
-│  │  - /speckit.specify                              │   │
-│  │  - /speckit.tasks                                │   │
-│  │  - /speckit.implement                            │   │
+│  │  - /specpack.specify                              │   │
+│  │  - /specpack.tasks                                │   │
+│  │  - /specpack.implement                            │   │
 │  └─────────┬────────────────────────────────────────┘   │
 └────────────┼────────────────────────────────────────────┘
              │ Hook Points (after_tasks, after_implement)
@@ -152,12 +152,12 @@ project/
 │                    Extensions                           │
 │  ┌──────────────────────────────────────────────────┐   │
 │  │  Jira Extension                                  │   │
-│  │  - /speckit.jira.specstoissues                   │   │
-│  │  - /speckit.jira.discover-fields                 │   │
+│  │  - /specpack.jira.specstoissues                   │   │
+│  │  - /specpack.jira.discover-fields                 │   │
 │  └──────────────────────────────────────────────────┘   │
 │  ┌──────────────────────────────────────────────────┐   │
 │  │  Linear Extension                                │   │
-│  │  - /speckit.linear.sync                          │   │
+│  │  - /specpack.linear.sync                          │   │
 │  └──────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────┘
              │ Calls external tools
@@ -188,16 +188,16 @@ extension:
   id: "jira"                    # Unique identifier (lowercase, alphanumeric, hyphens)
   name: "Jira Integration"      # Human-readable name
   version: "1.0.0"              # Semantic version
-  description: "Create Jira Epics, Stories, and Issues from spec-kit artifacts"
+  description: "Create Jira Epics, Stories, and Issues from specpack artifacts"
   author: "Stats Perform"       # Author/organization
-  repository: "https://github.com/statsperform/spec-kit-jira"
+  repository: "https://github.com/statsperform/specpack-jira"
   license: "MIT"                # SPDX license identifier
-  homepage: "https://github.com/statsperform/spec-kit-jira/blob/main/README.md"
+  homepage: "https://github.com/statsperform/specpack-jira/blob/main/README.md"
 
 # Compatibility requirements (REQUIRED)
 requires:
   # Spec-kit version (semantic version range)
-  speckit_version: ">=0.1.0,<2.0.0"
+  specpack_version: ">=0.1.0,<2.0.0"
 
   # External tools required by extension
   tools:
@@ -208,9 +208,9 @@ requires:
       install_url: "https://github.com/your-org/jira-mcp-server"
       check_command: "jira --version"  # Optional: CLI command to verify
 
-  # Core spec-kit commands this extension depends on
+  # Core specpack commands this extension depends on
   commands:
-    - "speckit.tasks"             # Extension needs tasks command
+    - "specpack.tasks"             # Extension needs tasks command
 
   # Core scripts required
   scripts:
@@ -220,16 +220,16 @@ requires:
 provides:
   # Commands added to AI agent
   commands:
-    - name: "speckit.jira.specstoissues"
+    - name: "specpack.jira.specstoissues"
       file: "commands/specstoissues.md"
       description: "Create Jira hierarchy from spec and tasks"
-      aliases: ["speckit.jira.sync"]  # Alternate names
+      aliases: ["specpack.jira.sync"]  # Alternate names
 
-    - name: "speckit.jira.discover-fields"
+    - name: "specpack.jira.discover-fields"
       file: "commands/discover-fields.md"
       description: "Discover Jira custom fields for configuration"
 
-    - name: "speckit.jira.sync-status"
+    - name: "specpack.jira.sync-status"
       file: "commands/sync-status.md"
       description: "Sync task completion status to Jira"
 
@@ -273,16 +273,16 @@ config_schema:
 
 # Integration hooks (OPTIONAL)
 hooks:
-  # Hook fired after /speckit.tasks completes
+  # Hook fired after /specpack.tasks completes
   after_tasks:
-    command: "speckit.jira.specstoissues"
+    command: "specpack.jira.specstoissues"
     optional: true
     prompt: "Create Jira issues from tasks?"
     description: "Automatically create Jira hierarchy after task generation"
 
-  # Hook fired after /speckit.implement completes
+  # Hook fired after /specpack.implement completes
   after_implement:
-    command: "speckit.jira.sync-status"
+    command: "specpack.jira.sync-status"
     optional: true
     prompt: "Sync completion status to Jira?"
 
@@ -294,13 +294,13 @@ tags:
   - "project-management"
 
 # Changelog URL (OPTIONAL)
-changelog: "https://github.com/statsperform/spec-kit-jira/blob/main/CHANGELOG.md"
+changelog: "https://github.com/statsperform/specpack-jira/blob/main/CHANGELOG.md"
 
 # Support information (OPTIONAL)
 support:
-  documentation: "https://github.com/statsperform/spec-kit-jira/blob/main/docs/"
-  issues: "https://github.com/statsperform/spec-kit-jira/issues"
-  discussions: "https://github.com/statsperform/spec-kit-jira/discussions"
+  documentation: "https://github.com/statsperform/specpack-jira/blob/main/docs/"
+  issues: "https://github.com/statsperform/specpack-jira/issues"
+  discussions: "https://github.com/statsperform/specpack-jira/discussions"
   email: "support@statsperform.com"
 ```
 
@@ -386,12 +386,12 @@ vim .specify/extensions/jira/jira-config.yml
 
 ```bash
 claude
-> /speckit.jira.specstoissues
+> /specpack.jira.specstoissues
 ```
 
 **Command resolution:**
 
-1. AI agent finds command in `.claude/commands/speckit.jira.specstoissues.md`
+1. AI agent finds command in `.claude/commands/specpack.jira.specstoissues.md`
 2. Command file references extension scripts/config
 3. Extension executes with full context
 
@@ -461,7 +461,7 @@ $ARGUMENTS
 
 #### Claude Code Registration
 
-**Output**: `.claude/commands/speckit.jira.specstoissues.md`
+**Output**: `.claude/commands/specpack.jira.specstoissues.md`
 
 ```markdown
 ---
@@ -492,11 +492,11 @@ $ARGUMENTS
 
 #### Gemini CLI Registration
 
-**Output**: `.gemini/commands/speckit.jira.specstoissues.toml`
+**Output**: `.gemini/commands/specpack.jira.specstoissues.toml`
 
 ```toml
 [command]
-name = "speckit.jira.specstoissues"
+name = "specpack.jira.specstoissues"
 description = "Create Jira hierarchy from spec and tasks"
 
 [command.tools]
@@ -716,7 +716,7 @@ except jsonschema.ValidationError as e:
 ```yaml
 hooks:
   after_tasks:
-    command: "speckit.jira.specstoissues"
+    command: "specpack.jira.specstoissues"
     optional: true
     prompt: "Create Jira issues from tasks?"
     description: "Automatically create Jira hierarchy"
@@ -743,14 +743,14 @@ settings:
 hooks:
   after_tasks:
     - extension: jira
-      command: speckit.jira.specstoissues
+      command: specpack.jira.specstoissues
       enabled: true
       optional: true
       prompt: "Create Jira issues from tasks?"
 
   after_implement:
     - extension: jira
-      command: speckit.jira.sync-status
+      command: specpack.jira.sync-status
       enabled: true
       optional: true
       prompt: "Sync completion status to Jira?"
@@ -808,7 +808,7 @@ fi
 
 **AI Agent Handling:**
 
-The AI agent sees `EXECUTE_COMMAND: speckit.jira.specstoissues` in output and automatically invokes that command.
+The AI agent sees `EXECUTE_COMMAND: specpack.jira.specstoissues` in output and automatically invokes that command.
 
 **Alternative**: Direct call in agent context (if agent supports it):
 
@@ -837,7 +837,7 @@ Extensions can specify **conditions** for hooks:
 ```yaml
 hooks:
   after_tasks:
-    command: "speckit.jira.specstoissues"
+    command: "specpack.jira.specstoissues"
     optional: true
     condition: "config.project.key is set and config.enabled == true"
 ```
@@ -864,11 +864,11 @@ def should_execute_hook(hook: dict, config: dict) -> bool:
 
 ### Dual Catalog System
 
-Spec Kit uses two catalog files with different purposes:
+SpecPack uses two catalog files with different purposes:
 
 #### User Catalog (`catalog.json`)
 
-**URL**: `https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.json`
+**URL**: `https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.json`
 
 - **Purpose**: Organization's curated catalog of approved extensions
 - **Default State**: Empty by design - users populate with extensions they trust
@@ -877,7 +877,7 @@ Spec Kit uses two catalog files with different purposes:
 
 #### Community Reference Catalog (`catalog.community.json`)
 
-**URL**: `https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json`
+**URL**: `https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.community.json`
 
 - **Purpose**: Reference catalog of available community-contributed extensions
 - **Verification**: Community extensions may have `verified: false` initially
@@ -906,17 +906,17 @@ This approach gives organizations full control over which extensions can be inst
     "jira": {
       "name": "Jira Integration",
       "id": "jira",
-      "description": "Create Jira Epics, Stories, and Issues from spec-kit artifacts",
+      "description": "Create Jira Epics, Stories, and Issues from specpack artifacts",
       "author": "Stats Perform",
       "version": "1.0.0",
-      "download_url": "https://github.com/statsperform/spec-kit-jira/releases/download/v1.0.0/spec-kit-jira-1.0.0.zip",
-      "repository": "https://github.com/statsperform/spec-kit-jira",
-      "homepage": "https://github.com/statsperform/spec-kit-jira/blob/main/README.md",
-      "documentation": "https://github.com/statsperform/spec-kit-jira/blob/main/docs/",
-      "changelog": "https://github.com/statsperform/spec-kit-jira/blob/main/CHANGELOG.md",
+      "download_url": "https://github.com/statsperform/specpack-jira/releases/download/v1.0.0/specpack-jira-1.0.0.zip",
+      "repository": "https://github.com/statsperform/specpack-jira",
+      "homepage": "https://github.com/statsperform/specpack-jira/blob/main/README.md",
+      "documentation": "https://github.com/statsperform/specpack-jira/blob/main/docs/",
+      "changelog": "https://github.com/statsperform/specpack-jira/blob/main/CHANGELOG.md",
       "license": "MIT",
       "requires": {
-        "speckit_version": ">=0.1.0,<2.0.0",
+        "specpack_version": ">=0.1.0,<2.0.0",
         "tools": [
           {
             "name": "jira-mcp-server",
@@ -932,13 +932,13 @@ This approach gives organizations full control over which extensions can be inst
     "linear": {
       "name": "Linear Integration",
       "id": "linear",
-      "description": "Sync spec-kit tasks with Linear issues",
+      "description": "Sync specpack tasks with Linear issues",
       "author": "Community",
       "version": "0.9.0",
-      "download_url": "https://github.com/example/spec-kit-linear/releases/download/v0.9.0/spec-kit-linear-0.9.0.zip",
-      "repository": "https://github.com/example/spec-kit-linear",
+      "download_url": "https://github.com/example/specpack-linear/releases/download/v0.9.0/specpack-linear-0.9.0.zip",
+      "repository": "https://github.com/example/specpack-linear",
       "requires": {
-        "speckit_version": ">=0.1.0"
+        "specpack_version": ">=0.1.0"
       },
       "tags": ["issue-tracking", "linear"],
       "verified": false
@@ -965,13 +965,13 @@ specify extension info jira
 
 ### Custom Catalogs
 
-Spec Kit supports a **catalog stack** — an ordered list of catalogs that the CLI merges and searches across. This allows organizations to maintain their own org-approved extensions alongside an internal catalog and community discovery, all at once.
+SpecPack supports a **catalog stack** — an ordered list of catalogs that the CLI merges and searches across. This allows organizations to maintain their own org-approved extensions alongside an internal catalog and community discovery, all at once.
 
 #### Catalog Stack Resolution
 
 The active catalog stack is resolved in this order (first match wins):
 
-1. **`SPECKIT_CATALOG_URL` environment variable** — single catalog replacing all defaults (backward compat)
+1. **`SPECPACK_CATALOG_URL` environment variable** — single catalog replacing all defaults (backward compat)
 2. **Project-level `.specify/extension-catalogs.yml`** — full control for the project
 3. **User-level `~/.specify/extension-catalogs.yml`** — personal defaults
 4. **Built-in default stack** — `catalog.json` (install_allowed: true) + `catalog.community.json` (install_allowed: false)
@@ -992,19 +992,19 @@ This means `specify extension search` surfaces community extensions out of the b
 ```yaml
 catalogs:
   - name: "default"
-    url: "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.json"
+    url: "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.json"
     priority: 1          # Highest — only approved entries can be installed
     install_allowed: true
     description: "Built-in catalog of installable extensions"
 
   - name: "internal"
-    url: "https://internal.company.com/spec-kit/catalog.json"
+    url: "https://internal.company.com/specpack/catalog.json"
     priority: 2
     install_allowed: true
     description: "Internal company extensions"
 
   - name: "community"
-    url: "https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json"
+    url: "https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.community.json"
     priority: 3          # Lowest — discovery only, not installable
     install_allowed: false
     description: "Community-contributed extensions (discovery only)"
@@ -1020,11 +1020,11 @@ specify extension catalog list
 
 # Add a catalog (project-scoped)
 specify extension catalog add --name "internal" --install-allowed \
-  https://internal.company.com/spec-kit/catalog.json
+  https://internal.company.com/specpack/catalog.json
 
 # Add a discovery-only catalog
 specify extension catalog add --name "community" \
-  https://raw.githubusercontent.com/github/spec-kit/main/extensions/catalog.community.json
+  https://raw.githubusercontent.com/github/specpack/main/extensions/catalog.community.json
 
 # Remove a catalog
 specify extension catalog remove internal
@@ -1048,13 +1048,13 @@ Extensions from discovery-only catalogs are shown in `specify extension search` 
 To enable installation, add 'linear' to an approved catalog (install_allowed: true) in .specify/extension-catalogs.yml.
 ```
 
-#### `SPECKIT_CATALOG_URL` (Backward Compatibility)
+#### `SPECPACK_CATALOG_URL` (Backward Compatibility)
 
-The `SPECKIT_CATALOG_URL` environment variable still works — it is treated as a single `install_allowed: true` catalog, **replacing both defaults** for full backward compatibility:
+The `SPECPACK_CATALOG_URL` environment variable still works — it is treated as a single `install_allowed: true` catalog, **replacing both defaults** for full backward compatibility:
 
 ```bash
 # Point to your organization's catalog
-export SPECKIT_CATALOG_URL="https://internal.company.com/spec-kit/catalog.json"
+export SPECPACK_CATALOG_URL="https://internal.company.com/specpack/catalog.json"
 
 # All extension commands now use your custom catalog
 specify extension search       # Uses custom catalog
@@ -1069,7 +1069,7 @@ specify extension add jira     # Installs from custom catalog
 **Example for testing:**
 ```bash
 # Test with localhost during development
-export SPECKIT_CATALOG_URL="http://localhost:8000/catalog.json"
+export SPECPACK_CATALOG_URL="http://localhost:8000/catalog.json"
 specify extension search
 ```
 
@@ -1089,12 +1089,12 @@ $ specify extension list
 Installed Extensions:
   ✓ Jira Integration (v1.0.0)
      jira
-     Create Jira issues from spec-kit artifacts
+     Create Jira issues from specpack artifacts
      Commands: 3 | Hooks: 2 | Priority: 10 | Status: Enabled
 
   ✓ Linear Integration (v0.9.0)
      linear
-     Create Linear issues from spec-kit artifacts
+     Create Linear issues from specpack artifacts
      Commands: 1 | Hooks: 1 | Priority: 10 | Status: Enabled
 ```
 
@@ -1116,14 +1116,14 @@ Found 1 extension:
 │ jira (v1.0.0) ✓ Verified                                │
 │ Jira Integration                                        │
 │                                                         │
-│ Create Jira Epics, Stories, and Issues from spec-kit   │
+│ Create Jira Epics, Stories, and Issues from specpack   │
 │ artifacts                                               │
 │                                                         │
 │ Author: Stats Perform                                   │
 │ Tags: issue-tracking, jira, atlassian                   │
 │ Downloads: 1,250                                        │
 │                                                         │
-│ Repository: github.com/statsperform/spec-kit-jira       │
+│ Repository: github.com/statsperform/specpack-jira       │
 │ Documentation: github.com/.../docs                      │
 └─────────────────────────────────────────────────────────┘
 
@@ -1146,22 +1146,22 @@ $ specify extension info jira
 Jira Integration (jira) v1.0.0
 
 Description:
-  Create Jira Epics, Stories, and Issues from spec-kit artifacts
+  Create Jira Epics, Stories, and Issues from specpack artifacts
 
 Author: Stats Perform
 License: MIT
-Repository: https://github.com/statsperform/spec-kit-jira
-Documentation: https://github.com/statsperform/spec-kit-jira/blob/main/docs/
+Repository: https://github.com/statsperform/specpack-jira
+Documentation: https://github.com/statsperform/specpack-jira/blob/main/docs/
 
 Requirements:
-  • Spec Kit: >=0.1.0,<2.0.0
+  • SpecPack: >=0.1.0,<2.0.0
   • Tools: jira-mcp-server (>=1.0.0)
 
 Provides:
   Commands:
-    • speckit.jira.specstoissues - Create Jira hierarchy from spec and tasks
-    • speckit.jira.discover-fields - Discover Jira custom fields
-    • speckit.jira.sync-status - Sync task completion status
+    • specpack.jira.specstoissues - Create Jira hierarchy from spec and tasks
+    • specpack.jira.discover-fields - Discover Jira custom fields
+    • specpack.jira.sync-status - Sync task completion status
 
   Hooks:
     • after_tasks - Prompt to create Jira issues
@@ -1183,9 +1183,9 @@ $ specify extension add jira
 
 Installing extension: Jira Integration
 
-✓ Downloaded spec-kit-jira-1.0.0.zip (245 KB)
+✓ Downloaded specpack-jira-1.0.0.zip (245 KB)
 ✓ Validated manifest
-✓ Checked compatibility (spec-kit 0.1.0 ≥ 0.1.0)
+✓ Checked compatibility (specpack 0.1.0 ≥ 0.1.0)
 ✓ Extracted to .specify/extensions/jira/
 ✓ Registered 3 commands with claude
 ✓ Installed config template (jira-config.yml)
@@ -1197,8 +1197,8 @@ Extension installed successfully!
 
 Next steps:
   1. Configure: vim .specify/extensions/jira/jira-config.yml
-  2. Discover fields: /speckit.jira.discover-fields
-  3. Use commands: /speckit.jira.specstoissues
+  2. Discover fields: /specpack.jira.discover-fields
+  3. Use commands: /specpack.jira.specstoissues
 ```
 
 **Options:**
@@ -1254,7 +1254,7 @@ Changes in v1.1.0:
 
 Update? (yes/no): yes
 
-✓ Downloaded spec-kit-jira-1.1.0.zip
+✓ Downloaded specpack-jira-1.1.0.zip
 ✓ Validated manifest
 ✓ Backed up current version
 ✓ Extracted new version
@@ -1263,7 +1263,7 @@ Update? (yes/no): yes
 
 Extension updated successfully!
 
-Changelog: https://github.com/statsperform/spec-kit-jira/blob/main/CHANGELOG.md#v110
+Changelog: https://github.com/statsperform/specpack-jira/blob/main/CHANGELOG.md#v110
 ```
 
 **Options:**
@@ -1331,15 +1331,15 @@ def check_compatibility(extension_manifest: dict) -> bool:
 
     requires = extension_manifest['requires']
 
-    # 1. Check spec-kit version
-    current_speckit = get_speckit_version()  # e.g., "0.1.5"
-    required_speckit = requires['speckit_version']  # e.g., ">=0.1.0,<2.0.0"
+    # 1. Check specpack version
+    current_specpack = get_specpack_version()  # e.g., "0.1.5"
+    required_specpack = requires['specpack_version']  # e.g., ">=0.1.0,<2.0.0"
 
-    if not version_satisfies(current_speckit, required_speckit):
+    if not version_satisfies(current_specpack, required_specpack):
         raise IncompatibleVersionError(
-            f"Extension requires spec-kit {required_speckit}, "
-            f"but {current_speckit} is installed. "
-            f"Upgrade spec-kit with: uv tool install specify-cli --force"
+            f"Extension requires specpack {required_specpack}, "
+            f"but {current_specpack} is installed. "
+            f"Upgrade specpack with: uv tool install specify-cli --force"
         )
 
     # 2. Check required tools
@@ -1367,7 +1367,7 @@ def check_compatibility(extension_manifest: dict) -> bool:
         if not command_exists(cmd):
             raise MissingCommandError(
                 f"Extension requires core command: {cmd}\n"
-                f"Update spec-kit to latest version"
+                f"Update specpack to latest version"
             )
 
     return True
@@ -1380,18 +1380,18 @@ def check_compatibility(extension_manifest: dict) -> bool:
 ```yaml
 provides:
   commands:
-    - name: "speckit.jira.old-command"
+    - name: "specpack.jira.old-command"
       file: "commands/old-command.md"
       deprecated: true
-      deprecated_message: "Use speckit.jira.new-command instead"
+      deprecated_message: "Use specpack.jira.new-command instead"
       removal_version: "2.0.0"
 ```
 
 **At runtime, show warning:**
 
 ```text
-⚠️  Warning: /speckit.jira.old-command is deprecated
-   Use /speckit.jira.new-command instead
+⚠️  Warning: /specpack.jira.old-command is deprecated
+   Use /specpack.jira.new-command instead
    This command will be removed in v2.0.0
 ```
 
@@ -1414,7 +1414,7 @@ Extensions run with **same privileges as AI agent**:
 **Verified Extensions** (in catalog):
 
 - Published by known organizations (GitHub, Stats Perform, etc.)
-- Code reviewed by spec-kit maintainers
+- Code reviewed by specpack maintainers
 - Marked with ✓ badge in catalog
 
 **Community Extensions**:
@@ -1455,7 +1455,7 @@ permissions:
 "jira": {
   "download_url": "...",
   "checksum": "sha256:abc123...",
-  "signature": "https://github.com/.../spec-kit-jira-1.0.0.sig",
+  "signature": "https://github.com/.../specpack-jira-1.0.0.sig",
   "signing_key": "https://github.com/statsperform.gpg"
 }
 ```
@@ -1468,11 +1468,11 @@ CLI verifies signature before extraction.
 
 ### Backward Compatibility
 
-**Goal**: Existing spec-kit projects work without changes.
+**Goal**: Existing specpack projects work without changes.
 
 **Strategy**:
 
-1. **Core commands unchanged**: `/speckit.tasks`, `/speckit.implement`, etc. remain in core
+1. **Core commands unchanged**: `/specpack.tasks`, `/specpack.implement`, etc. remain in core
 
 2. **Optional extensions**: Users opt-in to extensions
 
@@ -1510,11 +1510,11 @@ CLI verifies signature before extraction.
 
 ```bash
 # Old (core command)
-/speckit.taskstoissues
+/specpack.taskstoissues
 
 # New (extension command)
 specify extension add github-projects
-/speckit.github.taskstoissues
+/specpack.github.taskstoissues
 ```
 
 **Migration alias** (if needed):
@@ -1523,12 +1523,12 @@ specify extension add github-projects
 # extension.yml
 provides:
   commands:
-    - name: "speckit.github.taskstoissues"
+    - name: "specpack.github.taskstoissues"
       file: "commands/taskstoissues.md"
-      aliases: ["speckit.github.sync-taskstoissues"]  # Alternate namespaced entry point
+      aliases: ["specpack.github.sync-taskstoissues"]  # Alternate namespaced entry point
 ```
 
-AI agents register both names, so callers can migrate to the alternate alias without relying on deprecated global shortcuts like `/speckit.taskstoissues`.
+AI agents register both names, so callers can migrate to the alternate alias without relying on deprecated global shortcuts like `/specpack.taskstoissues`.
 
 ---
 
@@ -1563,7 +1563,7 @@ AI agents register both names, so callers can migrate to the alternate alias wit
 
 **Deliverables**:
 
-- [x] Create `spec-kit-jira` repository
+- [x] Create `specpack-jira` repository
 - [x] Port Jira functionality to extension
 - [x] Create `jira-config.yml` template
 - [x] Commands:
@@ -1587,7 +1587,7 @@ AI agents register both names, so callers can migrate to the alternate alias wit
 
 **Deliverables**:
 
-- [x] Central catalog (`extensions/catalog.json` in spec-kit repo)
+- [x] Central catalog (`extensions/catalog.json` in specpack repo)
 - [x] Community catalog (`extensions/catalog.community.json`)
 - [x] Catalog fetch and parsing with multi-catalog support
 - [x] CLI commands:
@@ -1631,7 +1631,7 @@ AI agents register both names, so callers can migrate to the alternate alias wit
 - [x] **Registry update/restore methods**: Clean API for enable/disable and rollback operations
 - [x] **Catalog error fallback**: `extension info` falls back to local info when catalog unavailable
 - [x] **`_install_allowed` flag**: Discovery-only catalogs can't be used for installation
-- [x] **Cache invalidation**: Cache invalidated when `SPECKIT_CATALOG_URL` changes
+- [x] **Cache invalidation**: Cache invalidated when `SPECPACK_CATALOG_URL` changes
 
 **Testing**:
 
@@ -1670,7 +1670,7 @@ The following questions from the original RFC have been resolved during implemen
 
 **Question**: Should extension commands use namespace prefix?
 
-**Decision**: **Option C** - Both prefixed and aliases are supported. Commands use `speckit.{extension}.{command}` as canonical name, with optional aliases defined in manifest.
+**Decision**: **Option C** - Both prefixed and aliases are supported. Commands use `specpack.{extension}.{command}` as canonical name, with optional aliases defined in manifest.
 
 **Implementation**: The `aliases` field in `extension.yml` allows extensions to register additional command names.
 
@@ -1760,10 +1760,10 @@ The following questions from the original RFC have been resolved during implemen
 
 ### Appendix A: Example Extension Structure
 
-**Complete structure of `spec-kit-jira` extension:**
+**Complete structure of `specpack-jira` extension:**
 
 ```text
-spec-kit-jira/
+specpack-jira/
 ├── README.md                        # Overview, features, installation
 ├── LICENSE                          # MIT license
 ├── CHANGELOG.md                     # Version history
@@ -1854,7 +1854,7 @@ spec-kit-jira/
 
 **Planned support matrix:**
 
-| Extension Feature | Spec Kit Version | AI Agent Support |
+| Extension Feature | SpecPack Version | AI Agent Support |
 |-------------------|------------------|------------------|
 | Basic commands | 0.2.0+ | Claude, Gemini, Copilot |
 | Hooks (after_tasks) | 0.3.0+ | Claude, Gemini |
@@ -1901,7 +1901,7 @@ spec-kit-jira/
             "requires": {
               "type": "object",
               "properties": {
-                "speckit_version": { "type": "string" },
+                "specpack_version": { "type": "string" },
                 "tools": {
                   "type": "array",
                   "items": {
@@ -1935,7 +1935,7 @@ spec-kit-jira/
 
 ## Summary & Next Steps
 
-This RFC proposes a comprehensive extension system for Spec Kit that:
+This RFC proposes a comprehensive extension system for SpecPack that:
 
 1. **Keeps core lean** while enabling unlimited integrations
 2. **Supports multiple agents** (Claude, Gemini, Copilot, etc.)
