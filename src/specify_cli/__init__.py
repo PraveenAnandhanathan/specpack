@@ -337,7 +337,7 @@ app = typer.Typer(
     cls=BannerGroup,
 )
 
-BANNER_FALLBACK = """
+BANNER_FALLBACK = r"""
  ____  ____  ____  ____  ____  __    ____  __ _
 / ___)(  _ \( ___)(  _ \(  _ \(  )  / ___)(  / )
 \___ \ )___/ )__)  ) __/ )___/ )(__  \___ \ )  (
@@ -5106,7 +5106,32 @@ def workflow_catalog_remove(
 
 
 from .analyse import analyse_app
+from .delta_archive import run_validate_stubs, run_delta, run_archive
+
 app.add_typer(analyse_app, name="analyse")
+
+
+@app.command("validate-stubs")
+def validate_stubs():
+    """Confirm all stub tests are RED (failing) before implementation starts."""
+    run_validate_stubs()
+
+
+@app.command("delta")
+def delta(
+    feature: Optional[str] = typer.Option(None, "--feature", help="Path to feature dir (default: from .specify/feature.json)"),
+):
+    """Show ADDED/MODIFIED/REMOVED delta summary for the current feature."""
+    run_delta(feature)
+
+
+@app.command("archive")
+def archive(
+    feature: Optional[str] = typer.Option(None, "--feature", help="Path to feature dir (default: from .specify/feature.json)"),
+    force: bool = typer.Option(False, "--force", help="Archive even if validations have not all passed"),
+):
+    """Archive completed feature to specs/archive/ with ARCHIVE.md audit record."""
+    run_archive(feature, force)
 
 
 def main():

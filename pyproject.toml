@@ -1,6 +1,6 @@
 [project]
 name = "specpack-cli"
-version = "0.8.0.dev0"
+version = "0.8.1"
 description = "SpecPack CLI — Spec-Driven Development for greenfield and brownfield projects. Forked from GitHub Spec Kit. Adds brownfield profiling (codebase/performance/customer) and progressive parallel validation."
 requires-python = ">=3.11"
 dependencies = [
@@ -34,6 +34,7 @@ packages = ["src/specify_cli"]
 "templates/plan-template.md" = "specify_cli/core_pack/templates/plan-template.md"
 "templates/spec-template.md" = "specify_cli/core_pack/templates/spec-template.md"
 "templates/tasks-template.md" = "specify_cli/core_pack/templates/tasks-template.md"
+"templates/archive-template.md" = "specify_cli/core_pack/templates/archive-template.md"
 "templates/vscode-settings.json" = "specify_cli/core_pack/templates/vscode-settings.json"
 # Command templates
 "templates/commands" = "specify_cli/core_pack/commands"

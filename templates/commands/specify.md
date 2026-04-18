@@ -134,6 +134,27 @@ Given that feature description, do this:
     7. Identify Key Entities (if data involved)
     8. Return: SUCCESS (spec ready for planning)
 
+5b. **Brownfield delta annotation** (SpecPack — runs only when `profiles/codebase-profile.md` exists):
+
+   Before writing spec.md, check if `profiles/codebase-profile.md` exists. If it does, this is a brownfield change — annotate every requirement with a delta marker:
+
+   - `[ADDED]` — new capability, does not exist in the current codebase
+   - `[MODIFIED]` — changes existing behaviour (must identify WHAT changes)
+   - `[REMOVED]` — explicitly removes existing functionality
+   - `[UNCHANGED]` — existing functionality that must be preserved (no regression)
+
+   Rules:
+   - Scan the codebase briefly (entry points, key files from codebase-profile.md structure) to determine which requirements are truly new vs modifying existing code.
+   - Every requirement bullet in the spec MUST have exactly one delta marker.
+   - If uncertain: default to `[ADDED]` and add a note.
+   - Example:
+     ```
+     - [ADDED] Users can reset password via email link
+     - [MODIFIED] Login now requires 2FA (was: single-factor)
+     - [REMOVED] SMS OTP login method
+     - [UNCHANGED] OAuth via Google — must not regress
+     ```
+
 6. Write the specification to SPEC_FILE using the template structure, replacing placeholders with concrete details derived from the feature description (arguments) while preserving section order and headings.
 
 7. **Specification Quality Validation**: After writing the initial spec, validate it against quality criteria:

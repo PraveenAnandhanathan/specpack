@@ -89,7 +89,31 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Parallel execution examples per story
    - Implementation strategy section (MVP first, incremental delivery)
 
-5. **Report**: Output path to generated tasks.md and summary:
+5. **Generate Red→Green stub tests** (SpecPack TDD cycle):
+
+   After tasks.md is written, generate a **failing test stub** for each task that has a verifiable functional outcome. This ensures every task starts RED.
+
+   - Read `profiles/codebase-profile.md` → `Test framework` and `Test command` fields.
+   - For each task in tasks.md that is NOT a setup/infrastructure task:
+     - Write a minimal failing test stub to `specs/<feature>/tests/stubs/<TASK_ID>_stub.<ext>`
+     - The stub MUST fail immediately (e.g., `assert False, "T001 not yet implemented"` in pytest, `expect(true).toBe(false)` in Jest)
+     - Add a comment describing WHAT the stub is testing (maps to the requirement in spec.md)
+     - Do NOT implement any logic — stubs only assert failure
+   - Skip stub generation for: setup tasks, dependency install tasks, config tasks, tasks with no verifiable functional output
+
+   Example stub (pytest):
+   ```python
+   # Stub for T003 [US1]: User can register with email+password
+   # Requirement: spec.md § Functional Requirements > User Registration
+   def test_T003_user_registration_stub():
+       assert False, "T003 not yet implemented — run /specpack.implement to make this GREEN"
+   ```
+
+   After generating stubs:
+   - Output: `specs/<feature>/tests/stubs/` directory with N stub files
+   - Tell user to run `specify validate-stubs` to confirm all are RED before starting implementation
+
+5b. **Report**: Output path to generated tasks.md and summary:
    - Total task count
    - Task count per user story
    - Parallel opportunities identified

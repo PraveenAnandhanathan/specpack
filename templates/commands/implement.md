@@ -168,6 +168,13 @@ You **MUST** consider the user input before proceeding (if not empty).
    - **Task details**: ID, description, file paths, parallel markers [P]
    - **Execution flow**: Order and dependency requirements
 
+5b. **Red→Green pre-flight check**:
+
+   Before executing any task, run `specify validate-stubs` to confirm all stubs are RED.
+   - If stubs directory does not exist: skip silently (stubs are optional).
+   - If any stub is already GREEN: warn the user and ask if they want to proceed.
+   - If all stubs are RED: output `[RED CONFIRMED] All stubs failing — Red→Green cycle ready.` and proceed.
+
 6. Execute implementation following the task plan:
    - **Phase-by-phase execution**: Complete each phase before moving to the next
    - **Respect dependencies**: Run sequential tasks in order, parallel tasks [P] can run together  
@@ -190,6 +197,8 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Suggest next steps if implementation cannot proceed
    - **IMPORTANT** For completed tasks, make sure to mark the task off as [X] in the tasks file.
 
+   **Red→Green per task**: Before writing code for each task, confirm its stub test is RED. After completing the task, the stub must turn GREEN.
+
    **After marking each task [X]** — trigger progressive validation immediately:
 
    a. Run `/specpack.functionalvalidation --task <TASK_ID>`:
@@ -205,17 +214,22 @@ You **MUST** consider the user input before proceeding (if not empty).
       - Only runs if task affects a customer flow from `profiles/customer-profile.md`.
       - Skips with `[CUSTOMER: SKIPPED]` if no customer flow is impacted.
 
-   **Update the validation dashboard** after each task:
+   **Update the Red→Green dashboard** after each task:
    ```
-   ┌──────────────────────────────────────────────────┐
-   │ SpecPack Validation Dashboard                    │
-   ├──────────────────────────────────────────────────┤
-   │ Tasks: [DONE]/[TOTAL] complete                   │
-   │                                                  │
-   │ Functional   [✓ X passed / ✗ Y failed / - skip] │
-   │ Performance  [✓ X passed / ⚠ Y warn  / - skip]  │
-   │ Customer     [✓ X passed / ✗ Y failed / - skip] │
-   └──────────────────────────────────────────────────┘
+   ┌──────────────────────────────────────────────────────┐
+   │ SpecPack — Red→Green Dashboard                       │
+   ├──────────────────────────────────────────────────────┤
+   │ Tasks: [DONE]/[TOTAL] complete                       │
+   │                                                      │
+   │ T001  🔴→🟢  [TASK_NAME]                            │
+   │ T002  🔴→🟢  [TASK_NAME]                            │
+   │ T003  🔴→⏳  [TASK_NAME]  ← in progress             │
+   │ T004  ⬜      [TASK_NAME]  ← pending                 │
+   ├──────────────────────────────────────────────────────┤
+   │ Functional   [✓ X passed / ✗ Y failed / - skip]     │
+   │ Performance  [✓ X passed / ⚠ Y warn  / - skip]      │
+   │ Customer     [✓ X passed / ✗ Y failed / - skip]     │
+   └──────────────────────────────────────────────────────┘
    ```
 
    **If a validation FAILS**:
@@ -264,6 +278,15 @@ You **MUST** consider the user input before proceeding (if not empty).
    ```
 
    If any FAIL: output a prioritised fix list. User decides next steps.
+
+10. **Auto-archive prompt**:
+
+    After all E2E validations pass, ask the user:
+    ```
+    All validations passed. Archive this feature? (yes/no)
+    ```
+    - If yes: run `specify archive` — moves `specs/<feature>/` to `specs/archive/<feature>/` with ARCHIVE.md.
+    - If no: remind user they can archive later with `specify archive`.
 
 Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `/specpack.tasks` first to regenerate the task list.
 
