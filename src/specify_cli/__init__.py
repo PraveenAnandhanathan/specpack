@@ -5107,6 +5107,7 @@ def workflow_catalog_remove(
 
 from .analyse import analyse_app
 from .delta_archive import run_validate_stubs, run_delta, run_archive
+from .serve import run_serve
 
 app.add_typer(analyse_app, name="analyse")
 
@@ -5132,6 +5133,16 @@ def archive(
 ):
     """Archive completed feature to specs/archive/ with ARCHIVE.md audit record."""
     run_archive(feature, force)
+
+
+@app.command("serve")
+def serve(
+    port: int = typer.Option(4242, "--port", "-p", help="Port to listen on"),
+    host: str = typer.Option("127.0.0.1", "--host", help="Host to bind to"),
+    no_browser: bool = typer.Option(False, "--no-browser", help="Do not open browser automatically"),
+):
+    """Start a local read-only web UI for specs, archive, and profiles."""
+    run_serve(port=port, host=host, no_browser=no_browser)
 
 
 def main():

@@ -1,6 +1,6 @@
 [project]
 name = "specpack-cli"
-version = "0.8.1"
+version = "0.8.2"
 description = "SpecPack CLI — Spec-Driven Development for greenfield and brownfield projects. Forked from GitHub Spec Kit. Adds brownfield profiling (codebase/performance/customer) and progressive parallel validation."
 requires-python = ">=3.11"
 dependencies = [
@@ -50,9 +50,15 @@ packages = ["src/specify_cli"]
 "templates/profiles" = "specify_cli/core_pack/templates/profiles"
 
 [project.optional-dependencies]
+serve = [
+    "fastapi>=0.100",
+    "uvicorn>=0.23",
+    "markdown>=3.4",
+]
 test = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
+    "httpx>=0.24",
 ]
 
 [tool.pytest.ini_options]
