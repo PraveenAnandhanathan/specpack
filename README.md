@@ -35,6 +35,7 @@
   - [specify validate-stubs](#specify-validate-stubs)
   - [specify delta](#specify-delta)
   - [specify archive](#specify-archive)
+  - [specify serve](#specify-serve)
   - [AI Slash Commands](#ai-slash-commands)
 - [Profiles Directory](#profiles-directory)
 - [Progressive Validation](#progressive-validation)
@@ -117,6 +118,7 @@ SpecPack adapts this with two features:
 | Cross-profile validation (customer × performance) | — | ✓ |
 | Existing test framework detection & reuse | — | ✓ |
 | Feature archive (`specify archive` + `ARCHIVE.md`) | — | ✓ |
+| Local web UI (`specify serve`) | — | ✓ |
 | 30+ AI agent integrations | ✓ | ✓ |
 | Extensions & presets system | ✓ | ✓ |
 
@@ -127,13 +129,15 @@ SpecPack adapts this with two features:
 ### Option 1 — pip (PyPI)
 
 ```bash
-pip install specpack-cli
+pip install specpack-cli                   # core
+pip install 'specpack-cli[serve]'          # + web UI (specify serve)
 ```
 
 ### Option 2 — uv (PyPI)
 
 ```bash
-uv tool install specpack-cli
+uv tool install specpack-cli               # core
+uv tool install 'specpack-cli[serve]'      # + web UI (specify serve)
 ```
 
 `uv` installs from PyPI by default — no extra flags needed.
@@ -181,6 +185,7 @@ Step 4:  /specpack.tasks            ← break plan into ordered tasks + generate
 Step 5:  specify validate-stubs     ← confirm all stubs are RED before coding starts
 Step 6:  /specpack.implement        ← execute tasks, Red→Green per task, E2E when done
 Step 7:  specify archive            ← move completed feature to specs/archive/ with ARCHIVE.md
+Step 8:  specify serve              ← share specs with non-devs via local web UI (optional)
 ```
 
 ### Greenfield file output
@@ -256,6 +261,7 @@ Step 5:  specify validate-stubs     ← confirm all stubs are RED
 Step 6:  specify delta              ← review what's changing before implementation
 Step 7:  /specpack.implement        ← Red→Green per task, E2E when all tasks done
 Step 8:  specify archive            ← archive with ARCHIVE.md (delta + validation record)
+Step 9:  specify serve              ← share specs and archive with stakeholders (optional)
 ```
 
 ### Brownfield file output
@@ -587,6 +593,38 @@ specify archive --force                    # skip validation gate
 **Validation gate** (skipped with `--force`): reads `profiles/.validation-status.md` and blocks if any E2E result is FAIL or UNKNOWN.
 
 **When to run**: after all tasks are complete and `/specpack.implement` E2E has passed. The `/specpack.implement` command will prompt you to archive automatically.
+
+---
+
+### `specify serve`
+
+Start a local read-only web UI that renders specs, archive, and profiles — for sharing with non-devs.
+
+```bash
+specify serve                        # http://127.0.0.1:4242, auto-opens browser
+specify serve --port 8080
+specify serve --host 0.0.0.0         # accessible on local network
+specify serve --no-browser           # don't auto-open browser
+```
+
+Requires the `[serve]` optional extra:
+
+```bash
+pip install 'specpack-cli[serve]'
+uv tool install 'specpack-cli[serve]'
+```
+
+**What it shows:**
+
+| Page | URL | Content |
+|------|-----|---------|
+| Dashboard | `/` | Active features with delta badges and task progress |
+| Feature | `/feature/<name>` | Spec / Plan / Tasks / Delta tabs, delta markers colour-coded |
+| Archive | `/archive` | All archived features with dates and validation badges |
+| Archive detail | `/archive/<name>` | ARCHIVE.md + spec/plan/tasks tabs |
+| Profiles | `/profiles` | Codebase, performance, customer profiles side by side |
+
+The UI is **read-only** — no editing. Designed for sharing specs with PMs, designers, and QA who don't use the CLI.
 
 ---
 
