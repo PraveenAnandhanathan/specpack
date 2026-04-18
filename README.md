@@ -124,19 +124,29 @@ SpecPack adapts this with two features:
 
 ## Install
 
-### Option 1 — PyPI (recommended)
+### Option 1 — pip (PyPI)
 
 ```bash
 pip install specpack-cli
 ```
 
-### Option 2 — Latest from GitHub
+### Option 2 — uv (PyPI)
+
+```bash
+uv tool install specpack-cli
+```
+
+`uv` installs from PyPI by default — no extra flags needed.
+
+### Option 3 — Latest from GitHub (pre-release / edge)
 
 ```bash
 uv tool install specpack-cli --from git+https://github.com/PraveenAnandhanathan/specpack.git
+# or
+pip install git+https://github.com/PraveenAnandhanathan/specpack.git
 ```
 
-### Option 3 — Editable local install
+### Option 4 — Editable local install (development)
 
 ```bash
 git clone https://github.com/PraveenAnandhanathan/specpack.git
