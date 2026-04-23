@@ -29,9 +29,9 @@
 - [Feature Archive (from OpenSpec)](#feature-archive-from-openspec)
 - [All Commands & Flags](#all-commands--flags)
   - [specify init](#specify-init)
-  - [specify analyse-codebase](#specify-analyse-codebase)
-  - [specify analyse-performance](#specify-analyse-performance)
-  - [specify analyse-customer](#specify-analyse-customer)
+  - [analyse-codebase](#specpackanalyse-codebase--specify-analyse-codebase)
+  - [analyse-performance](#specpackanalyse-performance--specify-analyse-performance)
+  - [analyse-customer](#specpackanalyse-customer--specify-analyse-customer)
   - [specify validate-stubs](#specify-validate-stubs)
   - [specify delta](#specify-delta)
   - [specify archive](#specify-archive)
@@ -171,21 +171,26 @@ specpack version       # alias — same result
 
 Use this when starting a brand-new project with no existing codebase.
 
-```
+```bash
 specify init <PROJECT_NAME> --ai <AGENT>
 ```
 
-Then in your AI agent:
+In your AI agent (slash commands):
 
 ```
-Step 1:  /specpack.constitution     ← define project principles and governance
-Step 2:  /specpack.specify          ← write the feature specification
-Step 3:  /specpack.plan             ← create the technical implementation plan
-Step 4:  /specpack.tasks            ← break plan into ordered tasks + generate stub tests
-Step 5:  specify validate-stubs     ← confirm all stubs are RED before coding starts
-Step 6:  /specpack.implement        ← execute tasks, Red→Green per task, E2E when done
-Step 7:  specify archive            ← move completed feature to specs/archive/ with ARCHIVE.md
-Step 8:  specify serve              ← share specs with non-devs via local web UI (optional)
+/specpack.constitution        ← define project principles and governance
+/specpack.specify             ← write the feature specification
+/specpack.plan                ← create the technical implementation plan
+/specpack.tasks               ← break plan into ordered tasks + generate stub tests
+/specpack.implement           ← execute tasks, Red→Green per task, E2E when done
+```
+
+In terminal (CLI-only commands):
+
+```bash
+specify validate-stubs        ← run after /specpack.tasks, before /specpack.implement
+specify archive               ← run after /specpack.implement completes
+specify serve                 ← optional, share specs with non-devs
 ```
 
 ### Greenfield file output
@@ -217,25 +222,33 @@ specs/
 
 Use this when adding new features to an **existing codebase** — so new code adapts to what's already there.
 
-### Step 1 — Analyse (optional but recommended)
+### Step 1 — Init (always first)
 
 ```bash
-# Analyse existing codebase
-specify analyse-codebase --here
-specify analyse-codebase --here --static              # no AI tokens
-specify analyse-codebase --repopath /path/to/repo
-specify analyse-codebase --repourl https://github.com/org/repo    # public only
-
-# Analyse performance data
-specify analyse-performance --reportpath ./load-test-results/
-specify analyse-performance --reportfile ./results.csv            # static parse
-
-# Analyse customer data
-specify analyse-customer --reportpath ./analytics-exports/
-specify analyse-customer --reportfile ./users.json                # static parse
+specify init . --ai <AGENT>
 ```
 
-Each command writes a profile to `profiles/`:
+This creates `.specify/` and `profiles/` so the analyse commands have a home. Always run this before anything else.
+
+### Step 2 — Analyse (optional but strongly recommended)
+
+Run inside your AI agent (slash commands do deep AI-assisted analysis):
+
+```
+/specpack.analyse-codebase      ← reads your codebase, writes profiles/codebase-profile.md
+/specpack.analyse-performance   ← reads perf reports, writes profiles/performance-profile.md
+/specpack.analyse-customer      ← reads usage data, writes profiles/customer-profile.md
+```
+
+If you have raw report files and want **no AI tokens** (static parse only), use the CLI directly:
+
+```bash
+specify analyse-codebase --here --static              # filesystem scan, no AI
+specify analyse-performance --reportfile ./results.csv
+specify analyse-customer --reportfile ./users.json
+```
+
+Each writes a profile to `profiles/`:
 
 ```
 profiles/
@@ -244,24 +257,35 @@ profiles/
   customer-profile.md        ← scale, usage patterns, segments
 ```
 
-### Step 2 — SDD flow (profile-aware, delta-annotated)
-
-```
-specify init . --ai <AGENT>   ← or skip if already initialised
-```
+### Step 3 — SDD flow (profile-aware, delta-annotated)
 
 In your AI agent:
 
 ```
-Step 1:  /specpack.constitution     ← auto-reads profiles/, embeds as constraints
-Step 2:  /specpack.specify          ← writes spec with [ADDED]/[MODIFIED]/[REMOVED]/[UNCHANGED] markers
-Step 3:  /specpack.plan             ← plan respects existing code style and perf baselines
-Step 4:  /specpack.tasks            ← tasks align with existing test framework + generate stubs
-Step 5:  specify validate-stubs     ← confirm all stubs are RED
-Step 6:  specify delta              ← review what's changing before implementation
-Step 7:  /specpack.implement        ← Red→Green per task, E2E when all tasks done
-Step 8:  specify archive            ← archive with ARCHIVE.md (delta + validation record)
-Step 9:  specify serve              ← share specs and archive with stakeholders (optional)
+/specpack.constitution        ← auto-reads profiles/, embeds as constraints
+/specpack.specify             ← writes spec with [ADDED]/[MODIFIED]/[REMOVED]/[UNCHANGED] markers
+/specpack.plan                ← plan respects existing code style and perf baselines
+/specpack.tasks               ← tasks align with existing test framework + generate stubs
+```
+
+Then in terminal:
+
+```bash
+specify validate-stubs        ← confirm all stubs are RED before coding
+specify delta                 ← review what's changing before implementation
+```
+
+Back in your AI agent:
+
+```
+/specpack.implement           ← Red→Green per task, E2E when all tasks done
+```
+
+Finally:
+
+```bash
+specify archive               ← archive with ARCHIVE.md (delta + validation record)
+specify serve                 ← share specs and archive with stakeholders (optional)
 ```
 
 ### Brownfield file output
@@ -479,70 +503,73 @@ specify init . --ai cursor
 
 ---
 
-### `specify analyse-codebase`
+### `/specpack.analyse-codebase` · `specify analyse-codebase`
 
 Analyse an existing codebase and write `profiles/codebase-profile.md`.
 
-```bash
-specify analyse-codebase --here
+**Preferred — slash command in your AI agent (deep AI analysis):**
+
 ```
-Analyse the current working directory.
+/specpack.analyse-codebase
+```
+Reads your codebase, understands naming conventions, module patterns, error handling style, and test framework. Writes `profiles/codebase-profile.md`.
+
+**CLI fallback — static scan, no AI tokens:**
 
 ```bash
-specify analyse-codebase --repopath /path/to/repo
+specify analyse-codebase --here                               # current directory
+specify analyse-codebase --repopath /path/to/repo            # local repo
+specify analyse-codebase --repourl https://github.com/org/repo  # public repo (clones + deletes)
+specify analyse-codebase --here --static                     # filesystem only, no AI
 ```
-Analyse a local repo at the given path.
 
-```bash
-specify analyse-codebase --repourl https://github.com/org/repo
-```
-Clone a public GitHub repo, analyse it, then delete the clone.
-
-```bash
-specify analyse-codebase --here --static
-specify analyse-codebase --repopath /path/to/repo --static
-```
-`--static` flag: pure filesystem scan — **no AI tokens used**. Detects languages, file counts, project structure, test frameworks, and code style tools.
-
-Without `--static`: triggers `/specpack.analyse-codebase` in your AI agent for deep semantic analysis (naming conventions, module patterns, error handling style).
+`--static`: detects languages, file counts, project structure, test frameworks, and code style tools from config files only.
 
 **Output**: `profiles/codebase-profile.md`
 
 ---
 
-### `specify analyse-performance`
+### `/specpack.analyse-performance` · `specify analyse-performance`
 
 Analyse performance reports and write `profiles/performance-profile.md`.
 
-```bash
-specify analyse-performance --reportpath /path/to/reports/
+**Preferred — slash command in your AI agent:**
+
 ```
-AI-assisted analysis of a directory of report files (`.csv`, `.json`, `.yaml`, `.yml`, `.jtl`, Gatling `simulation.log`, k6 output, Locust CSVs).
+/specpack.analyse-performance
+```
+Point your AI agent at a directory of report files (`.csv`, `.json`, `.yaml`, `.jtl`, Gatling `simulation.log`, k6 output, Locust CSVs) and it writes the profile.
+
+**CLI fallback — static parse, no AI:**
 
 ```bash
-specify analyse-performance --reportfile /path/to/results.csv
-specify analyse-performance --reportfile /path/to/results.json
+specify analyse-performance --reportfile ./results.csv
+specify analyse-performance --reportfile ./results.json
 ```
-`--reportfile`: **static parse — no AI**. Extracts latency stats (P50/P90/P95/P99), throughput, and error rate, and auto-generates implementation constraints.
+Extracts latency stats (P50/P90/P95/P99), throughput, error rate, and auto-generates implementation constraints.
 
 **Output**: `profiles/performance-profile.md`
 
 ---
 
-### `specify analyse-customer`
+### `/specpack.analyse-customer` · `specify analyse-customer`
 
 Analyse customer/analytics data and write `profiles/customer-profile.md`.
 
-```bash
-specify analyse-customer --reportpath /path/to/analytics/
+**Preferred — slash command in your AI agent:**
+
 ```
-AI-assisted analysis of a directory of customer data files.
+/specpack.analyse-customer
+```
+Reads usage data, cohort exports, and analytics files — extracts scale, segments, and critical flows.
+
+**CLI fallback — static parse, no AI:**
 
 ```bash
-specify analyse-customer --reportfile /path/to/users.csv
-specify analyse-customer --reportfile /path/to/cohorts.json
+specify analyse-customer --reportfile ./users.csv
+specify analyse-customer --reportfile ./cohorts.json
 ```
-`--reportfile`: **static parse — no AI**. Extracts user counts, DAU/MAU, peak concurrent, session patterns, and user segments.
+Extracts user counts, DAU/MAU, peak concurrent, session patterns, and user segments.
 
 **Output**: `profiles/customer-profile.md`
 
