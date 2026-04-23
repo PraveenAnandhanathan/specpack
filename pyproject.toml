@@ -1,6 +1,6 @@
 [project]
 name = "specpack-cli"
-version = "0.8.2"
+version = "0.8.3"
 description = "SpecPack CLI — Spec-Driven Development for greenfield and brownfield projects. Forked from GitHub Spec Kit. Adds brownfield profiling (codebase/performance/customer) and progressive parallel validation."
 requires-python = ">=3.11"
 dependencies = [

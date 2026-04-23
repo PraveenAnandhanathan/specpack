@@ -13,116 +13,56 @@ $ARGUMENTS
 ```
 
 You **MUST** consider the user input before proceeding.
-If `--force` is provided, skip validation check and archive anyway.
-If `--feature <path>` is provided, use that feature directory instead of `.specify/feature.json`.
+- If `--force` is provided, pass `--force` to the CLI command.
+- If `--feature <path>` is provided, pass `--feature <path>` to the CLI command.
 
 ## Outline
 
-You are archiving a completed feature. This moves it out of the active `specs/` directory into `specs/archive/` and creates a permanent `ARCHIVE.md` audit record.
+You are archiving a completed feature. Delegate all archiving logic to the `specify archive` CLI — it handles the validation gate, ARCHIVE.md generation, directory move, and feature.json reset.
 
-### Step 1 — Identify the feature
+### Step 1 — Run archive
 
-1. If `--feature <path>` provided: use that path.
-2. Otherwise read `.specify/feature.json` → `feature_directory`.
-3. If neither: error "No active feature found."
+Build the command from the user's arguments:
 
-Confirm the feature directory exists and contains at least `spec.md` or `tasks.md`.
+- No arguments: `specify archive`
+- With `--force`: `specify archive --force`
+- With `--feature <path>`: `specify archive --feature <path>`
+- With both: `specify archive --feature <path> --force`
 
-### Step 2 — Validation gate (skip if --force)
+Run the command from the project root. Capture and display the full output.
 
-Read `profiles/.validation-status.md`. Check that E2E results for Functional, Performance, and Customer are all PASS or WARN (not FAIL or UNKNOWN).
+### Step 2 — Interpret the result
 
-If any are FAIL or UNKNOWN:
-```
-[ARCHIVE BLOCKED]
-Functional:   FAIL
-Performance:  UNKNOWN
-Customer:     PASS
+**If the command succeeds (exit code 0):**
 
-Run /specpack.implement --e2e first, or use --force to override.
-```
-Stop. Do not archive.
-
-### Step 3 — Build delta summary
-
-Scan `spec.md`, `plan.md`, `tasks.md` for delta markers:
-- `[ADDED]` — count and list
-- `[MODIFIED]` — count and list
-- `[REMOVED]` — count and list
-- `[UNCHANGED]` — count only
-
-### Step 4 — Count task completion
-
-In `tasks.md`, count:
-- Total tasks: lines matching `- [ ]` or `- [x]`/`- [X]`
-- Completed: lines matching `- [x]`/`- [X]`
-
-### Step 5 — Write ARCHIVE.md
-
-Write `specs/<feature>/ARCHIVE.md`:
-
-```markdown
-# Archive: <feature-name>
-
-Archived: <TODAY>
-Status: ✓ ALL VALIDATIONS PASSED  (or ⚠ ARCHIVED WITH WARNINGS if --force)
-
-## Delta Summary
-
-- ADDED:     N items
-- MODIFIED:  N items
-- REMOVED:   N items
-- UNCHANGED: N items
-
-### Added
-- [item]
-
-### Modified
-- [item]
-
-### Removed
-- [item]
-
-## Validation Results
-
-| Type | E2E Status |
-|------|-----------|
-| Functional   | PASS |
-| Performance  | PASS |
-| Customer     | PASS |
-
-## Tasks
-
-- Total: N
-- Completed: N
-
----
-*Archived by SpecPack on <TODAY>.*
-```
-
-### Step 6 — Move feature directory
+Display the CLI output, then confirm:
 
 ```
-specs/<feature>/  →  specs/archive/<feature>/
+[ARCHIVED] Feature moved to specs/archive/<feature>/
+
+ARCHIVE.md written with delta summary and validation results.
+Active feature cleared from .specify/feature.json.
 ```
 
-Create `specs/archive/` if it does not exist.
-If destination already exists: error and stop (do not overwrite without --force).
+Suggest next steps:
+- `/specpack.specify` — start the next feature
+- `specify serve` — browse the archive in the web UI
 
-### Step 7 — Clear active feature
+**If the command exits with BLOCKED (validation not passed):**
 
-Write `{}` to `.specify/feature.json` to clear the active feature pointer.
-
-### Step 8 — Report
+Display the blocked message from the CLI output and explain:
 
 ```
-[ARCHIVED] specs/<feature>/ → specs/archive/<feature>/
+Archive blocked — not all E2E validations have passed.
 
-Delta:      +N added  ~N modified  -N removed
-Validation: Functional ✓  Performance ✓  Customer ✓
-Tasks:      N/N complete
-
-ARCHIVE.md written.
+Options:
+  1. Run /specpack.implement --e2e to complete E2E validation
+  2. Run /specpack.archive --force to archive anyway (adds ⚠ warning to ARCHIVE.md)
 ```
 
-Suggest next step: `/specpack.specify` to start the next feature.
+**If any other error:**
+
+Display the error and suggest checking that:
+- The feature directory exists
+- `.specify/feature.json` points to the right feature
+- `specify init` has been run in this project

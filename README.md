@@ -175,22 +175,17 @@ Use this when starting a brand-new project with no existing codebase.
 specify init <PROJECT_NAME> --ai <AGENT>
 ```
 
-In your AI agent (slash commands):
+In your AI agent (slash commands — run everything from the IDE):
 
 ```
 /specpack.constitution        ← define project principles and governance
 /specpack.specify             ← write the feature specification
 /specpack.plan                ← create the technical implementation plan
 /specpack.tasks               ← break plan into ordered tasks + generate stub tests
+/specpack.validate-stubs      ← confirm all stubs are RED before coding starts
 /specpack.implement           ← execute tasks, Red→Green per task, E2E when done
-```
-
-In terminal (CLI-only commands):
-
-```bash
-specify validate-stubs        ← run after /specpack.tasks, before /specpack.implement
-specify archive               ← run after /specpack.implement completes
-specify serve                 ← optional, share specs with non-devs
+/specpack.archive             ← move completed feature to specs/archive/ with ARCHIVE.md
+/specpack.serve               ← optional, share specs with non-devs via web UI
 ```
 
 ### Greenfield file output
@@ -266,27 +261,13 @@ In your AI agent:
 /specpack.specify             ← writes spec with [ADDED]/[MODIFIED]/[REMOVED]/[UNCHANGED] markers
 /specpack.plan                ← plan respects existing code style and perf baselines
 /specpack.tasks               ← tasks align with existing test framework + generate stubs
-```
-
-Then in terminal:
-
-```bash
-specify validate-stubs        ← confirm all stubs are RED before coding
-specify delta                 ← review what's changing before implementation
-```
-
-Back in your AI agent:
-
-```
+/specpack.validate-stubs      ← confirm all stubs are RED before coding
 /specpack.implement           ← Red→Green per task, E2E when all tasks done
+/specpack.archive             ← archive with ARCHIVE.md (delta + validation record)
+/specpack.serve               ← share specs and archive with stakeholders (optional)
 ```
 
-Finally:
-
-```bash
-specify archive               ← archive with ARCHIVE.md (delta + validation record)
-specify serve                 ← share specs and archive with stakeholders (optional)
-```
+> `specify delta` is still CLI-only — run it in terminal anytime to get a delta summary: `specify delta`
 
 ### Brownfield file output
 
@@ -666,7 +647,9 @@ These run inside your AI agent (Claude Code, Cursor, Copilot, etc.) after `speci
 | `/specpack.plan` | Create the implementation plan (`plan.md`). Respects codebase style and performance baselines. |
 | `/specpack.tasks` | Break the plan into ordered tasks (`tasks.md`). Generates failing stub tests for each task. |
 | `/specpack.implement` | Execute tasks with Red→Green per task, progressive validation dashboard, wholesome E2E after all complete, auto-archive prompt. |
-| `/specpack.archive` | Archive a completed feature — writes `ARCHIVE.md`, moves to `specs/archive/`. |
+| `/specpack.validate-stubs` | Red→Green pre-flight — runs `specify validate-stubs`, reports RED/GREEN per stub, go/no-go for implement. |
+| `/specpack.archive` | Archive a completed feature — delegates to `specify archive`, writes `ARCHIVE.md`, moves to `specs/archive/`. |
+| `/specpack.serve` | Start the local web UI — runs `specify serve`, outputs the URL and page map. |
 | `/specpack.analyse-codebase` | AI-assisted codebase analysis. Writes `profiles/codebase-profile.md`. |
 | `/specpack.analyse-performance` | AI-assisted performance analysis. Writes `profiles/performance-profile.md`. |
 | `/specpack.analyse-customer` | AI-assisted customer analysis. Writes `profiles/customer-profile.md`. |
